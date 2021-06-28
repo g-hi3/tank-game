@@ -5,8 +5,8 @@ public class TargetFollowing : MonoBehaviour {
 
   [SerializeField] private LayerMask _reflectingObjects;
   [SerializeField] private LayerMask _targetObjects;
-  [SerializeField] private int _numberOfRays;
-  [SerializeField] private int _numberOfRicochets;
+  [SerializeField] private int _rayCount;
+  [SerializeField] private int _ricochetCount;
   [SerializeField] private float _castWidth;
   private Transform _transform;
 
@@ -15,9 +15,9 @@ public class TargetFollowing : MonoBehaviour {
   }
 
   private void Update() {
-    for (var i = -_numberOfRays / 2; i < _numberOfRays / 2; i++) {
-      var direction = GetRelativeDirection(new Vector3(Mathf.Sin(i), Mathf.Cos(i), 0f));
-      CastRay(_transform.position, direction, 0);
+    for (var i = -_rayCount / 2; i < _rayCount / 2; i++) {
+      var currentDirection = GetRelativeDirection(new Vector3(Mathf.Sin(i), Mathf.Cos(i), 0f));
+      CastRay(_transform.position, currentDirection, 0);
     }
   }
 
@@ -25,27 +25,27 @@ public class TargetFollowing : MonoBehaviour {
     return _transform.TransformDirection(originalDirection);
   }
 
-  private bool CastRay(Vector3 currentPosition, Vector3 rayDirection, int numberOfRicochets) {
-    if (numberOfRicochets >= _numberOfRicochets) {
-      return false;
+  private int CastRay(Vector3 currentPosition, Vector3 rayDirection, int ricochetCount) {
+    if (ricochetCount >= _ricochetCount) {
+      return 0;
     }
     var targetHit = CircleCast2DForPlayer(currentPosition, rayDirection);
     if (targetHit != default) {
       var targetPosition = rayDirection * targetHit.distance;
       Debug.DrawRay(currentPosition, targetPosition, Color.red);
-      return true;
+      return ricochetCount;
     }
     var raycastHit = CircleCast2DForWalls(currentPosition, rayDirection);
     if (raycastHit == default) {
-      return false;
+      return 0;
     }
     var ricochetDirection = Vector2.Reflect(rayDirection, raycastHit.normal);
-    var hitTarget = CastRay(raycastHit.point, ricochetDirection, numberOfRicochets + 1);
-    if (hitTarget) {
+    var ricochetCountUntilHit = CastRay(raycastHit.point, ricochetDirection, ricochetCount + 1);
+    if (ricochetCountUntilHit > 0) {
       var targetPosition = rayDirection * raycastHit.distance;
-      Debug.DrawRay(currentPosition, targetPosition, GetRaycastColor(numberOfRicochets));
+      Debug.DrawRay(currentPosition, targetPosition, GetRaycastColor(ricochetCountUntilHit));
     }
-    return hitTarget;
+    return ricochetCountUntilHit;
   }
 
   private RaycastHit2D CircleCast2DForPlayer(Vector3 currentPosition, Vector3 rayDirection) {

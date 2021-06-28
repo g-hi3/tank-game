@@ -254,8 +254,8 @@ MonoBehaviour:
   _targetObjects:
     serializedVersion: 2
     m_Bits: 4096
-  _numberOfRays: 45
-  _numberOfRicochets: 4
+  _rayCount: 45
+  _ricochetCount: 4
   _castWidth: 0.35
 --- !u!1 &2876591362073730995
 GameObject:
