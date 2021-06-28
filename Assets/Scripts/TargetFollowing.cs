@@ -29,13 +29,13 @@ public class TargetFollowing : MonoBehaviour {
     if (numberOfRicochets >= _numberOfRicochets) {
       return false;
     }
-    var targetHit = CircleCast2DOrDefaultIfImmediateCollision(currentPosition, rayDirection, _targetObjects.value);
+    var targetHit = CircleCast2DForPlayer(currentPosition, rayDirection);
     if (targetHit != default) {
       var targetPosition = rayDirection * targetHit.distance;
       Debug.DrawRay(currentPosition, targetPosition, Color.red);
       return true;
     }
-    var raycastHit = CircleCast2DOrDefaultIfImmediateCollision(currentPosition, rayDirection, _reflectingObjects.value);
+    var raycastHit = CircleCast2DForWalls(currentPosition, rayDirection);
     if (raycastHit == default) {
       return false;
     }
@@ -48,8 +48,20 @@ public class TargetFollowing : MonoBehaviour {
     return hitTarget;
   }
 
-  private RaycastHit2D CircleCast2DOrDefaultIfImmediateCollision(Vector3 currentPosition, Vector3 rayDirection, LayerMask targetLayer) {
-    var allRaycastHits = Physics2D.CircleCastAll(currentPosition, _castWidth, rayDirection, Mathf.Infinity, targetLayer);
+  private RaycastHit2D CircleCast2DForPlayer(Vector3 currentPosition, Vector3 rayDirection) {
+    var playerHit = Physics2D.CircleCast(currentPosition, _castWidth, rayDirection, Mathf.Infinity, _targetObjects);
+    if (playerHit == default) {
+      return default;
+    }
+    var wallHits = Physics2D.CircleCastAll(currentPosition, _castWidth, rayDirection, Mathf.Infinity, _reflectingObjects);
+    var firstWallHit = wallHits.FirstOrDefault(h => h.distance > float.Epsilon);
+    return playerHit.distance < firstWallHit.distance
+      ? playerHit
+      : default;
+  }
+
+  private RaycastHit2D CircleCast2DForWalls(Vector3 currentPosition, Vector3 rayDirection) {
+    var allRaycastHits = Physics2D.CircleCastAll(currentPosition, _castWidth, rayDirection, Mathf.Infinity, _reflectingObjects);
     return allRaycastHits.FirstOrDefault(h => h.distance > float.Epsilon);
   }
 
