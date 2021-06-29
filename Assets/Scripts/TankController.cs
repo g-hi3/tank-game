@@ -13,7 +13,6 @@ public class TankController : MonoBehaviour {
   [SerializeField] private int bombCapacity = 4;
   [SerializeField] private GameObject bulletTemplate;
   [SerializeField] private Transform bulletSpawn;
-  private ITankInput _tankInput;
   private Transform _transform;
   private Rigidbody2D _rigidbody;
   private Animator _animator;
@@ -69,49 +68,13 @@ public class TankController : MonoBehaviour {
     _plantedBombs.Add(plantedBomb);
   }
 
-  private void TankMovingStarted(object sender, TankMovingStartedEventArgs eventArgs) {
-    StartMoving();
-  }
-
-  private void TankMoved(object sender, TankMovedEventArgs eventArgs) {
-    Move(eventArgs.MoveDirection);
-  }
-
-  private void TankMovingCanceled(object sender, TankMovingCanceledEventArgs eventArgs) {
-    StopMoving();
-  }
-
-  private void TankLooked(object sender, TankLookedEventArgs eventArgs) {
-    Look(eventArgs.LookDirection);
-  }
-
-  private void TankLookedAt(object sender, TankLookedAtEventArgs eventArgs) {
-    LookAt(eventArgs.LookPosition);
-  }
-
-  private void TankShot(object sender, TankShotEventArgs eventArgs) {
-    Shoot();
-  }
-
-  private void TankBombed(object sender, TankBombedEventArgs eventArgs) {
-    Bomb();
-  }
-
   private void Awake() {
-    _tankInput = GetComponent<ITankInput>();
     _transform = GetComponent<Transform>();
     _rigidbody = GetComponent<Rigidbody2D>();
     _animator = GetComponentInChildren<Animator>();
   }
 
   private void Start() {
-    _tankInput.TankMovingStarted += TankMovingStarted;
-    _tankInput.TankMoved += TankMoved;
-    _tankInput.TankMovingCanceled += TankMovingCanceled;
-    _tankInput.TankLooked += TankLooked;
-    _tankInput.TankLookedAt += TankLookedAt;
-    _tankInput.TankShot += TankShot;
-    _tankInput.TankBombed += TankBombed;
     _lookRotation = _transform.rotation;
   }
 
@@ -124,12 +87,5 @@ public class TankController : MonoBehaviour {
     if (_moveSpeed > float.Epsilon) {
       _rigidbody.MovePosition(_transform.position + Time.fixedDeltaTime * _moveDirection);
     }
-  }
-
-  private void OnDestroy() {
-    _tankInput.TankMoved -= TankMoved;
-    _tankInput.TankLooked -= TankLooked;
-    _tankInput.TankShot -= TankShot;
-    _tankInput.TankBombed -= TankBombed;
   }
 }

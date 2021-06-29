@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerTankInput : MonoBehaviour, ITankInput {
+public class PlayerTankInput : MonoBehaviour {
 
   private const string ActionNameMove = "Move";
   private const string ActionNameLook = "Look";
@@ -11,46 +11,32 @@ public class PlayerTankInput : MonoBehaviour, ITankInput {
   private PlayerInput _playerInput;
   private Camera _mainCamera;
 
-  public event OnTankMovingStarted TankMovingStarted;
-  public event OnTankMoved TankMoved;
-  public event OnTankMovingCanceled TankMovingCanceled;
-  public event OnTankLooked TankLooked;
-  public event OnTankLookedAt TankLookedAt;
-  public event OnTankShot TankShot;
-  public event OnTankBombed TankBombed;
-
   private void RaiseTankMovingStarted() {
-    TankMovingStarted?.Invoke(this, new TankMovingStartedEventArgs());
+    SendMessage("StartMoving");
   }
 
   private void RaiseTankMoved(Vector2 moveDirection) {
-    TankMoved?.Invoke(this, new TankMovedEventArgs {
-      MoveDirection = moveDirection
-    });
+    SendMessage("Move", (Vector3)moveDirection);
   }
 
   private void RaiseTankMovingCanceled() {
-    TankMovingCanceled?.Invoke(this, new TankMovingCanceledEventArgs());
+    SendMessage("StopMoving");
   }
 
   private void RaiseTankLooked(Vector2 lookDirection) {
-    TankLooked?.Invoke(this, new TankLookedEventArgs {
-      LookDirection = lookDirection
-    });
+    SendMessage("Look", lookDirection);
   }
 
   private void RaiseTankLookedAt(Vector2 lookPosition) {
-    TankLookedAt?.Invoke(this, new TankLookedAtEventArgs {
-      LookPosition = lookPosition
-    });
+    SendMessage("LookAt", (Vector3)lookPosition);
   }
 
   private void RaiseTankShot() {
-    TankShot?.Invoke(this, new TankShotEventArgs());
+    SendMessage("Shoot");
   }
 
   private void RaiseTankBombed() {
-    TankBombed?.Invoke(this, new TankBombedEventArgs());
+    SendMessage("Bomb");
   }
 
   private void DelegateTriggeredAction(InputAction.CallbackContext context) {
