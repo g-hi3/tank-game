@@ -9,6 +9,7 @@ public class AITankInput : MonoBehaviour {
   private Transform _transform;
   private Transform _nextStop;
   private int _stopIndex;
+  private Vector3 _movement;
 
   private Transform GetNextStop() {
     if (_stopIndex >= _stops.Count) {
@@ -28,14 +29,16 @@ public class AITankInput : MonoBehaviour {
 
   private void Start() {
     _nextStop = GetNextStop();
+    SendMessage("StartMoving");
   }
 
-  private void FixedUpdate() {
+  private void Update() {
     if (HasReachedStop()) {
       _nextStop = GetNextStop();
     }
-    var direction = (_nextStop.position - _transform.position).normalized;
-    _transform.Translate(Time.fixedDeltaTime * _movementSpeed * direction);
+
+    _movement = (_nextStop.position - _transform.position).normalized;
+    SendMessage("Move", _movement);
   }
 
 }

@@ -1170,6 +1170,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 2876591361655441342, guid: 92a729f10ea69ad4ea1e41a0e8ebb81b, type: 3}
+      propertyPath: moveSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2876591361655441343, guid: 92a729f10ea69ad4ea1e41a0e8ebb81b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -1229,7 +1233,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5570205677313051572, guid: 92a729f10ea69ad4ea1e41a0e8ebb81b, type: 3}
     - {fileID: 2876591361655441329, guid: 92a729f10ea69ad4ea1e41a0e8ebb81b, type: 3}
-    - {fileID: 2876591361655441342, guid: 92a729f10ea69ad4ea1e41a0e8ebb81b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 92a729f10ea69ad4ea1e41a0e8ebb81b, type: 3}
 --- !u!1 &1853205951 stripped
 GameObject:

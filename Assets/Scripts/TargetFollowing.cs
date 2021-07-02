@@ -15,10 +15,18 @@ public class TargetFollowing : MonoBehaviour {
   }
 
   private void Update() {
+    var leastRicochets = _ricochetCount + 1;
+    var direction = Vector3.zero;
     for (var i = -_rayCount / 2; i < _rayCount / 2; i++) {
       var currentDirection = GetRelativeDirection(new Vector3(Mathf.Sin(i), Mathf.Cos(i), 0f));
-      CastRay(_transform.position, currentDirection, 0);
+      var ricochetCount = CastRay(_transform.position, currentDirection, 0);
+      if (ricochetCount != -1
+        && ricochetCount < leastRicochets) {
+        leastRicochets = ricochetCount;
+        direction = currentDirection;
+      }
     }
+    SendMessage("Look", (Vector2)direction);
   }
 
   private Vector3 GetRelativeDirection(Vector3 originalDirection) {
@@ -27,23 +35,21 @@ public class TargetFollowing : MonoBehaviour {
 
   private int CastRay(Vector3 currentPosition, Vector3 rayDirection, int ricochetCount) {
     if (ricochetCount >= _ricochetCount) {
-      return 0;
+      return -1;
     }
     var targetHit = CircleCast2DForPlayer(currentPosition, rayDirection);
     if (targetHit != default) {
-      var targetPosition = rayDirection * targetHit.distance;
-      Debug.DrawRay(currentPosition, targetPosition, Color.red);
+      DebugDrawRay(currentPosition, rayDirection, targetHit, Color.red);
       return ricochetCount;
     }
     var raycastHit = CircleCast2DForWalls(currentPosition, rayDirection);
     if (raycastHit == default) {
-      return 0;
+      return -1;
     }
     var ricochetDirection = Vector2.Reflect(rayDirection, raycastHit.normal);
     var ricochetCountUntilHit = CastRay(raycastHit.point, ricochetDirection, ricochetCount + 1);
     if (ricochetCountUntilHit > 0) {
-      var targetPosition = rayDirection * raycastHit.distance;
-      Debug.DrawRay(currentPosition, targetPosition, GetRaycastColor(ricochetCountUntilHit));
+      DebugDrawRay(currentPosition, rayDirection, raycastHit, GetRaycastColor(ricochetCountUntilHit));
     }
     return ricochetCountUntilHit;
   }
@@ -53,11 +59,15 @@ public class TargetFollowing : MonoBehaviour {
     if (playerHit == default) {
       return default;
     }
-    var wallHits = Physics2D.CircleCastAll(currentPosition, _castWidth, rayDirection, Mathf.Infinity, _reflectingObjects);
-    var firstWallHit = wallHits.FirstOrDefault(h => h.distance > float.Epsilon);
+    var firstWallHit = CircleCast2DForWalls(currentPosition, rayDirection);
     return playerHit.distance < firstWallHit.distance
       ? playerHit
       : default;
+  }
+
+  private void DebugDrawRay(Vector3 currentPosition, Vector3 rayDirection, RaycastHit2D raycastHit, Color color) {
+    var targetPosition = (0.5f * _castWidth + raycastHit.distance) * rayDirection.normalized;
+    Debug.DrawRay(currentPosition, targetPosition, color);
   }
 
   private RaycastHit2D CircleCast2DForWalls(Vector3 currentPosition, Vector3 rayDirection) {
