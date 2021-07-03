@@ -5,6 +5,7 @@ public class TargetFollowing : MonoBehaviour {
 
   [SerializeField] private LayerMask _reflectingObjects;
   [SerializeField] private LayerMask _targetObjects;
+  [SerializeField] private string _targetTag;
   [SerializeField] private int _rayCount;
   [SerializeField] private int _ricochetCount;
   [SerializeField] private float _castWidth;
@@ -55,7 +56,8 @@ public class TargetFollowing : MonoBehaviour {
   }
 
   private RaycastHit2D CircleCast2DForPlayer(Vector3 currentPosition, Vector3 rayDirection) {
-    var playerHit = Physics2D.CircleCast(currentPosition, _castWidth, rayDirection, Mathf.Infinity, _targetObjects);
+    var playerHit = Physics2D.CircleCastAll(currentPosition, _castWidth, rayDirection, Mathf.Infinity, _targetObjects)
+      .FirstOrDefault(hit => hit.transform.CompareTag(_targetTag));
     if (playerHit == default) {
       return default;
     }

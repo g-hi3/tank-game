@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 public class FrameRateRegulator : MonoBehaviour {
-  [SerializeField] [Min(1)] private int targetFrameRate;
+  [SerializeField] [Min(1)] private int _targetFrameRate;
   
   private void Start() {
-    Application.targetFrameRate = targetFrameRate;
+    Application.targetFrameRate = _targetFrameRate;
   }
 }

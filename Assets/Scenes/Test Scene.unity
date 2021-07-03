@@ -588,7 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 832c7520f16c32c438423b9539e90a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetFrameRate: 60
+  _targetFrameRate: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -1170,6 +1170,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 2876591361655441340, guid: 92a729f10ea69ad4ea1e41a0e8ebb81b, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 2876591361655441342, guid: 92a729f10ea69ad4ea1e41a0e8ebb81b, type: 3}
       propertyPath: moveSpeed
       value: 1
@@ -1275,6 +1279,7 @@ MonoBehaviour:
   _targetObjects:
     serializedVersion: 2
     m_Bits: 256
+  _targetTag: Player
   _rayCount: 45
   _ricochetCount: 4
   _castWidth: 0.35

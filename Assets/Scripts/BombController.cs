@@ -2,7 +2,7 @@
 
 public class BombController : MonoBehaviour {
 
-  [SerializeField] private float lifetimeSeconds = 5f;
+  [SerializeField] private float _lifetimeSeconds;
   private float _remainingLifetimeSeconds;
 
   private void Explode() {
@@ -10,7 +10,7 @@ public class BombController : MonoBehaviour {
   }
 
   private void Start() {
-    _remainingLifetimeSeconds = lifetimeSeconds;
+    _remainingLifetimeSeconds = _lifetimeSeconds;
   }
 
   private void Update() {

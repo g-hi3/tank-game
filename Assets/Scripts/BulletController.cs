@@ -2,8 +2,8 @@
 
 public class BulletController : MonoBehaviour {
 
-  [SerializeField] private float moveSpeed;
-  [SerializeField] private int ricochetCount = 4;
+  [SerializeField] private float _moveSpeed;
+  [SerializeField] private int _ricochetCount;
   private Transform _transform;
   private int _remainingRicochets;
 
@@ -19,14 +19,14 @@ public class BulletController : MonoBehaviour {
   }
 
   private void Start() {
-    _remainingRicochets = ricochetCount;
+    _remainingRicochets = _ricochetCount;
   }
 
   private void Update() {
     if (_remainingRicochets < 1) {
       Destroy(gameObject);
     }
-    transform.Translate(Time.deltaTime * moveSpeed * Vector3.right);
+    _transform.Translate(Time.deltaTime * _moveSpeed * Vector3.right);
   }
 
   private void OnCollisionEnter2D(Collision2D other) {
