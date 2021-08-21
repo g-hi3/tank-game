@@ -2,8 +2,8 @@
 
 public class BulletController : MonoBehaviour {
 
-  [SerializeField] private float _moveSpeed;
-  [SerializeField] private int _ricochetCount;
+  [SerializeField] private float moveSpeed;
+  [SerializeField] private int ricochetCount;
   private Transform _transform;
   private int _remainingRicochets;
 
@@ -19,14 +19,14 @@ public class BulletController : MonoBehaviour {
   }
 
   private void Start() {
-    _remainingRicochets = _ricochetCount;
+    _remainingRicochets = ricochetCount;
   }
 
   private void Update() {
     if (_remainingRicochets < 1) {
       Destroy(gameObject);
     }
-    _transform.Translate(Time.deltaTime * _moveSpeed * Vector3.right);
+    _transform.Translate(Time.deltaTime * moveSpeed * Vector3.right);
   }
 
   private void OnCollisionEnter2D(Collision2D other) {
@@ -34,6 +34,13 @@ public class BulletController : MonoBehaviour {
       Destroy(gameObject);
       return;
     }
+
+    if (other.gameObject.HasComponent<TankController>()) {
+      var tankController = other.gameObject.GetComponent<TankController>();
+      tankController.Die();
+      Destroy(gameObject);
+    }
+    
     if (gameObject.layer == other.gameObject.layer) {
       Physics2D.IgnoreCollision(other.collider, other.otherCollider);
       return;

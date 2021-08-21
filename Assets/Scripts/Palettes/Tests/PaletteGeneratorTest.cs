@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Palettes;
 using UnityEngine;
 
 namespace Assets.Scripts.Palettes.Tests {

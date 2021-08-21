@@ -6,13 +6,13 @@ public class TankController : MonoBehaviour {
 
   private const float RotationZOffset = 270f;
   private static readonly int Property = Animator.StringToHash("Move Speed");
-  [SerializeField] private Transform _head;
-  [SerializeField] private float _moveSpeed;
-  [SerializeField] private GameObject _bombTemplate;
-  [SerializeField] private int _shootCapacity;
-  [SerializeField] private int _bombCapacity;
-  [SerializeField] private GameObject _bulletTemplate;
-  [SerializeField] private Transform _bulletSpawn;
+  [SerializeField] private Transform head;
+  [SerializeField] private float moveSpeed;
+  [SerializeField] private GameObject bombTemplate;
+  [SerializeField] private int shootCapacity;
+  [SerializeField] private int bombCapacity;
+  [SerializeField] private GameObject bulletTemplate;
+  [SerializeField] private Transform bulletSpawn;
   private Transform _transform;
   private Rigidbody2D _rigidbody;
   private Animator _animator;
@@ -23,13 +23,18 @@ public class TankController : MonoBehaviour {
   private ICollection<GameObject> _plantedBombs = new List<GameObject>();
   private ICollection<GameObject> _firedShots = new List<GameObject>();
 
+  public void Die()
+  {
+    Destroy(gameObject);
+  }
+  
   private void StartMoving() {
     _isMoving = true;
     _animator.SetFloat(Property, 1f);
   }
   
   private void Move(Vector3 direction) {
-    _moveDirection = _moveSpeed * direction;
+    _moveDirection = moveSpeed * direction;
     _moveRotation = GetRotation2DInDirection(direction);
   }
 
@@ -54,20 +59,20 @@ public class TankController : MonoBehaviour {
 
   private void Shoot() {
     _firedShots = _firedShots.Where(g => g != null).ToList();
-    if (_firedShots.Count >= _shootCapacity) {
+    if (_firedShots.Count >= shootCapacity) {
       return;
     }
-    var bullet = Instantiate(_bulletTemplate, _bulletSpawn.position, _lookRotation);
+    var bullet = Instantiate(bulletTemplate, bulletSpawn.position, _lookRotation);
     bullet.layer = gameObject.layer;
     _firedShots.Add(bullet);
   }
 
   private void Bomb() {
     _plantedBombs = _plantedBombs.Where(g => g != null).ToList();
-    if (_plantedBombs.Count >= _bombCapacity) {
+    if (_plantedBombs.Count >= bombCapacity) {
       return;
     }
-    var plantedBomb = Instantiate(_bombTemplate, _transform.position, _transform.rotation);
+    var plantedBomb = Instantiate(bombTemplate, _transform.position, _transform.rotation);
     _plantedBombs.Add(plantedBomb);
   }
 
@@ -83,12 +88,12 @@ public class TankController : MonoBehaviour {
 
   private void Update() {
     _transform.rotation = _moveRotation;
-    _head.rotation = _lookRotation;
+    head.rotation = _lookRotation;
   }
 
   private void FixedUpdate() {
     if (_isMoving) {
-      _rigidbody.MovePosition(_transform.position + Time.fixedDeltaTime * _moveDirection);
+      _rigidbody.velocity = _moveDirection;
     }
   }
 }

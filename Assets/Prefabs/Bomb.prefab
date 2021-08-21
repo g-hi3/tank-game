@@ -143,4 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 838d38f0466948d99f2fa9d53f2a18be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifetimeSeconds: 0
+  lifetimeSeconds: 4
+  explosionScale: {x: 3, y: 3, z: 1}
