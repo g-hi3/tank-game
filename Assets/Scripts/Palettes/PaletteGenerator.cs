@@ -15,6 +15,7 @@ namespace Palettes {
     private static Color32[] ExtractPaletteColors(Texture2D texture) {
       return texture.GetPixels32()
         .Distinct()
+        .Where(color => color.a > 0 || color.r == 0 && color.g == 0 && color.b == 0)
         .ToArray();
     }
 

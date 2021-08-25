@@ -4,6 +4,7 @@
     {
         depalettized_texture ("Depalettized Texture", 2D) = "white" {}
         palette ("Palette", 2D) = "white" {}
+        color_count ("Color Count", float) = 0
     }
     SubShader // A single shader in this shader file; yes, there can be more
     {
@@ -23,6 +24,7 @@
 
             const sampler2D depalettized_texture;
             const sampler2D palette;
+            float color_count;
             float4 depalettized_texture_ST;
 
             struct vertex_data
@@ -47,7 +49,7 @@
 
             float4 frag (const fragment_data f) : SV_Target
             {
-                const float color_index = tex2D(depalettized_texture, f.uv).a * 25.5;
+                const float color_index = tex2D(depalettized_texture, f.uv).a * 255 / color_count;
                 return tex2D(palette, float2(color_index, 0));
             }
             ENDCG
