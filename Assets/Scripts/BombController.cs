@@ -11,7 +11,7 @@ public class BombController : MonoBehaviour {
   private bool _explosionActive;
 
   private void Explode() {
-    _transform.localScale = explosionScale; 
+    _transform.localScale = explosionScale;
     _animator.SetTrigger(TriggerNameExplosionTrigger);
     _explosionActive = true;
   }
@@ -32,6 +32,9 @@ public class BombController : MonoBehaviour {
   }
 
   private void Update() {
+    if (_explosionActive) {
+      return;
+    }
     _remainingLifetimeSeconds -= Time.deltaTime;
     if (_remainingLifetimeSeconds <= 0f) {
       Explode();
