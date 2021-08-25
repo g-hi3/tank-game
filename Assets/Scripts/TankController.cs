@@ -9,10 +9,8 @@ public class TankController : MonoBehaviour {
   [SerializeField] private Transform head;
   [SerializeField] private float moveSpeed;
   [SerializeField] private GameObject bombTemplate;
-  [SerializeField] private int shootCapacity;
   [SerializeField] private int bombCapacity;
-  [SerializeField] private GameObject bulletTemplate;
-  [SerializeField] private Transform bulletSpawn;
+  [SerializeField] private BulletSpawner bulletSpawner;
   private Transform _transform;
   private Rigidbody2D _rigidbody;
   private Animator _animator;
@@ -21,7 +19,6 @@ public class TankController : MonoBehaviour {
   private Quaternion _moveRotation;
   private Quaternion _lookRotation;
   private ICollection<GameObject> _plantedBombs = new List<GameObject>();
-  private ICollection<GameObject> _firedShots = new List<GameObject>();
 
   public void Die()
   {
@@ -57,14 +54,9 @@ public class TankController : MonoBehaviour {
     Look(direction);
   }
 
-  private void Shoot() {
-    _firedShots = _firedShots.Where(g => g != null).ToList();
-    if (_firedShots.Count >= shootCapacity) {
-      return;
-    }
-    var bullet = Instantiate(bulletTemplate, bulletSpawn.position, _lookRotation);
-    bullet.layer = gameObject.layer;
-    _firedShots.Add(bullet);
+  private void Shoot()
+  {
+    bulletSpawner.Spawn();
   }
 
   private void Bomb() {
