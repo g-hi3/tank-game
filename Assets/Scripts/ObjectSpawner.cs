@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletSpawner : MonoBehaviour {
+public class ObjectSpawner : MonoBehaviour {
   
-  [SerializeField] private GameObject bulletTemplate;
+  [SerializeField] private GameObject objectTemplate;
   [SerializeField] private LayerMask obstructionLayers;
   [SerializeField] private int capacity;
   private Transform _transform;
   private Collider2D _spawnArea;
-  private readonly IList<GameObject> _activeBullets = new List<GameObject>();
+  private readonly IList<GameObject> _activeObjects = new List<GameObject>();
 
   public void Spawn()
   {
@@ -17,13 +17,13 @@ public class BulletSpawner : MonoBehaviour {
       return;
     }
     
-    var bullet = Instantiate(bulletTemplate, _transform.position, _transform.rotation);
-    _activeBullets.Add(bullet);
+    var spawnedObject = Instantiate(objectTemplate, _transform.position, _transform.rotation);
+    _activeObjects.Add(spawnedObject);
   }
   
   private bool IsCapacityReached()
   {
-    return _activeBullets.Count == capacity;
+    return _activeObjects.Count == capacity;
   }
 
   private bool IsSpawnAreaObstructed()
@@ -39,14 +39,14 @@ public class BulletSpawner : MonoBehaviour {
 
   private void Update()
   {
-    CleanBulletPool();
+    CleanObjectPool();
   }
 
-  private void CleanBulletPool()
+  private void CleanObjectPool()
   {
-    for (var index = _activeBullets.Count - 1; index >= 0; index--) {
-      if (_activeBullets[index] == null) {
-        _activeBullets.RemoveAt(index);
+    for (var index = _activeObjects.Count - 1; index >= 0; index--) {
+      if (_activeObjects[index] == null) {
+        _activeObjects.RemoveAt(index);
       }
     }
   }

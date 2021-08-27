@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TankController : MonoBehaviour {
 
@@ -8,9 +6,8 @@ public class TankController : MonoBehaviour {
   private static readonly int Property = Animator.StringToHash("Move Speed");
   [SerializeField] private Transform head;
   [SerializeField] private float moveSpeed;
-  [SerializeField] private GameObject bombTemplate;
-  [SerializeField] private int bombCapacity;
-  [SerializeField] private BulletSpawner bulletSpawner;
+  [SerializeField] private ObjectSpawner bulletSpawner;
+  [SerializeField] private ObjectSpawner bombSpawner;
   private Transform _transform;
   private Rigidbody2D _rigidbody;
   private Animator _animator;
@@ -18,7 +15,6 @@ public class TankController : MonoBehaviour {
   private Vector3 _moveDirection;
   private Quaternion _moveRotation;
   private Quaternion _lookRotation;
-  private ICollection<GameObject> _plantedBombs = new List<GameObject>();
 
   public void Die()
   {
@@ -60,12 +56,7 @@ public class TankController : MonoBehaviour {
   }
 
   private void Bomb() {
-    _plantedBombs = _plantedBombs.Where(g => g != null).ToList();
-    if (_plantedBombs.Count >= bombCapacity) {
-      return;
-    }
-    var plantedBomb = Instantiate(bombTemplate, _transform.position, _transform.rotation);
-    _plantedBombs.Add(plantedBomb);
+    bombSpawner.Spawn();
   }
 
   private void Awake() {
