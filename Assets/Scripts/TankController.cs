@@ -3,7 +3,8 @@
 public class TankController : MonoBehaviour {
 
   private const float RotationZOffset = 270f;
-  private static readonly int Property = Animator.StringToHash("Move Speed");
+  private static readonly int MoveSpeedAnimatorProperty = Animator.StringToHash("Move Speed");
+  private static readonly int ExplosionTriggerAnimatorProperty = Animator.StringToHash("Explosion Trigger");
   [SerializeField] private Transform head;
   [SerializeField] private float moveSpeed;
   [SerializeField] private ObjectSpawner bulletSpawner;
@@ -20,10 +21,15 @@ public class TankController : MonoBehaviour {
   {
     Destroy(gameObject);
   }
+
+  private void OnExplosionEnded()
+  {
+    Destroy(gameObject);
+  }
   
   private void StartMoving() {
     _isMoving = true;
-    _animator.SetFloat(Property, 1f);
+    _animator.SetFloat(MoveSpeedAnimatorProperty, 1f);
   }
   
   private void Move(Vector3 direction) {
@@ -38,7 +44,7 @@ public class TankController : MonoBehaviour {
 
   private void StopMoving() {
     _isMoving = false;
-    _animator.SetFloat(Property, 0f);
+    _animator.SetFloat(MoveSpeedAnimatorProperty, 0f);
   }
 
   private void Look(Vector2 direction) {
@@ -62,7 +68,7 @@ public class TankController : MonoBehaviour {
   private void Awake() {
     _transform = GetComponent<Transform>();
     _rigidbody = GetComponent<Rigidbody2D>();
-    _animator = GetComponentInChildren<Animator>();
+    _animator = GetComponent<Animator>();
   }
 
   private void Start() {

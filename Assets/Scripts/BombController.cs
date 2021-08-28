@@ -57,10 +57,6 @@ public class BombController : MonoBehaviour
     {
       otherBomb.Explode();
     }
-  }
-
-  private void OnTriggerStay2D(Collider2D other)
-  {
     if (_explosionActive
         && other.TryGetComponent<TankController>(out var tankController))
     {
