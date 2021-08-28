@@ -48,7 +48,6 @@ public class BombController : MonoBehaviour
 
   private void OnTriggerEnter2D(Collider2D other)
   {
-    Debug.Log("I hit something!");
     if (other.gameObject.HasComponent<BulletController>())
     {
       Explode();
@@ -62,7 +61,6 @@ public class BombController : MonoBehaviour
     
     if (other.HasComponent<BombController>())
     {
-      Debug.Log("I hit another bomb!");
       var otherBomb = other.GetComponent<BombController>();
       otherBomb.Explode();
       return;
