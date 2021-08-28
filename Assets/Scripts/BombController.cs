@@ -51,24 +51,19 @@ public class BombController : MonoBehaviour
     if (other.gameObject.HasComponent<BulletController>())
     {
       Explode();
-      return;
     }
-
-    if (!_explosionActive)
+    if (_explosionActive
+        && other.TryGetComponent<BombController>(out var otherBomb))
     {
-      return;
-    }
-    
-    if (other.HasComponent<BombController>())
-    {
-      var otherBomb = other.GetComponent<BombController>();
       otherBomb.Explode();
-      return;
     }
+  }
 
-    if (other.HasComponent<TankController>())
+  private void OnTriggerStay2D(Collider2D other)
+  {
+    if (_explosionActive
+        && other.TryGetComponent<TankController>(out var tankController))
     {
-      var tankController = other.GetComponent<TankController>();
       tankController.Die();
     }
   }

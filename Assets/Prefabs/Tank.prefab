@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3efc5a0cf901479c930580dc30abc3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletTemplate: {fileID: 5449629986549499428, guid: bed9f5bdb2b1d724288d332a368c4087, type: 3}
+  objectTemplate: {fileID: 5449629986549499428, guid: bed9f5bdb2b1d724288d332a368c4087, type: 3}
   obstructionLayers:
     serializedVersion: 2
     m_Bits: 8192
@@ -250,8 +250,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   head: {fileID: 2876591361477649398}
   moveSpeed: 2
-  bombTemplate: {fileID: 5449629986549499428, guid: bed9f5bdb2b1d724288d332a368c4087, type: 3}
-  bombCapacity: 3
   bulletSpawner: {fileID: 5830506474601925989}
   bombSpawner: {fileID: 3033687756125585298}
 --- !u!50 &2876591361655441328
@@ -408,7 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3efc5a0cf901479c930580dc30abc3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletTemplate: {fileID: 5304965398125196526, guid: 7a4fa8c33a4bc9048b77b66dc0b9a2ab, type: 3}
+  objectTemplate: {fileID: 5304965398125196526, guid: 7a4fa8c33a4bc9048b77b66dc0b9a2ab, type: 3}
   obstructionLayers:
     serializedVersion: 2
     m_Bits: 16384
