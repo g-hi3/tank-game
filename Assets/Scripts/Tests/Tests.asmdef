@@ -1,10 +1,10 @@
 {
-    "name": "Palettes.Tests",
+    "name": "TankGame.Tests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Palettes"
+        "TankGame"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
