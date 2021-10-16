@@ -23,21 +23,31 @@ public class TankVision : MonoBehaviour
         {
             return;
         }
-        // https://gist.github.com/g-hi3/2f781c840b0e734a8a4ea325c61076de
         var baseAngle = _transform.rotation.z - 0.5f * angle;
         var origin = _transform.position;
-        Enumerable.Range(0, fidelity)
-            .ToList()
-            .ForEach(i => {
+        var bestCastInfo = Enumerable.Range(0, fidelity)
+            .Select(i => {
                 var adjustedAngle = (baseAngle + angle * i / fidelity) * Mathf.Deg2Rad;
                 var x = -Mathf.Cos(adjustedAngle);
                 var y = Mathf.Sin(adjustedAngle);
                 var direction = new Vector2(x, y);
-                Multicast(origin, direction);
-            });
+                return new {
+                    TotalDistance = Multicast(origin, direction),
+                    Direction = direction
+                };
+            })
+            .Where(castInfo => castInfo.TotalDistance > 0f)
+            .OrderBy(castInfo => castInfo.TotalDistance)
+            .FirstOrDefault();
+        if (bestCastInfo == default)
+        {
+            return;
+        }
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(_transform.position, bestCastInfo.Direction);
     }
 
-    private void Multicast(Vector3 origin, Vector3 direction)
+    private float Multicast(Vector3 origin, Vector3 direction)
     {
         var collidingHit = Physics2D.CircleCast(origin, castWidth, direction, radius, collidingLayers);
         var reflectingHit = Physics2D.CircleCast(origin, castWidth, direction, radius, reflectiveLayers);
@@ -45,28 +55,30 @@ public class TankVision : MonoBehaviour
             && (reflectingHit == default
                 || collidingHit.distance < reflectingHit.distance))
         {
-            DrawRayWithColor(origin, direction * collidingHit.distance, Color.green);
+            DrawRayWithColor(origin, direction * collidingHit.distance, Color.yellow);
+            return collidingHit.distance;
         }
-        else if (reflectingHit != default)
+
+        if (reflectingHit != default)
         {
             var reflectedDirection = Vector2.Reflect(direction, reflectingHit.normal);
             var remainingDistance = radius - reflectingHit.distance;
             if (!(remainingDistance > 0f) || reflectionCount <= 0)
             {
                 DrawRayWithColor(origin, direction * radius, Color.grey);
-                return;
+                return 0f;
             }
             var remainingReflectCount = reflectionCount - 1;
             var result = MulticastRecursive(reflectingHit.point + reflectingHit.normal * castWidth, reflectedDirection, remainingDistance, remainingReflectCount);
-            DrawRayWithColor(origin, direction * reflectingHit.distance, result ? Color.green : Color.grey);
+            DrawRayWithColor(origin, direction * reflectingHit.distance, result > 0f ? Color.yellow : Color.grey);
+            return result > 0f ? result + reflectingHit.distance : 0f;
         }
-        else
-        {
-            DrawRayWithColor(origin, direction * radius, Color.grey);
-        }
+
+        DrawRayWithColor(origin, direction * radius, Color.grey);
+        return 0f;
     }
 
-    private bool MulticastRecursive(Vector3 origin, Vector3 direction, float distance, int reflectCount)
+    private float MulticastRecursive(Vector3 origin, Vector3 direction, float distance, int reflectCount)
     {
         var collidingHit = Physics2D.CircleCastAll(origin, castWidth, direction, distance, collidingLayers)
             .FirstOrDefault(rh => rh.distance > 0.1f);
@@ -76,8 +88,8 @@ public class TankVision : MonoBehaviour
             && (reflectingHit == default
                 || collidingHit.distance < reflectingHit.distance))
         {
-            DrawRayWithColor(origin, direction * collidingHit.distance, Color.green);
-            return true;
+            DrawRayWithColor(origin, direction * collidingHit.distance, Color.yellow);
+            return collidingHit.distance;
         }
 
         if (reflectingHit != default)
@@ -87,16 +99,16 @@ public class TankVision : MonoBehaviour
             if (!(remainingDistance > 0f) || reflectCount <= 0)
             {
                 DrawRayWithColor(origin, direction * reflectingHit.distance, Color.grey);
-                return false;
+                return 0f;
             }
             var remainingReflectCount = reflectCount - 1;
             var result = MulticastRecursive(reflectingHit.point, reflectedDirection, remainingDistance, remainingReflectCount);
-            DrawRayWithColor(origin, direction * reflectingHit.distance, result ? Color.green : Color.grey);
-            return result;
+            DrawRayWithColor(origin, direction * reflectingHit.distance, result > 0f ? Color.yellow : Color.grey);
+            return result > 0f ? result + reflectingHit.distance : 0f;
         }
 
         DrawRayWithColor(origin, direction * distance, Color.grey);
-        return false;
+        return 0f;
     }
 
     private static void DrawRayWithColor(Vector3 origin, Vector3 direction, Color color)
