@@ -1371,7 +1371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 10
   angle: 90
-  fidelity: 20
+  fidelity: 100
   reflectionCount: 1
   reflectiveLayers:
     serializedVersion: 2
@@ -1379,7 +1379,7 @@ MonoBehaviour:
   collidingLayers:
     serializedVersion: 2
     m_Bits: 12032
-  castWidth: 20
+  castWidth: 0.2
 --- !u!1 &1699613378
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class TankVision : MonoBehaviour
 {
@@ -40,42 +37,40 @@ public class TankVision : MonoBehaviour
             });
     }
 
-    private bool Multicast(Vector3 origin, Vector3 direction)
+    private void Multicast(Vector3 origin, Vector3 direction)
     {
-        var collidingHit = Physics2D.Raycast(origin, direction, radius, collidingLayers);
-        var reflectingHit = Physics2D.Raycast(origin, direction, radius, reflectiveLayers);
+        var collidingHit = Physics2D.CircleCast(origin, castWidth, direction, radius, collidingLayers);
+        var reflectingHit = Physics2D.CircleCast(origin, castWidth, direction, radius, reflectiveLayers);
         if (collidingHit != default
             && (reflectingHit == default
                 || collidingHit.distance < reflectingHit.distance))
         {
             DrawRayWithColor(origin, direction * collidingHit.distance, Color.green);
-            return true;
         }
-
-        if (reflectingHit != default)
+        else if (reflectingHit != default)
         {
             var reflectedDirection = Vector2.Reflect(direction, reflectingHit.normal);
             var remainingDistance = radius - reflectingHit.distance;
             if (!(remainingDistance > 0f) || reflectionCount <= 0)
             {
                 DrawRayWithColor(origin, direction * radius, Color.grey);
-                return false;
+                return;
             }
             var remainingReflectCount = reflectionCount - 1;
-            var result = MulticastRecursive(reflectingHit.point, reflectedDirection, remainingDistance, remainingReflectCount);
+            var result = MulticastRecursive(reflectingHit.point + reflectingHit.normal * castWidth, reflectedDirection, remainingDistance, remainingReflectCount);
             DrawRayWithColor(origin, direction * reflectingHit.distance, result ? Color.green : Color.grey);
-            return result;
         }
-
-        DrawRayWithColor(origin, direction * radius, Color.grey);
-        return false;
+        else
+        {
+            DrawRayWithColor(origin, direction * radius, Color.grey);
+        }
     }
 
     private bool MulticastRecursive(Vector3 origin, Vector3 direction, float distance, int reflectCount)
     {
-        var collidingHit = Physics2D.RaycastAll(origin, direction, distance, collidingLayers)
+        var collidingHit = Physics2D.CircleCastAll(origin, castWidth, direction, distance, collidingLayers)
             .FirstOrDefault(rh => rh.distance > 0.1f);
-        var reflectingHit = Physics2D.RaycastAll(origin, direction, distance, reflectiveLayers)
+        var reflectingHit = Physics2D.CircleCastAll(origin, castWidth, direction, distance, reflectiveLayers)
             .FirstOrDefault(rh => rh.distance > 0.1f);
         if (collidingHit != default
             && (reflectingHit == default
