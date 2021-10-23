@@ -23,7 +23,7 @@ public class TankVision : MonoBehaviour
         {
             return;
         }
-        var baseAngle = _transform.rotation.z - 0.5f * angle;
+        var baseAngle = -_transform.localEulerAngles.z - 0.5f * angle;
         var origin = _transform.position;
         var bestCastInfo = Enumerable.Range(0, fidelity)
             .Select(i => {
