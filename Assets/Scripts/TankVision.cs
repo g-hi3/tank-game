@@ -65,7 +65,7 @@ public class TankVision : MonoBehaviour
             var remainingDistance = radius - reflectingHit.distance;
             if (!(remainingDistance > 0f) || reflectionCount <= 0)
             {
-                DrawRayWithColor(origin, direction * radius, Color.grey);
+                DrawRayWithColor(origin, direction * reflectingHit.distance, Color.grey);
                 return 0f;
             }
             var remainingReflectCount = reflectionCount - 1;
