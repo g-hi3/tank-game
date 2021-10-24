@@ -1370,9 +1370,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 10
-  angle: 90
+  angle: 20
   fidelity: 100
-  reflectionCount: 1
+  maxReflectionCount: 1
   reflectiveLayers:
     serializedVersion: 2
     m_Bits: 16384

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TankVision : MonoBehaviour
@@ -6,48 +7,30 @@ public class TankVision : MonoBehaviour
     [SerializeField, Min(float.Epsilon)] private float radius;
     [SerializeField, Range(float.Epsilon, 360f)] private float angle;
     [SerializeField, Min(2)] private int fidelity;
-    [SerializeField, Min(0)] private int reflectionCount;
+    [SerializeField, Min(0)] private int maxReflectionCount;
     [SerializeField] private LayerMask reflectiveLayers;
     [SerializeField] private LayerMask collidingLayers;
     [SerializeField] private float castWidth;
     private Transform _transform;
+    private IEnumerable<CastInfo> _casts = Enumerable.Empty<CastInfo>();
 
-    private void Awake()
+    private IEnumerable<CastInfo> GetCastsOrderedByTotalDistance()
     {
-        _transform = GetComponent<Transform>();
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (_transform == null)
-        {
-            return;
-        }
         var baseAngle = -_transform.localEulerAngles.z - 0.5f * angle;
         var origin = _transform.position;
-        var bestCastInfo = Enumerable.Range(0, fidelity)
+        return Enumerable.Range(0, fidelity)
             .Select(i => {
                 var adjustedAngle = (baseAngle + angle * i / fidelity) * Mathf.Deg2Rad;
                 var x = -Mathf.Cos(adjustedAngle);
                 var y = Mathf.Sin(adjustedAngle);
                 var direction = new Vector2(x, y);
-                return new {
-                    TotalDistance = Multicast(origin, direction, radius, reflectionCount),
-                    Direction = direction
-                };
+                return Multicast(origin, direction, radius, 0);
             })
-            .Where(castInfo => castInfo.TotalDistance > 0f)
-            .OrderBy(castInfo => castInfo.TotalDistance)
-            .FirstOrDefault();
-        if (bestCastInfo == default)
-        {
-            return;
-        }
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(_transform.position, bestCastInfo.Direction);
+            .Where(castInfo => castInfo != CastInfo.InvalidCast)
+            .OrderBy(castInfo => castInfo.TotalDistance);
     }
 
-    private float Multicast(Vector3 origin, Vector3 direction, float distance, int reflectCount)
+    private CastInfo Multicast(Vector3 origin, Vector3 direction, float distance, int reflectCount)
     {
         var collidingHit = Physics2D.CircleCastAll(origin, castWidth, direction, distance, collidingLayers)
             .FirstOrDefault(rh => rh.distance > 0.1f);
@@ -57,32 +40,72 @@ public class TankVision : MonoBehaviour
             && (reflectingHit == default
                 || collidingHit.distance < reflectingHit.distance))
         {
-            DrawRayWithColor(origin, direction * collidingHit.distance, Color.yellow);
-            return collidingHit.distance;
+            var collidingCastInfo = new CastInfo {
+                CastDirections = new Vector3[maxReflectionCount + 1],
+                IsTargetHit = true
+            };
+            collidingCastInfo.CastDirections[reflectCount] = direction * collidingHit.distance;
+            return collidingCastInfo;
         }
 
         if (reflectingHit != default)
         {
             var reflectedDirection = Vector2.Reflect(direction, reflectingHit.normal);
             var remainingDistance = distance - reflectingHit.distance;
-            if (!(remainingDistance > 0f) || reflectCount <= 0)
+            if (!(remainingDistance > 0f) || reflectCount == maxReflectionCount)
             {
-                DrawRayWithColor(origin, direction * reflectingHit.distance, Color.grey);
-                return 0f;
+                var reflectingCastInfo = new CastInfo {
+                    CastDirections = new Vector3[maxReflectionCount + 1]
+                };
+                reflectingCastInfo.CastDirections[reflectCount] = direction * reflectingHit.distance;
+                return reflectingCastInfo;
             }
-            var remainingReflectCount = reflectCount - 1;
+            var remainingReflectCount = reflectCount + 1;
             var result = Multicast(reflectingHit.point + reflectingHit.normal * castWidth, reflectedDirection, remainingDistance, remainingReflectCount);
-            DrawRayWithColor(origin, direction * reflectingHit.distance, result > 0f ? Color.yellow : Color.grey);
-            return result > 0f ? result + reflectingHit.distance : 0f;
+            if (result == CastInfo.InvalidCast)
+            {
+                return CastInfo.InvalidCast;
+            }
+
+            result.CastDirections[reflectCount] = direction * reflectingHit.distance;
+            return result;
         }
 
-        DrawRayWithColor(origin, direction * distance, Color.grey);
-        return 0f;
+        var noHitCastInfo = new CastInfo {
+            CastDirections = new Vector3[maxReflectionCount + 1]
+        };
+        noHitCastInfo.CastDirections[reflectCount] = direction * distance;
+        return noHitCastInfo;
     }
 
-    private static void DrawRayWithColor(Vector3 origin, Vector3 direction, Color color)
+    private void Awake()
     {
-        Gizmos.color = color;
-        Gizmos.DrawRay(origin, direction);
+        _transform = GetComponent<Transform>();
+    }
+
+    private void FixedUpdate()
+    {
+        _casts = GetCastsOrderedByTotalDistance();
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (_transform == null)
+        {
+            return;
+        }
+
+        var basePosition = _transform.position;
+        Gizmos.color = Color.green;
+        foreach (var castInfo in _casts)
+        {
+            var origin = Vector3.zero;
+            foreach (var castDirection in castInfo.CastDirections)
+            {
+                Gizmos.DrawRay(origin + basePosition, castDirection);
+                origin = castDirection;
+            }
+            Gizmos.color = castInfo.IsTargetHit ? Color.yellow : Color.grey;
+        }
     }
 }
