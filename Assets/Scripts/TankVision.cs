@@ -96,16 +96,15 @@ public class TankVision : MonoBehaviour
         }
 
         var basePosition = _transform.position;
-        Gizmos.color = Color.green;
         foreach (var castInfo in _casts)
         {
+            Gizmos.color = castInfo.IsTargetHit ? Color.yellow : Color.grey;
             var origin = Vector3.zero;
             foreach (var castDirection in castInfo.CastDirections)
             {
                 Gizmos.DrawRay(origin + basePosition, castDirection);
-                origin = castDirection;
+                origin += castDirection;
             }
-            Gizmos.color = castInfo.IsTargetHit ? Color.yellow : Color.grey;
         }
     }
 }
