@@ -3,15 +3,20 @@ using UnityEngine;
 public class EnemyTankA : MonoBehaviour
 {
     [SerializeField] private float rotationSpeed;
-    private Transform _transform;
+    [SerializeField] private GameObject head;
     private TankVision _tankVision;
     private FlipFlopRotator _rotator;
+    private Transform _headTransform;
+
+    private void Awake()
+    {
+        _tankVision = GetComponentInChildren<TankVision>();
+        _rotator = GetComponentInChildren<FlipFlopRotator>();
+    }
 
     private void Start()
     {
-        _transform = GetComponent<Transform>();
-        _tankVision = GetComponentInChildren<TankVision>();
-        _rotator = GetComponentInChildren<FlipFlopRotator>();
+        _headTransform = head.GetComponent<Transform>();
     }
 
     private void Update()
@@ -22,10 +27,10 @@ public class EnemyTankA : MonoBehaviour
             {
                 _rotator.enabled = false;
             }
-            var currentDirection = _transform.right;
+            var currentDirection = _headTransform.right;
             var targetDirection = _tankVision.GetBestTargetDirection();
             var directionDelta = targetDirection - currentDirection;
-            _transform.right = Vector3.MoveTowards(currentDirection, currentDirection + directionDelta, rotationSpeed);
+            _headTransform.right = Vector3.MoveTowards(currentDirection, currentDirection + directionDelta, rotationSpeed);
         }
         else
         {
