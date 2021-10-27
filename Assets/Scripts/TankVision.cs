@@ -14,6 +14,16 @@ public class TankVision : MonoBehaviour
     private Transform _transform;
     private IEnumerable<CastInfo> _casts = Enumerable.Empty<CastInfo>();
 
+    public bool IsTargetVisible => _casts.Any(c => c.IsTargetHit);
+
+    public Vector3 GetBestTargetDirection()
+    {
+        var optimalCast = _casts.FirstOrDefault(c => c.IsTargetHit);
+        return optimalCast != default
+            ? optimalCast.CastDirections[0]
+            : _transform.localEulerAngles;
+    }
+
     private IEnumerable<CastInfo> GetCastsOrderedByTotalDistance()
     {
         var baseAngle = -_transform.localEulerAngles.z - 0.5f * angle;
@@ -85,7 +95,7 @@ public class TankVision : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _casts = GetCastsOrderedByTotalDistance();
+        _casts = GetCastsOrderedByTotalDistance().ToArray();
     }
 
     private void OnDrawGizmos()

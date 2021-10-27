@@ -173,11 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652322eec09f2b74c838924be788fcb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headRotation:
-    initialRotation: 180
-    rotationRange: 135
-    rotationSpeed: 0.8
-  head: {fileID: 4790845388610250178}
+  rotationSpeed: 0.1
 --- !u!1 &4790845388082051633
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,6 +260,8 @@ GameObject:
   - component: {fileID: 4790845388610250189}
   - component: {fileID: 4790845388610250191}
   - component: {fileID: 4790845388610250188}
+  - component: {fileID: 6284635788253257329}
+  - component: {fileID: 152675995905706978}
   m_Layer: 12
   m_Name: Head
   m_TagString: Untagged
@@ -365,6 +363,44 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.25}
   m_EdgeRadius: 0
+--- !u!114 &6284635788253257329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4790845388610250178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f3bfee6dad431d919d2d921a6c566b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 10
+  angle: 45
+  fidelity: 5
+  maxReflectionCount: 0
+  reflectiveLayers:
+    serializedVersion: 2
+    m_Bits: 16384
+  collidingLayers:
+    serializedVersion: 2
+    m_Bits: 3840
+  castWidth: 0.2
+--- !u!114 &152675995905706978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4790845388610250178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98b85688a8d45e286040e080664dbb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialRotation: 180
+  rotationRange: 90
+  rotationSpeed: 0.2
 --- !u!1 &4790845388695787119
 GameObject:
   m_ObjectHideFlags: 0
