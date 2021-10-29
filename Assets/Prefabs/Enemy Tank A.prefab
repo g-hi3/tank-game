@@ -175,6 +175,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 0.01
   head: {fileID: 4790845388610250178}
+  bulletSpawner: {fileID: 4790845388695787113}
+  heatUpTime: 0.2
+  coolDownTime: 2
 --- !u!1 &4790845388082051633
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 10
   angle: 45
-  fidelity: 5
+  fidelity: 20
   maxReflectionCount: 0
   reflectiveLayers:
     serializedVersion: 2
