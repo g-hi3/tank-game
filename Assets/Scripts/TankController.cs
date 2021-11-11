@@ -16,11 +16,6 @@ public class TankController : MonoBehaviour
     private Quaternion _moveRotation;
     private Quaternion _lookRotation;
 
-    public void Die()
-    {
-        Destroy(gameObject);
-    }
-
     private void OnExplosionEnded()
     {
         Destroy(gameObject);

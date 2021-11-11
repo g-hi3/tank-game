@@ -58,9 +58,9 @@ public class BombController : MonoBehaviour
             otherBomb.Explode();
         }
         if (_explosionActive
-            && other.TryGetComponent<TankController>(out var tankController))
+            && other.TryGetComponent<Tank>(out var tank))
         {
-            tankController.Die();
+            tank.Die();
         }
     }
 }

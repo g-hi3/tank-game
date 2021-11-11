@@ -42,9 +42,9 @@ public class BulletController : MonoBehaviour
             return;
         }
 
-        if (other.gameObject.TryGetComponent<TankController>(out var tankController))
+        if (other.gameObject.TryGetComponent<Tank>(out var tank))
         {
-            tankController.Die();
+            tank.Die();
             Destroy(gameObject);
             return;
         }

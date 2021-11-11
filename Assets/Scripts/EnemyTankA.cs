@@ -40,17 +40,17 @@ public class EnemyTankA : MonoBehaviour
             {
                 _rotator.enabled = false;
             }
-            var currentDirection = _headTransform.right;
-            var targetDirection = _tankVision.GetBestTargetDirection();
 
-            if (Vector2.Distance(currentDirection.normalized, targetDirection.normalized) < 0.02f)
+            Vector2 currentDirection = _headTransform.right;
+            Vector2 targetDirection = _tankVision.GetBestTargetDirection().normalized;
+            
+            if (Vector2.Distance(currentDirection, targetDirection) < 0.02f)
             {
                 _shootingCoroutine ??= StartCoroutine(Shoot());
                 return;
             }
-            
-            var expectedDirection = Vector3.MoveTowards(currentDirection, targetDirection, rotationSpeed);
-            _headTransform.right = expectedDirection;
+ 
+            _headTransform.right = Vector2.MoveTowards(currentDirection, targetDirection, rotationSpeed);
         }
         else
         {
