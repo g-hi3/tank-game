@@ -47,7 +47,7 @@ public class ObjectSpawner : MonoBehaviour
     {
         for (var index = _activeObjects.Count - 1; index >= 0; index--)
         {
-            if (_activeObjects[index] is null)
+            if (_activeObjects[index] == null)
             {
                 _activeObjects.RemoveAt(index);
             }
