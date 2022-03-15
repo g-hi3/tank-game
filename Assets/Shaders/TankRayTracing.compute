@@ -1,0 +1,29 @@
+#pragma kernel CSMain
+
+// obstacle represents reflecting or target objects.
+// They should contain an array of shapes against which the shader can raycast.
+struct obstacle
+{
+    // The client should only pass obstacles that can be raycasted at.
+    // This means, if it's not a target, it must be reflective.
+    bool is_target;
+    // TODO: this should have triangles or shapes in order to raycast.
+};
+
+// raycast_input represents the tank and its raycasting configuration.
+struct raycast_input
+{
+    float2 position;
+    float angle;
+    float radius;
+    int fidelity;
+    int max_reflection_count;
+    float raycast_width;
+    obstacle obstacles[];
+};
+
+[numthreads(1, 1, 1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    // TODO: each thread should cast multiple rays within the vision cone and return if or what they hit.
+}
