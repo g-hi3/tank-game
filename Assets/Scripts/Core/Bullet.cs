@@ -39,13 +39,13 @@ namespace TankGame.Core
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.TryGetComponent<Bullet>(out _))
+            if (other.gameObject.TryGetComponent(out Bullet _))
             {
                 Destroy(gameObject);
                 return;
             }
 
-            if (other.gameObject.TryGetComponent<Tank>(out var tank))
+            if (other.gameObject.TryGetComponent(out Tank tank))
             {
                 tank.Die();
                 Destroy(gameObject);
@@ -63,13 +63,13 @@ namespace TankGame.Core
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent<BombController>(out _))
+            if (other.TryGetComponent(out Bomb _))
                 Destroy(gameObject);
         }
 
         public static Bullet FromBlueprint(BulletBlueprint blueprint, Vector2 bulletRotation)
         {
-            var bullet = Instantiate(blueprint.Prefab)!
+            var bullet = Instantiate(blueprint.Prefab)
                 .AddComponent<Bullet>()!;
             bullet._remainingRicochetCount = blueprint.RicochetCount;
             bullet._velocity = bulletRotation.normalized * blueprint.Speed;

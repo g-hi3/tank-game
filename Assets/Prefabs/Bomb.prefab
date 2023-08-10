@@ -143,11 +143,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5449629986549499428}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 838d38f0466948d99f2fa9d53f2a18be, type: 3}
+  m_Script: {fileID: 11500000, guid: f954cd38f9b0475d9d1c6da2a3846449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetimeSeconds: 4
-  explosionScale: {x: 3, y: 3, z: 1}
+  lifetimeSeconds: 3
+  _explosionScale: {x: 2.5, y: 2.5, z: 0}
 --- !u!50 &1790282631660540637
 Rigidbody2D:
   serializedVersion: 4

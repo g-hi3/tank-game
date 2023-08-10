@@ -2,11 +2,11 @@
 
 namespace TankGame.Core
 {
-    public class BombController : MonoBehaviour
+    public class Bomb : MonoBehaviour
     {
         private static readonly int TriggerNameExplosionTrigger = Animator.StringToHash("Explosion Trigger");
         [SerializeField] private float lifetimeSeconds;
-        [SerializeField] private Vector3 explosionScale;
+        [SerializeField] private Vector2 _explosionScale;
         private Transform _transform;
         private Animator _animator;
         private float _remainingLifetimeSeconds;
@@ -14,7 +14,7 @@ namespace TankGame.Core
 
         private void Explode()
         {
-            _transform.localScale = explosionScale;
+            _transform.localScale = _explosionScale;
             _animator.SetTrigger(TriggerNameExplosionTrigger);
             _explosionActive = true;
         }
@@ -50,20 +50,28 @@ namespace TankGame.Core
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.HasComponent<Bullet>())
+            if (other.gameObject.TryGetComponent(out Bullet _))
             {
                 Explode();
             }
             if (_explosionActive
-                && other.TryGetComponent<BombController>(out var otherBomb))
+                && other.TryGetComponent(out Bomb otherBomb))
             {
                 otherBomb.Explode();
             }
             if (_explosionActive
-                && other.TryGetComponent<Tank>(out var tank))
+                && other.TryGetComponent(out Tank tank))
             {
                 tank.Die();
             }
+        }
+
+        public static Bomb FromBlueprint(BombBlueprint blueprint)
+        {
+            var bomb = Instantiate(blueprint.Prefab)
+                .AddComponent<Bomb>()!;
+            bomb._explosionScale = blueprint.ExplosionScale;
+            return bomb;
         }
     }
 }
