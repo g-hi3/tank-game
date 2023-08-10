@@ -12,14 +12,4 @@ internal static class HasComponentExtension
     {
         return HasComponent(gameObject, typeof(T));
     }
-
-    private static bool HasComponent(this Collider2D collider, Type componentType)
-    {
-        return collider.TryGetComponent(componentType, out _);
-    }
-  
-    public static bool HasComponent<T>(this Collider2D collider)
-    {
-        return HasComponent(collider, typeof(T));
-    }
 }
