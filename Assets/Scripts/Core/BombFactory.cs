@@ -4,11 +4,11 @@ namespace TankGame.Core
 {
     public class BombFactory : MonoBehaviour
     {
-        [field: SerializeField] public GameObject Prefab { get; private set; }
+        [field: SerializeField] public BombBlueprint Blueprint { get; private set; }
 
-        public Bomb Make(BombBlueprint blueprint)
+        public Bomb Make()
         {
-            return Bomb.FromBlueprint(blueprint);
+            return Bomb.FromBlueprint(Blueprint);
         }
     }
 }

@@ -4,10 +4,12 @@ namespace TankGame.Core
 {
     public class BulletFactory : MonoBehaviour
     {
-        public Bullet Make(BulletBlueprint blueprint)
+        [field: SerializeField] public BulletBlueprint Blueprint { get; private set; }
+
+        public Bullet Make()
         {
             var bulletRotation = transform.eulerAngles;
-            return Bullet.FromBlueprint(blueprint, bulletRotation);
+            return Bullet.FromBlueprint(Blueprint, bulletRotation);
         }
     }
 }
