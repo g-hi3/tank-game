@@ -2,7 +2,7 @@
 
 namespace TankGame.Core
 {
-    public class Bomb : MonoBehaviour
+    public class Bomb : MonoBehaviour, IDetonationTarget, IBulletTarget
     {
         private static readonly int TriggerNameExplosionTrigger = Animator.StringToHash("Explosion Trigger");
         [SerializeField] private float lifetimeSeconds;
@@ -12,7 +12,11 @@ namespace TankGame.Core
         private float _remainingLifetimeSeconds;
         private bool _explosionActive;
 
-        private void Explode()
+        public void OnDetonationHit() => Detonate();
+
+        public void OnBulletHit() => Detonate();
+
+        private void Detonate()
         {
             _transform.localScale = _explosionScale;
             _animator.SetTrigger(TriggerNameExplosionTrigger);
@@ -44,26 +48,14 @@ namespace TankGame.Core
             _remainingLifetimeSeconds -= Time.deltaTime;
             if (_remainingLifetimeSeconds <= 0f)
             {
-                Explode();
+                Detonate();
             }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.TryGetComponent(out Bullet _))
-            {
-                Explode();
-            }
-            if (_explosionActive
-                && other.TryGetComponent(out Bomb otherBomb))
-            {
-                otherBomb.Explode();
-            }
-            if (_explosionActive
-                && other.TryGetComponent(out Tank tank))
-            {
-                tank.Die();
-            }
+            if (_explosionActive && other.TryGetComponent(out IDetonationTarget detonationTarget))
+                detonationTarget.OnDetonationHit();
         }
 
         public static Bomb FromBlueprint(BombBlueprint blueprint)

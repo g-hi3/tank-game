@@ -2,13 +2,23 @@
 
 namespace TankGame.Core
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : MonoBehaviour, IDetonationTarget, IBulletTarget
     {
         [SerializeField] private float moveSpeed;
         [SerializeField] private uint ricochetCount;
         private Transform _transform;
         private uint _remainingRicochetCount;
         private Vector2 _velocity;
+
+        public void OnDetonationHit() => Destroy(gameObject);
+
+        public void OnBulletHit() => Destroy(gameObject);
+
+        private void Hit(IBulletTarget bulletTarget)
+        {
+            bulletTarget.OnBulletHit();
+            Destroy(gameObject);
+        }
 
         private void ReflectFrom(ContactPoint2D contactPoint)
         {
@@ -39,32 +49,16 @@ namespace TankGame.Core
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.TryGetComponent(out Bullet _))
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            if (other.gameObject.TryGetComponent(out Tank tank))
-            {
-                tank.Die();
-                Destroy(gameObject);
-                return;
-            }
-    
-            if (gameObject.layer == other.gameObject.layer)
-            {
-                Physics2D.IgnoreCollision(other.collider, other.otherCollider);
-                return;
-            }
-
-            ReflectFrom(other.contacts[0]);
+            if (other.gameObject.TryGetComponent(out IBulletTarget bulletTarget))
+                Hit(bulletTarget);
+            else
+                ReflectFrom(other.contacts[0]);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out Bomb _))
-                Destroy(gameObject);
+            if (other.gameObject.TryGetComponent(out IBulletTarget bulletTarget))
+                Hit(bulletTarget);
         }
 
         public static Bullet FromBlueprint(BulletBlueprint blueprint, Vector2 bulletRotation)

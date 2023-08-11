@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4790845387394622626}
   - component: {fileID: 4790845387394622627}
   - component: {fileID: 4790845387394622638}
-  - component: {fileID: -1571028309006338771}
+  - component: {fileID: -6597551347742611397}
   m_Layer: 12
   m_Name: Enemy Tank A
   m_TagString: Untagged
@@ -181,7 +181,7 @@ MonoBehaviour:
   bulletSpawner: {fileID: 4790845388695787113}
   heatUpTime: 0.2
   coolDownTime: 2
---- !u!114 &-1571028309006338771
+--- !u!114 &-6597551347742611397
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
