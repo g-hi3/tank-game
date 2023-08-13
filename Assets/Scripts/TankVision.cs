@@ -14,7 +14,13 @@ public class TankVision : MonoBehaviour
     private Transform _transform;
     private IEnumerable<CastInfo> _casts = Enumerable.Empty<CastInfo>();
 
-    public bool IsTargetVisible => _casts.Any(c => c.IsTargetHit);
+    public bool IsTargetVisible
+    {
+        get
+        {
+            return _casts.Any(c => c.IsTargetHit);
+        }
+    }
 
     public Vector3 GetBestTargetDirection()
     {

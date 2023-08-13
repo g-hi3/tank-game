@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 4790845388610250191}
   - component: {fileID: 4790845388610250188}
   - component: {fileID: 6284635788253257329}
-  - component: {fileID: 152675995905706978}
+  - component: {fileID: 667129269716475429}
   m_Layer: 12
   m_Name: Head
   m_TagString: Untagged
@@ -408,7 +408,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3840
   castWidth: 0.2
---- !u!114 &152675995905706978
+--- !u!114 &667129269716475429
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -417,13 +417,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4790845388610250178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b98b85688a8d45e286040e080664dbb9, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b0316c9e4b04119837a4288c9a259d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialRotation: 180
-  rotationRange: 90
-  rotationSpeed: 0.2
-  adjustmentSpeed: 0.2
+  <RotationCenter>k__BackingField: 180
+  <RotationRange>k__BackingField: 90
+  <RotationSpeed>k__BackingField: 0.2
+  <UseSourceRotationAsCenter>k__BackingField: 1
 --- !u!1 &4790845388695787119
 GameObject:
   m_ObjectHideFlags: 0

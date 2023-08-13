@@ -1,4 +1,5 @@
 using System.Collections;
+using TankGame.Core;
 using UnityEngine;
 
 public class EnemyTankA : MonoBehaviour
@@ -9,7 +10,7 @@ public class EnemyTankA : MonoBehaviour
     [SerializeField] private float heatUpTime;
     [SerializeField] private float coolDownTime;
     private TankVision _tankVision;
-    private FlipFlopRotator _rotator;
+    private Rotator _rotator;
     private Transform _headTransform;
     private Coroutine _shootingCoroutine;
 
@@ -24,7 +25,7 @@ public class EnemyTankA : MonoBehaviour
     private void Awake()
     {
         _tankVision = GetComponentInChildren<TankVision>();
-        _rotator = GetComponentInChildren<FlipFlopRotator>();
+        _rotator = GetComponentInChildren<Rotator>();
     }
 
     private void Start()
@@ -36,11 +37,7 @@ public class EnemyTankA : MonoBehaviour
     {
         if (_tankVision.IsTargetVisible)
         {
-            if (_rotator.enabled)
-            {
-                _rotator.enabled = false;
-            }
-
+            Debug.Log("Target is visible(?)");
             Vector2 currentDirection = _headTransform.right;
             Vector2 targetDirection = _tankVision.GetBestTargetDirection().normalized;
             
@@ -54,10 +51,8 @@ public class EnemyTankA : MonoBehaviour
         }
         else
         {
-            if (!_rotator.enabled)
-            {
-                _rotator.enabled = true;
-            }
+            Debug.Log("Using fallback rotator.");
+            _rotator.Rotate();
         }
     }
 }

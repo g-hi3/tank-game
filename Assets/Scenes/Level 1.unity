@@ -271,7 +271,7 @@ Transform:
   m_GameObject: {fileID: 72272841}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 8, z: 1}
+  m_LocalScale: {x: 15, y: 15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1242958144}
@@ -318,8 +318,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: e7c8dae75a306fa46bcf474908478836, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 0ae2b74b1edd14bb18dd7b65ae916a54, type: 3}
+  m_Color: {r: 0.45749375, g: 0.6333082, b: 0.6698113, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -835,6 +835,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 672465155}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &703941679 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4790845388610250178, guid: 7bbec2716136b5445b557ed479395097,
+    type: 3}
+  m_PrefabInstance: {fileID: 4790845386599236485}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &703941687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703941679}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7b8af7ef03451b834a7469de0e14d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <RotationSpeed>k__BackingField: 1
+  <FallbackRotator>k__BackingField: {fileID: 4790845386599236486}
 --- !u!1 &793568404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,10 +1535,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 152675995905706978, guid: 7bbec2716136b5445b557ed479395097,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4790845387394622624, guid: 7bbec2716136b5445b557ed479395097,
         type: 3}
       propertyPath: m_Name
       value: Enemy Tank A
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790845387394622638, guid: 7bbec2716136b5445b557ed479395097,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4790845387394622639, guid: 7bbec2716136b5445b557ed479395097,
         type: 3}
@@ -1580,5 +1610,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 152675995905706978, guid: 7bbec2716136b5445b557ed479395097, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7bbec2716136b5445b557ed479395097, type: 3}
+--- !u!114 &4790845386599236486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 667129269716475429, guid: 7bbec2716136b5445b557ed479395097,
+    type: 3}
+  m_PrefabInstance: {fileID: 4790845386599236485}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703941679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0316c9e4b04119837a4288c9a259d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
