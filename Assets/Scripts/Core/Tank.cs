@@ -1,11 +1,20 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace TankGame.Core
 {
     public class Tank : MonoBehaviour, IDetonationTarget, IBulletTarget
     {
-        public void OnDetonationHit() => Destroy(gameObject);
+        [field: SerializeField] public UnityEvent<Tank> Eliminated { get; private set; }
 
-        public void OnBulletHit() => Destroy(gameObject);
+        public void OnDetonationHit() => Eliminate();
+
+        public void OnBulletHit() => Eliminate();
+
+        private void Eliminate()
+        {
+            Destroy(gameObject);
+            Eliminated?.Invoke(this);
+        }
     }
 }

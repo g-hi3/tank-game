@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class TankVision : MonoBehaviour
     [SerializeField] private LayerMask collidingLayers;
     [SerializeField] private float castWidth;
     private Transform _transform;
-    private IEnumerable<CastInfo> _casts = Enumerable.Empty<CastInfo>();
+    private CastInfo[] _casts = Array.Empty<CastInfo>();
 
     public bool IsTargetVisible
     {

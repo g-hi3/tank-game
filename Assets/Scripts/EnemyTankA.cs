@@ -37,7 +37,6 @@ public class EnemyTankA : MonoBehaviour
     {
         if (_tankVision.IsTargetVisible)
         {
-            Debug.Log("Target is visible(?)");
             Vector2 currentDirection = _headTransform.right;
             Vector2 targetDirection = _tankVision.GetBestTargetDirection().normalized;
             
@@ -51,7 +50,6 @@ public class EnemyTankA : MonoBehaviour
         }
         else
         {
-            Debug.Log("Using fallback rotator.");
             _rotator.Rotate();
         }
     }

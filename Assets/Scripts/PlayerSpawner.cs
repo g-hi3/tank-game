@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TankGame.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,5 +24,6 @@ public class PlayerSpawner : MonoBehaviour
         var spawnPoint = spawnPoints[playerIndex];
         var playerTransform = spawningPlayer.transform;
         playerTransform.position = spawnPoint.position;
+        GameManager.Instance.RegisterTank(spawningPlayer.GetComponent<Tank>());
     }
 }
