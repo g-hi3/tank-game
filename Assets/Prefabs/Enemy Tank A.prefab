@@ -176,11 +176,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652322eec09f2b74c838924be788fcb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 0.01
-  head: {fileID: 4790845388610250178}
   bulletSpawner: {fileID: 4790845388695787113}
   heatUpTime: 0.2
   coolDownTime: 2
+  <Rotator>k__BackingField: {fileID: 0}
 --- !u!114 &-6597551347742611397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +192,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a53e67a8fd2a4300b03facc11c553fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Eliminated>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4790845388082051633
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,8 +283,9 @@ GameObject:
   - component: {fileID: 4790845388610250189}
   - component: {fileID: 4790845388610250191}
   - component: {fileID: 4790845388610250188}
-  - component: {fileID: 6284635788253257329}
-  - component: {fileID: 667129269716475429}
+  - component: {fileID: 6505611816421144846}
+  - component: {fileID: 4367671586911362324}
+  - component: {fileID: 2730645785734624201}
   m_Layer: 12
   m_Name: Head
   m_TagString: Untagged
@@ -385,7 +388,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.25}
   m_EdgeRadius: 0
---- !u!114 &6284635788253257329
+--- !u!114 &6505611816421144846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4790845388610250178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7b8af7ef03451b834a7469de0e14d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <RotationSpeed>k__BackingField: 0.02
+  <FallbackRotator>k__BackingField: {fileID: 2730645785734624201}
+--- !u!114 &4367671586911362324
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -408,7 +425,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3840
   castWidth: 0.2
---- !u!114 &667129269716475429
+--- !u!114 &2730645785734624201
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -421,8 +438,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <RotationCenter>k__BackingField: 180
-  <RotationRange>k__BackingField: 90
-  <RotationSpeed>k__BackingField: 0.2
+  <RotationRange>k__BackingField: 180
+  <RotationSpeed>k__BackingField: 1
   <UseSourceRotationAsCenter>k__BackingField: 1
 --- !u!1 &4790845388695787119
 GameObject:

@@ -2,10 +2,10 @@
 
 namespace TankGame.Core
 {
-    public class FollowingRotator : MonoBehaviour, IRotator
+    public class FollowingRotator : TargetingRotator
     {
         private TankVision _tankVision;
-        private int _temp;
+        private Vector2 _targetDirection;
         
         [field: SerializeField] public float RotationSpeed { get; private set; }
 
@@ -16,19 +16,30 @@ namespace TankGame.Core
         [field: Tooltip("Rotator to be used when no target is in sight")]
         public Rotator FallbackRotator { get; private set; }
 
-        public void Rotate()
+        /// <inheritdoc />
+        public override bool IsTargetInSight()
         {
-            if (_temp % 100 > 0)
-                FallbackRotator.Rotate();
+            var targetDirection = _tankVision.GetBestTargetDirection();
+            return targetDirection.HasValue
+                   && Vector2.Distance(transform.right, targetDirection.Value.normalized) < 0.02f;
+        }
+
+        public override void Rotate()
+        {
+            if (_tankVision.IsTargetVisible)
+                RotateTowardsTarget();
             else
-                transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                FallbackRotator.Rotate();
+        }
 
-            _temp++;
-            /*Vector2 currentDirection = transform.eulerAngles;
-            Vector2 targetDirection = _tankVision.GetBestTargetDirection().normalized;
+        private void RotateTowardsTarget()
+        {
+            var bestTargetDirection = _tankVision.GetBestTargetDirection();
+            if (bestTargetDirection == null)
+                return;
 
-            if (Vector2.Distance(currentDirection, targetDirection) >= 0.02f)
-                transform.eulerAngles = Vector2.MoveTowards(currentDirection, targetDirection, RotationSpeed);*/
+            _targetDirection = bestTargetDirection.Value.normalized;
+            transform.right = Vector3.MoveTowards(transform.right, _targetDirection, RotationSpeed);
         }
 
         private void Awake()
@@ -36,9 +47,13 @@ namespace TankGame.Core
             _tankVision = GetComponent<TankVision>();
         }
 
-        private void Update()
+        private void OnDrawGizmos()
         {
-            Rotate();
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawRay(transform.position, _targetDirection);
+            
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawRay(transform.position, transform.rotation * Vector3.right);
         }
     }
 }
