@@ -50,10 +50,7 @@ namespace TankGame.Core
                 && (reflectingHit == default
                     || collidingHit.distance < reflectingHit.distance))
             {
-                var collidingCastInfo = new CastInfo {
-                    CastDirections = new Vector3[maxReflectionCount + 1],
-                    IsTargetHit = true
-                };
+                var collidingCastInfo = CastInfo.CreateTargetHit(maxReflectionCount + 1);
                 collidingCastInfo.CastDirections[reflectCount] = direction * collidingHit.distance;
                 return collidingCastInfo;
             }
@@ -64,9 +61,7 @@ namespace TankGame.Core
                 var remainingDistance = distance - reflectingHit.distance;
                 if (!(remainingDistance > 0f) || reflectCount == maxReflectionCount)
                 {
-                    var reflectingCastInfo = new CastInfo {
-                        CastDirections = new Vector3[maxReflectionCount + 1]
-                    };
+                    var reflectingCastInfo = CastInfo.CreateNoHit(maxReflectionCount + 1);
                     reflectingCastInfo.CastDirections[reflectCount] = direction * reflectingHit.distance;
                     return reflectingCastInfo;
                 }
@@ -81,9 +76,7 @@ namespace TankGame.Core
                 return result;
             }
 
-            var noHitCastInfo = new CastInfo {
-                CastDirections = new Vector3[maxReflectionCount + 1]
-            };
+            var noHitCastInfo = CastInfo.CreateNoHit(maxReflectionCount + 1);
             noHitCastInfo.CastDirections[reflectCount] = direction * distance;
             return noHitCastInfo;
         }
