@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="height: 80%;" />
+    <ui:VisualElement style="flex-direction: row; justify-content: flex-start;">
+        <ui:VisualElement style="flex-direction: column; align-items: stretch; width: 40%;">
+            <ui:Button text="Back to Main Menu" display-tooltip-when-elided="true" name="MainMenuButton" />
+        </ui:VisualElement>
+        <ui:VisualElement style="width: 60%; align-items: stretch;" />
+    </ui:VisualElement>
+</ui:UXML>
