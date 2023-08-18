@@ -959,7 +959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 832c7520f16c32c438423b9539e90a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetFrameRate: 30
+  <TargetFrameRate>k__BackingField: 24
 --- !u!1 &881003945
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,7 +45,7 @@ public class TankController : MonoBehaviour
         _animator.SetFloat(MoveSpeedAnimatorProperty, 0f);
     }
 
-    private void Look(Vector2 direction)
+    public void Look(Vector2 direction)
     {
         _lookRotation = GetRotation2DInDirection(direction);
     }
