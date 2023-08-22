@@ -13,55 +13,55 @@ namespace TankGame.Core
         private PlayerInput _playerInput;
         private Camera _mainCamera;
 
+        [field: SerializeField] public TankController Tank { get; private set; }
+
         private void RaiseTankMovingStarted()
         {
-            SendMessage("StartMoving");
+            Tank.StartMoving();
         }
 
-        private void RaiseTankMoved(Vector2 moveDirection)
+        private void RaiseTankMoved(InputAction.CallbackContext context)
         {
-            SendMessage("Move", (Vector3)moveDirection);
+            var moveDirection = context.ReadValue<Vector2>();
+            Tank.Move(moveDirection);
         }
 
         private void RaiseTankMovingCanceled()
         {
-            SendMessage("StopMoving");
+            Tank.StopMoving();
         }
 
-        private void RaiseTankLooked(Vector2 lookDirection)
+        private void RaiseTankLooked(InputAction.CallbackContext context)
         {
-            SendMessage("Look", lookDirection);
+            var lookDirection = context.ReadValue<Vector2>();
+            Tank.Look(lookDirection);
         }
 
-        private void RaiseTankLookedAt(Vector2 lookPosition)
+        private void RaiseTankLookedAt(InputAction.CallbackContext context)
         {
-            SendMessage("LookAt", (Vector3)lookPosition);
+            var pointPosition = context.ReadValue<Vector2>();
+            var lookPosition = _mainCamera.ScreenToWorldPoint(pointPosition);
+            Tank.LookAt(lookPosition);
         }
 
         private void RaiseTankShot()
         {
-            SendMessage("Shoot");
+            Tank.Shoot();
         }
 
         private void RaiseTankBombed() 
         {
-            SendMessage("Bomb");
+            Tank.Bomb();
         }
 
         private void DelegateTriggeredAction(InputAction.CallbackContext context)
         {
             if (context.started)
-            {
                 DelegateStartedAction(context);
-            }
             else if (context.performed)
-            {
                 DelegatePerformedAction(context);
-            }
             else if (context.canceled)
-            {
                 DelegateCanceledAction(context);
-            }
         }
 
         private void DelegateStartedAction(InputAction.CallbackContext context)
@@ -82,17 +82,13 @@ namespace TankGame.Core
             switch (context.action.name)
             {
                 case ActionNameMove:
-                    var moveDirection = context.ReadValue<Vector2>();
-                    RaiseTankMoved(moveDirection);
+                    RaiseTankMoved(context);
                     break;
                 case ActionNameLook:
-                    var lookDirection = context.ReadValue<Vector2>();
-                    RaiseTankLooked(lookDirection);
+                    RaiseTankLooked(context);
                     break;
                 case ActionNamePoint:
-                    var pointPosition = context.ReadValue<Vector2>();
-                    var worldPoint = _mainCamera.ScreenToWorldPoint(pointPosition);
-                    RaiseTankLookedAt(worldPoint);
+                    RaiseTankLookedAt(context);
                     break;
                 case ActionNameShoot:
                     RaiseTankShot();
@@ -103,9 +99,12 @@ namespace TankGame.Core
         private void DelegateCanceledAction(InputAction.CallbackContext context)
         {
             if (context.action.name == ActionNameMove)
-            {
                 RaiseTankMovingCanceled();
-            }
+        }
+
+        private void Awake()
+        {
+            Tank = GetComponent<TankController>();
         }
 
         private void Start()

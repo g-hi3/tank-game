@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Game%20UI.uss?fileID=7433441132597879392&amp;guid=bcf7f83ad3a6deb4aad266b4e5c601df&amp;type=3#Game UI" />
+    <ui:VisualElement style="width: 100%; height: 100%;">
+        <ui:VisualElement name="PauseMenu" style="background-color: rgba(0, 0, 0, 0.33); align-items: center; justify-content: center; width: 100%; height: 100%; position: absolute; display: none; visibility: visible;">
+            <ui:Label text="- Paused -" display-tooltip-when-elided="true" name="PauseMenuHeading" />
+            <ui:Button text="Resume" display-tooltip-when-elided="true" />
+            <ui:Button text="Back to Main Menu" display-tooltip-when-elided="true" />
+        </ui:VisualElement>
+        <ui:VisualElement name="GameHud" style="width: 100%; height: 100%;">
+            <ui:VisualElement style="margin-left: 20px;">
+                <ui:Label text="{Label.LevelName}&#x9;" display-tooltip-when-elided="true" name="LevelName" style="color: rgb(255, 255, 255); font-size: 36px; margin-left: 0;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="position: absolute; right: 20px; flex-direction: row-reverse;">
+                <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Sprites/Tank%20Icon.png?fileID=2800000&amp;guid=39f5313bd86143f4884bce9b47fe2344&amp;type=3#Tank Icon&apos;); width: 60px; height: 60px;" />
+                <ui:Label text="{Label.RemainingLives}" display-tooltip-when-elided="true" name="RemainingLives" style="color: rgb(255, 255, 255); font-size: 36px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="position: absolute; right: 20px; bottom: 0; align-items: flex-start;">
+                <ui:Label text="{Label.SpeedRunTimer}" display-tooltip-when-elided="true" name="SpeedRunTimer" style="font-size: 36px; color: rgb(255, 255, 255); -unity-text-align: upper-left;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -23,13 +23,13 @@ namespace TankGame.Core
             Destroy(gameObject);
         }
   
-        private void StartMoving()
+        public void StartMoving()
         {
             _isMoving = true;
             _animator.SetFloat(MoveSpeedAnimatorProperty, 1f);
         }
   
-        private void Move(Vector3 direction)
+        public void Move(Vector3 direction)
         {
             _moveDirection = moveSpeed * direction;
             _moveRotation = GetRotation2DInDirection(direction);
@@ -41,7 +41,7 @@ namespace TankGame.Core
             return Quaternion.Euler(0f, 0f, rotationZ);
         }
 
-        private void StopMoving()
+        public void StopMoving()
         {
             _isMoving = false;
             _animator.SetFloat(MoveSpeedAnimatorProperty, 0f);
@@ -52,18 +52,18 @@ namespace TankGame.Core
             _lookRotation = GetRotation2DInDirection(direction);
         }
 
-        private void LookAt(Vector3 position)
+        public void LookAt(Vector3 position)
         {
             var direction = position - _transform.position;
             Look(direction);
         }
 
-        private void Shoot()
+        public void Shoot()
         {
             bulletSpawner.Spawn();
         }
 
-        private void Bomb()
+        public void Bomb()
         {
             bombSpawner.Spawn();
         }

@@ -6,8 +6,7 @@ namespace TankGame.UI
 {
     public class TimerDisplay : MonoBehaviour
     {
-        [SerializeField] private Timer timer;
-        [SerializeField] private string timeFormat;
+        [SerializeField] private LevelTimer timer;
         private Text _text;
 
         private void Awake()
@@ -17,11 +16,6 @@ namespace TankGame.UI
 
         private void Update()
         {
-            _text.text = string.Format(
-                timeFormat,
-                timer.Milliseconds,
-                timer.Seconds,
-                timer.Minutes);
         }
     }
 }

@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace TankGame.Core
 {
-    public class EnemyTankA : MonoBehaviour
+    public class EnemyTank : MonoBehaviour
     {
         [SerializeField] private ObjectSpawner bulletSpawner;
         [SerializeField] private float heatUpTime;
         [SerializeField] private float coolDownTime;
         private Coroutine _shootingCoroutine;
-    
+
         [field: SerializeField] public TargetingRotator Rotator { get; private set; }
         [field: SerializeField] public Mover Mover { get; private set; }
 
