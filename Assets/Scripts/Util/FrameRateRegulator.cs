@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TankGame.Core
+namespace TankGame.Util
 {
     public class FrameRateRegulator : MonoBehaviour
     {

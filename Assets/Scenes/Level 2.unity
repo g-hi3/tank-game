@@ -229,19 +229,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f55f8fe45103c30458b90d916831ce49, type: 3}
---- !u!1 &145526149 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2735905497137005049, guid: f55f8fe45103c30458b90d916831ce49,
+--- !u!114 &145526151 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -6882408338243288708, guid: f55f8fe45103c30458b90d916831ce49,
     type: 3}
   m_PrefabInstance: {fileID: 145526148}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &145526150
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 145526149}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a41074788c51450e953dde2be66335c9, type: 3}
@@ -406,55 +400,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1025826657}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &694397849
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 694397851}
-  - component: {fileID: 694397850}
-  m_Layer: 0
-  m_Name: Player Win Alert
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &694397850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 694397849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc565a4feea53074d99c657d3895ef59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  receivers:
-  - {fileID: 1071111684}
-  - {fileID: 145526149}
-  enemyTanks:
-  - {fileID: 1061868950}
---- !u!4 &694397851
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 694397849}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &771305218
 GameObject:
@@ -716,7 +661,7 @@ Transform:
   - {fileID: 665753570}
   - {fileID: 1814515331}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1061868949
 PrefabInstance:
@@ -798,23 +743,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1061868949}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1061868951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1061868950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 792acd7c3e674b9bb56b9fb1141c5a49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path:
-  - {fileID: 665753570}
-  - {fileID: 1814515331}
-  movementSpeed: 1
-  distanceEpsilon: 0.02
 --- !u!114 &1061868952 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -6597551347742611397, guid: 7bbec2716136b5445b557ed479395097,
@@ -827,6 +755,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a53e67a8fd2a4300b03facc11c553fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1061868953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061868950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe2ec8b115cb44969bea72c85d5f4ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Speed>k__BackingField: 1
+  <PathPoints>k__BackingField:
+  - {fileID: 665753570}
+  - {fileID: 1814515331}
+  <CurrentTarget>k__BackingField: {fileID: 0}
 --- !u!1001 &1071111683
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -896,19 +841,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f55f8fe45103c30458b90d916831ce49, type: 3}
---- !u!1 &1071111684 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2735905497137005049, guid: f55f8fe45103c30458b90d916831ce49,
+--- !u!114 &1071111686 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -6882408338243288708, guid: f55f8fe45103c30458b90d916831ce49,
     type: 3}
   m_PrefabInstance: {fileID: 1071111683}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1071111685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1071111684}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a41074788c51450e953dde2be66335c9, type: 3}
@@ -1605,7 +1544,31 @@ MonoBehaviour:
       m_Calls: []
   <AllEnemyTanksEliminated>k__BackingField:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 145526151}
+        m_TargetAssemblyTypeName: TankGame.Core.ConfettiController, TankGame
+        m_MethodName: OnAllEnemyTanksEliminated
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+      - m_Target: {fileID: 1071111686}
+        m_TargetAssemblyTypeName: TankGame.Core.ConfettiController, TankGame
+        m_MethodName: OnAllEnemyTanksEliminated
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
   <GamePaused>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -1625,7 +1588,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2006164111
 PrefabInstance:
