@@ -2,6 +2,7 @@
 
 namespace TankGame.Core
 {
+    [CreateAssetMenu(menuName = "TankGame/Bullet Blueprint")]
     public class BulletBlueprint : ScriptableObject
     {
         [field: SerializeField] public float Speed { get; private set; }
