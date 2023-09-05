@@ -283,6 +283,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 499cb18199f44377abc4b429e326247e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1048366680 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8903261236142210336, guid: 7c8547abad90aa849afd8b70d5e1afad,
+    type: 3}
+  m_PrefabInstance: {fileID: 536951184}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa3ca985a35748fe9fca039325f4a5c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1217256851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -502,6 +514,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
+      propertyPath: <LevelLoaded>k__BackingField.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <LevelLoaded>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <LevelLoaded>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1048366680}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <LevelLoaded>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <LevelLoaded>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLevelLoaded
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
       propertyPath: <AllEnemyTanksEliminated>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1738282389}
@@ -522,6 +559,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
+      propertyPath: <LevelLoaded>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TankGame.UI.GameUIViewModel, TankGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
       propertyPath: <AllEnemyTanksEliminated>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.ParticleSystem, UnityEngine
       objectReference: {fileID: 0}
@@ -529,6 +571,11 @@ PrefabInstance:
         type: 3}
       propertyPath: <AllEnemyTanksEliminated>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: UnityEngine.ParticleSystem, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <LevelLoaded>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b47047a91e7ee8341b2c8bf45d29f8e7, type: 3}

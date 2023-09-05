@@ -18,6 +18,7 @@ namespace TankGame.Core
         [field: SerializeField] public UnityEvent AllEnemyTanksEliminated { get; private set; }
         [field: SerializeField] public UnityEvent GamePaused { get; private set; }
         [field: SerializeField] public UnityEvent GameResumed { get; private set; }
+        [field: SerializeField] public UnityEvent<LevelLoadedEventArgs> LevelLoaded { get; private set; }
         [field: SerializeField] public string[] LevelSceneNames { get; private set; }
 
         public void PauseGame()
@@ -85,6 +86,7 @@ namespace TankGame.Core
             var loadSceneTask = SceneManager.LoadSceneAsync(_currentLevelSceneName, LoadSceneMode.Additive);
 
             loadSceneTask.completed += _ => FindEnemyTanks();
+            loadSceneTask.completed += _ => LevelLoaded?.Invoke(new LevelLoadedEventArgs(levelSceneName));
             // TODO: When new scene has loaded, update level name.
             // TODO: When new scene has loaded, update spawn areas.
         }

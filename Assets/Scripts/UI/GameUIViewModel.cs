@@ -1,6 +1,5 @@
 ﻿using TankGame.Core;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace TankGame.UI
@@ -16,12 +15,6 @@ namespace TankGame.UI
         [field: SerializeField] public UIDocument DocumentRoot { get; private set; }
         [field: SerializeField] public LevelTimer Timer { get; private set; }
         [field: SerializeField] public GameManager GameManager { get; private set; }
-
-        private void ShowLevelName()
-        {
-            var activeScene = SceneManager.GetActiveScene();
-            _levelName.text = activeScene.name;
-        }
 
         private void ShowRemainingLives()
         {
@@ -39,7 +32,6 @@ namespace TankGame.UI
             _levelName = DocumentRoot.rootVisualElement.Q<Label>("LevelName");
             _speedRunTimer = DocumentRoot.rootVisualElement.Q<Label>("SpeedRunTimer");
             _remainingLives = DocumentRoot.rootVisualElement.Q<Label>("RemainingLives");
-            ShowLevelName();
             ShowRemainingLives();
         }
 
@@ -50,6 +42,11 @@ namespace TankGame.UI
                 Timer.Minutes,
                 Timer.Seconds,
                 Timer.Milliseconds);
+        }
+
+        public void OnLevelLoaded(LevelLoadedEventArgs eventArgs)
+        {
+            _levelName.text = eventArgs.LevelName;
         }
     }
 }
