@@ -6,8 +6,14 @@ namespace TankGame.Core
 {
     public class PlayerSpawner : MonoBehaviour
     {
-        [SerializeField] private List<Transform> spawnPoints;
+        [field: SerializeField] public List<Transform> SpawnPoints { get; private set; }
+        [field: SerializeField] public GameManager GameManager { get; private set; }
         private PlayerInputManager _playerInputManager;
+
+        public void RegisterSpawnPoint(Transform spawnPoint)
+        {
+            SpawnPoints.Add(spawnPoint);
+        }
 
         private void Awake()
         {
@@ -16,16 +22,17 @@ namespace TankGame.Core
 
         private void Start()
         {
+            GameManager = GameManager.Instance;
             _playerInputManager.onPlayerJoined += SpawnPlayer;
         }
 
         private void SpawnPlayer(PlayerInput spawningPlayer)
         {
             var playerIndex = spawningPlayer.playerIndex;
-            var spawnPoint = spawnPoints[playerIndex];
+            var spawnPoint = SpawnPoints[playerIndex];
             var playerTransform = spawningPlayer.transform;
             playerTransform.position = spawnPoint.position;
-            GameManager.Instance.RegisterTank(spawningPlayer.GetComponent<Tank>());
+            GameManager.RegisterTank(spawningPlayer.GetComponent<Tank>());
         }
     }
 }

@@ -7,12 +7,12 @@ namespace TankGame.UI
     public class MainMenuViewModel : MonoBehaviour
     {
         [field: SerializeField] public UIDocument DocumentRoot { get; private set; }
-        [field: SerializeField] public string Level1SceneName { get; private set; }
+        [field: SerializeField] public string GameStartSceneName { get; private set; }
         [field: SerializeField] public string BestTimesSceneName { get; private set; }
 
         private void OnStartGameButtonClicked()
         {
-            SceneManager.LoadSceneAsync(Level1SceneName);
+            SceneManager.LoadSceneAsync(GameStartSceneName);
         }
 
         private void OnBestTimesButtonClicked()

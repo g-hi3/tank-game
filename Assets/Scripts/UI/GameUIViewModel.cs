@@ -35,6 +35,7 @@ namespace TankGame.UI
 
         private void Start()
         {
+            GameManager = GameManager.Instance;
             _levelName = DocumentRoot.rootVisualElement.Q<Label>("LevelName");
             _speedRunTimer = DocumentRoot.rootVisualElement.Q<Label>("SpeedRunTimer");
             _remainingLives = DocumentRoot.rootVisualElement.Q<Label>("RemainingLives");

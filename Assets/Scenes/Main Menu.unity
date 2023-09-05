@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <DocumentRoot>k__BackingField: {fileID: 0}
-  <Level1SceneName>k__BackingField: Level 1
+  <GameStartSceneName>k__BackingField: Common Level Objects
   <BestTimesSceneName>k__BackingField: Best Times
 --- !u!1 &1350844108
 GameObject:

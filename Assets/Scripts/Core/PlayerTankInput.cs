@@ -11,7 +11,6 @@ namespace TankGame.Core
         private const string ActionNameShoot = "Shoot";
         private const string ActionNameBomb = "Bomb";
         private PlayerInput _playerInput;
-        private Camera _mainCamera;
 
         [field: SerializeField] public TankController Tank { get; private set; }
 
@@ -40,7 +39,7 @@ namespace TankGame.Core
         private void RaiseTankLookedAt(InputAction.CallbackContext context)
         {
             var pointPosition = context.ReadValue<Vector2>();
-            var lookPosition = _mainCamera.ScreenToWorldPoint(pointPosition);
+            var lookPosition = FindObjectOfType<Camera>().ScreenToWorldPoint(pointPosition);
             Tank.LookAt(lookPosition);
         }
 
@@ -111,7 +110,6 @@ namespace TankGame.Core
         {
             _playerInput = GetComponent<PlayerInput>();
             _playerInput.onActionTriggered += DelegateTriggeredAction;
-            _mainCamera = Camera.main;
         }
 
         private void OnDestroy()
