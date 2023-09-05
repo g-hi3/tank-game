@@ -87,8 +87,6 @@ namespace TankGame.Core
 
             loadSceneTask.completed += _ => FindEnemyTanks();
             loadSceneTask.completed += _ => LevelLoaded?.Invoke(new LevelLoadedEventArgs(levelSceneName));
-            // TODO: When new scene has loaded, update level name.
-            // TODO: When new scene has loaded, update spawn areas.
         }
 
         private void FindEnemyTanks()

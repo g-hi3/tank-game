@@ -15,6 +15,11 @@ namespace TankGame.Core
             SpawnPoints.Add(spawnPoint);
         }
 
+        public void UnregisterSpawnPoint(Transform childObject)
+        {
+            SpawnPoints.Remove(childObject);
+        }
+
         private void Awake()
         {
             _playerInputManager = GetComponent<PlayerInputManager>();
