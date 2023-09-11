@@ -14,8 +14,8 @@
                 <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Sprites/Tank%20Icon.png?fileID=2800000&amp;guid=39f5313bd86143f4884bce9b47fe2344&amp;type=3#Tank Icon&apos;); width: 60px; height: 60px;" />
                 <ui:Label text="{Label.RemainingLives}" display-tooltip-when-elided="true" name="RemainingLives" style="color: rgb(255, 255, 255); font-size: 36px;" />
             </ui:VisualElement>
-            <ui:VisualElement style="position: absolute; right: 20px; bottom: 0; align-items: flex-start;">
-                <ui:Label text="{Label.SpeedRunTimer}" display-tooltip-when-elided="true" name="SpeedRunTimer" style="font-size: 36px; color: rgb(255, 255, 255); -unity-text-align: upper-left;" />
+            <ui:VisualElement style="position: absolute; right: 20px; bottom: 0; align-items: flex-start; min-width: 200px;">
+                <ui:Label text="{Label.SpeedRunTimer}" display-tooltip-when-elided="true" name="SpeedRunTimer" style="font-size: 36px; color: rgb(255, 255, 255); -unity-text-align: upper-left; align-items: flex-start;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
