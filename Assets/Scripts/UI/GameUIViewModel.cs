@@ -7,7 +7,7 @@ namespace TankGame.UI
     public class GameUIViewModel : MonoBehaviour
     {
         private const string TimerFormat = "{0:D2}:{1:D2}.{2:D3}";
-        private const string LivesFormat = "{0:D2}";
+        private const string LivesFormat = "{0}";
         private Label _levelName;
         private Label _speedRunTimer;
         private Label _remainingLives;
@@ -24,14 +24,14 @@ namespace TankGame.UI
         private void Awake()
         {
             DocumentRoot = GetComponent<UIDocument>();
+            _levelName = DocumentRoot.rootVisualElement.Q<Label>("LevelName");
+            _speedRunTimer = DocumentRoot.rootVisualElement.Q<Label>("SpeedRunTimer");
+            _remainingLives = DocumentRoot.rootVisualElement.Q<Label>("RemainingLives");
         }
 
         private void Start()
         {
             GameManager = GameManager.Instance;
-            _levelName = DocumentRoot.rootVisualElement.Q<Label>("LevelName");
-            _speedRunTimer = DocumentRoot.rootVisualElement.Q<Label>("SpeedRunTimer");
-            _remainingLives = DocumentRoot.rootVisualElement.Q<Label>("RemainingLives");
             ShowRemainingLives();
         }
 

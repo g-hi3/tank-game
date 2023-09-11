@@ -54,6 +54,7 @@ namespace TankGame.Core
                     if (LevelSceneNames[i] == _currentLevelSceneName)
                     {
                         if (i < LevelSceneNames.Length - 1)
+                            // TODO: Wait a couple of seconds here to let the confetti play before loading the next scene.
                             LoadLevel(LevelSceneNames[i + 1]);
                         else
                         {
@@ -67,10 +68,6 @@ namespace TankGame.Core
         private void Awake()
         {
             Instance ??= this;
-        }
-
-        private void Start()
-        {
             RemainingLives = Settings.InitialLivesCount;
 
             LoadLevel(LevelSceneNames[0]);

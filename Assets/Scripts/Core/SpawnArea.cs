@@ -16,19 +16,17 @@ namespace TankGame.Core
             var playerSpawner = FindObjectOfType<PlayerSpawner>();
 
             foreach (var childTransform in ChildTransforms)
-            {
                 playerSpawner.RegisterSpawnPoint(childTransform);
-            }
         }
 
         private void OnDestroy()
         {
             var playerSpawner = FindObjectOfType<PlayerSpawner>();
+            if (playerSpawner == null)
+                return;
 
             foreach (var childTransform in ChildTransforms)
-            {
                 playerSpawner.UnregisterSpawnPoint(childTransform);
-            }
         }
     }
 }
