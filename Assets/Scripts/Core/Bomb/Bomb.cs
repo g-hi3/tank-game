@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TankGame.Core
+namespace TankGame.Core.Bomb
 {
     public class Bomb : MonoBehaviour, IDetonationTarget, IBulletTarget
     {
@@ -58,12 +58,18 @@ namespace TankGame.Core
                 detonationTarget.OnDetonationHit();
         }
 
-        public static Bomb FromBlueprint(BombBlueprint blueprint)
+        public static Bomb FromBlueprint(BombBlueprint blueprint, GameObject bombObject)
         {
-            var bomb = Instantiate(blueprint.Prefab)
-                .AddComponent<Bomb>()!;
+            var bomb = GetOrAddBomb(bombObject);
             bomb._explosionScale = blueprint.ExplosionScale;
             return bomb;
+        }
+
+        private static Bomb GetOrAddBomb(GameObject gameObject)
+        {
+            return gameObject.TryGetComponent<Bomb>(out var component)
+                ? component
+                : gameObject.AddComponent<Bomb>();
         }
     }
 }

@@ -1,24 +1,26 @@
 using System.Collections;
+using TankGame.Core.Bullet;
 using UnityEngine;
 
 namespace TankGame.Core
 {
     public class EnemyTank : MonoBehaviour
     {
-        [SerializeField] private ObjectSpawner bulletSpawner;
         [SerializeField] private float heatUpTime;
         [SerializeField] private float coolDownTime;
         private Coroutine _shootingCoroutine;
 
         [field: SerializeField] public TargetingRotator Rotator { get; private set; }
         [field: SerializeField] public Mover Mover { get; private set; }
-        [field: SerializeField] public BulletFactory BulletFactory { get; private set; }
+        [field: SerializeField] public BulletSpawner BulletSpawner { get; private set; }
 
         private IEnumerator Shoot()
         {
             yield return new WaitForSeconds(heatUpTime);
-            _ = BulletFactory.Make();
-            yield return new WaitForSeconds(coolDownTime);
+
+            if (BulletSpawner.TrySpawn())
+                yield return new WaitForSeconds(coolDownTime);
+
             _shootingCoroutine = null;
         }
 
@@ -26,7 +28,6 @@ namespace TankGame.Core
         {
             Rotator = GetComponentInChildren<TargetingRotator>();
             Mover = GetComponent<Mover>();
-            BulletFactory = GetComponentInChildren<BulletFactory>();
         }
 
         private void Update()

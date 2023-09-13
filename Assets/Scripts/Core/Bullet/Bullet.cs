@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
-namespace TankGame.Core
+namespace TankGame.Core.Bullet
 {
     public class Bullet : MonoBehaviour, IDetonationTarget, IBulletTarget
     {
+        private const float BulletBaseOrientationDegrees = 90f;
         private uint _remainingRicochetCount;
         private Vector2 _velocity;
 
@@ -26,7 +27,7 @@ namespace TankGame.Core
 
         private void RotateUsingVelocity()
         {
-            var rotationZ = 90f - Mathf.Atan2(_velocity.x, _velocity.y) * Mathf.Rad2Deg;
+            var rotationZ = BulletBaseOrientationDegrees - Mathf.Atan2(_velocity.x, _velocity.y) * Mathf.Rad2Deg;
             transform.eulerAngles = new Vector3(0f, 0f, rotationZ);
         }
 
@@ -53,9 +54,8 @@ namespace TankGame.Core
                 Hit(bulletTarget);
         }
 
-        public static Bullet FromBlueprint(BulletBlueprint blueprint, Vector2 bulletRotation, Transform spawn)
+        public static Bullet FromBlueprint(BulletBlueprint blueprint, Vector2 bulletRotation, GameObject gameObject)
         {
-            var gameObject = Instantiate(blueprint.Prefab, spawn.position, spawn.rotation);
             var bullet = GetOrAddBullet(gameObject);
             bullet._remainingRicochetCount = blueprint.RicochetCount;
             bullet._velocity = bulletRotation.normalized * blueprint.Speed;

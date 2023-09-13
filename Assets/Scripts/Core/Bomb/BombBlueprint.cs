@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TankGame.Core
+namespace TankGame.Core.Bomb
 {
     [CreateAssetMenu(menuName = "TankGame/Bomb Blueprint")]
     public class BombBlueprint : ScriptableObject

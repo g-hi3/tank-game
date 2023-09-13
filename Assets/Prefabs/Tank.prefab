@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5592993949074240673}
   - component: {fileID: 2417190674328339659}
-  - component: {fileID: 3033687756125585298}
   m_Layer: 8
   m_Name: Bomb Spawn
   m_TagString: Untagged
@@ -59,24 +58,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 0.4}
   m_EdgeRadius: 0
---- !u!114 &3033687756125585298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1648265652774181351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3efc5a0cf901479c930580dc30abc3a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectTemplate: {fileID: 5449629986549499428, guid: bed9f5bdb2b1d724288d332a368c4087,
-    type: 3}
-  obstructionLayers:
-    serializedVersion: 2
-    m_Bits: 8192
-  capacity: 4
 --- !u!1 &2876591361477649399
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +69,6 @@ GameObject:
   - component: {fileID: 2876591361477649398}
   - component: {fileID: 2876591361477649289}
   - component: {fileID: 7235304754050443108}
-  - component: {fileID: 9099507725156548153}
   m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
@@ -191,21 +171,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.25}
   m_EdgeRadius: 0
---- !u!114 &9099507725156548153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2876591361477649399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09bb94fb1abb482f9691551301556efa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Blueprint>k__BackingField: {fileID: 11400000, guid: 56223ca616d121145bc07de915f273e1,
-    type: 2}
-  <Spawn>k__BackingField: {fileID: 2876591362073730994}
 --- !u!1 &2876591361655441340
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +188,10 @@ GameObject:
   - component: {fileID: 1773513392683645099}
   - component: {fileID: 6518723355181177666}
   - component: {fileID: -5432930636709533591}
+  - component: {fileID: 4587447257262342210}
+  - component: {fileID: 7449809444206471373}
+  - component: {fileID: 2103787667281278184}
+  - component: {fileID: 945735757874693637}
   m_Layer: 8
   m_Name: Tank
   m_TagString: Player
@@ -273,9 +242,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   head: {fileID: 2876591361477649398}
   moveSpeed: 2
-  bulletSpawner: {fileID: 5830506474601925989}
-  <BulletFactory>k__BackingField: {fileID: 9099507725156548153}
-  bombSpawner: {fileID: 3033687756125585298}
+  <BulletSpawner>k__BackingField: {fileID: 4587447257262342210}
+  <BombSpawner>k__BackingField: {fileID: 945735757874693637}
 --- !u!50 &2876591361655441328
 Rigidbody2D:
   serializedVersion: 4
@@ -448,6 +416,70 @@ MonoBehaviour:
   <Eliminated>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4587447257262342210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876591361655441340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 353ff353097d466d810627dca42948a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Factory>k__BackingField: {fileID: 7449809444206471373}
+  <SpawnArea>k__BackingField: {fileID: 7616348800736895224}
+  <ObstructionLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 65280
+  <Capacity>k__BackingField: 4
+--- !u!114 &7449809444206471373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876591361655441340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 672c11e4359a45cb9a5d785eaea29e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Blueprint>k__BackingField: {fileID: 11400000, guid: 56223ca616d121145bc07de915f273e1,
+    type: 2}
+  <Prefab>k__BackingField: {fileID: 5304965398125196526, guid: 7a4fa8c33a4bc9048b77b66dc0b9a2ab,
+    type: 3}
+--- !u!114 &2103787667281278184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876591361655441340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a624f78fc84ccb823de3bbb8b516e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Blueprint>k__BackingField: {fileID: 11400000, guid: cc5d63eccc66e8247b19f4534081e81b,
+    type: 2}
+  <Prefab>k__BackingField: {fileID: 5449629986549499428, guid: bed9f5bdb2b1d724288d332a368c4087,
+    type: 3}
+--- !u!114 &945735757874693637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876591361655441340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5101270006d44ce82aba2d000c89905, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Factory>k__BackingField: {fileID: 2103787667281278184}
+  <Capacity>k__BackingField: 4
 --- !u!1 &2876591362073730995
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +490,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2876591362073730994}
   - component: {fileID: 7616348800736895224}
-  - component: {fileID: 5830506474601925989}
   m_Layer: 0
   m_Name: Bullet Spawn
   m_TagString: Untagged
@@ -507,21 +538,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.3}
   m_EdgeRadius: 0
---- !u!114 &5830506474601925989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2876591362073730995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3efc5a0cf901479c930580dc30abc3a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectTemplate: {fileID: 5304965398125196526, guid: 7a4fa8c33a4bc9048b77b66dc0b9a2ab,
-    type: 3}
-  obstructionLayers:
-    serializedVersion: 2
-    m_Bits: 16384
-  capacity: 4

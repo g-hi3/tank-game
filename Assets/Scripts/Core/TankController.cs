@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using TankGame.Core.Bomb;
+using TankGame.Core.Bullet;
+using UnityEngine;
 
 namespace TankGame.Core
 {
@@ -8,9 +10,6 @@ namespace TankGame.Core
         private static readonly int MoveSpeedAnimatorProperty = Animator.StringToHash("Move Speed");
         [SerializeField] private Transform head;
         [SerializeField] private float moveSpeed;
-        [SerializeField] private ObjectSpawner bulletSpawner;
-        [field: SerializeField] public BulletFactory BulletFactory { get; private set; }
-        [SerializeField] private ObjectSpawner bombSpawner;
         private Transform _transform;
         private Rigidbody2D _rigidbody;
         private Animator _animator;
@@ -18,6 +17,9 @@ namespace TankGame.Core
         private Vector3 _moveDirection;
         private Quaternion _moveRotation;
         private Quaternion _lookRotation;
+        
+        [field: SerializeField] public BulletSpawner BulletSpawner { get; private set; }
+        [field: SerializeField] public BombSpawner BombSpawner { get; private set; }
 
         private void OnExplosionEnded()
         {
@@ -61,13 +63,12 @@ namespace TankGame.Core
 
         public void Shoot()
         {
-            //bulletSpawner.Spawn();
-            _ = BulletFactory.Make();
+            BulletSpawner.TrySpawn();
         }
 
         public void Bomb()
         {
-            _ = bombSpawner.TrySpawn(out _);
+            _ = BombSpawner.TrySpawn();
         }
 
         private void Awake()
