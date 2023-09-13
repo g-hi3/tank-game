@@ -12,11 +12,12 @@ namespace TankGame.Core
 
         [field: SerializeField] public TargetingRotator Rotator { get; private set; }
         [field: SerializeField] public Mover Mover { get; private set; }
+        [field: SerializeField] public BulletFactory BulletFactory { get; private set; }
 
         private IEnumerator Shoot()
         {
             yield return new WaitForSeconds(heatUpTime);
-            bulletSpawner.Spawn();
+            _ = BulletFactory.Make();
             yield return new WaitForSeconds(coolDownTime);
             _shootingCoroutine = null;
         }
@@ -25,6 +26,7 @@ namespace TankGame.Core
         {
             Rotator = GetComponentInChildren<TargetingRotator>();
             Mover = GetComponent<Mover>();
+            BulletFactory = GetComponentInChildren<BulletFactory>();
         }
 
         private void Update()

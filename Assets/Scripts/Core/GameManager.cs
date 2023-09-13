@@ -23,11 +23,13 @@ namespace TankGame.Core
 
         public void PauseGame()
         {
+            FindObjectOfType<LevelTimer>()?.Pause();
             GamePaused?.Invoke();
         }
 
         public void ResumeGame()
         {
+            FindObjectOfType<LevelTimer>()?.Resume();
             GameResumed?.Invoke();
         }
 
@@ -40,7 +42,19 @@ namespace TankGame.Core
         {
             if (tank.CompareTag("Player"))
             {
-                PlayerTankEliminated?.Invoke(new PlayerTankEliminatedEventArgs(RemainingLives));
+                RemainingLives--;
+                if (RemainingLives > 0)
+                {
+                    PlayerTankEliminated?.Invoke(new PlayerTankEliminatedEventArgs(RemainingLives));
+                    ResetTimerStep();
+                    ResetLevel();
+                }
+                else
+                {
+                    // TODO: Show final times and save them.
+                    CreateTimerStep();
+                    SceneManager.LoadScene("Main Menu");
+                }
             }
             else if (RemainingEnemyTanks.All(
                          enemyTank => enemyTank == null
@@ -54,15 +68,33 @@ namespace TankGame.Core
                     if (LevelSceneNames[i] == _currentLevelSceneName)
                     {
                         if (i < LevelSceneNames.Length - 1)
-                            // TODO: Wait a couple of seconds here to let the confetti play before loading the next scene.
+                        {
+                            CreateTimerStep();
+                            // TODO: Wait a couple of seconds here to let the confetti play before loading the next scen.
                             LoadLevel(LevelSceneNames[i + 1]);
+                        }
                         else
                         {
                             // TODO: This is the end of the game, show times.
+                            CreateTimerStep();
                         }
                     }
                 }
             }
+        }
+
+        private static void ResetTimerStep()
+        {
+            var levelTimer = FindObjectOfType<LevelTimer>()!;
+            levelTimer.Pause();
+            levelTimer.ResetStep();
+        }
+
+        private static void CreateTimerStep()
+        {
+            var levelTimer = FindObjectOfType<LevelTimer>()!;
+            levelTimer.Pause();
+            levelTimer.CreateStep();
         }
 
         private void Awake()
@@ -73,6 +105,11 @@ namespace TankGame.Core
             LoadLevel(LevelSceneNames[0]);
         }
 
+        private void Start()
+        {
+            FindObjectOfType<LevelTimer>()?.Resume();
+        }
+
         private void LoadLevel(string levelSceneName)
         {
             var currentLevelScene = SceneManager.GetSceneByName(_currentLevelSceneName);
@@ -80,10 +117,29 @@ namespace TankGame.Core
                 _ = SceneManager.UnloadSceneAsync(currentLevelScene);
 
             _currentLevelSceneName = levelSceneName;
+            LoadCurrentLevel();
+        }
+
+        private void LoadCurrentLevel()
+        {
             var loadSceneTask = SceneManager.LoadSceneAsync(_currentLevelSceneName, LoadSceneMode.Additive);
 
             loadSceneTask.completed += _ => FindEnemyTanks();
-            loadSceneTask.completed += _ => LevelLoaded?.Invoke(new LevelLoadedEventArgs(levelSceneName));
+            loadSceneTask.completed += _ => LevelLoaded?.Invoke(new LevelLoadedEventArgs(_currentLevelSceneName));
+        }
+
+        private void ResetLevel()
+        {
+            var currentLevelScene = SceneManager.GetSceneByName(_currentLevelSceneName);
+            if (currentLevelScene.isLoaded)
+            {
+                var asyncOperation = SceneManager.UnloadSceneAsync(currentLevelScene);
+                asyncOperation.completed += _ => LoadCurrentLevel();
+            }
+            else
+            {
+                LoadCurrentLevel();
+            }
         }
 
         private void FindEnemyTanks()

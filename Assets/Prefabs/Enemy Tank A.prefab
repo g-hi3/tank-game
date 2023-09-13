@@ -181,6 +181,7 @@ MonoBehaviour:
   coolDownTime: 2
   <Rotator>k__BackingField: {fileID: 0}
   <Mover>k__BackingField: {fileID: 0}
+  <BulletFactory>k__BackingField: {fileID: 0}
 --- !u!114 &-6597551347742611397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +288,7 @@ GameObject:
   - component: {fileID: 6505611816421144846}
   - component: {fileID: 4367671586911362324}
   - component: {fileID: 2730645785734624201}
+  - component: {fileID: 6742910683319650984}
   m_Layer: 12
   m_Name: Head
   m_TagString: Untagged
@@ -442,6 +444,22 @@ MonoBehaviour:
   <RotationRange>k__BackingField: 180
   <RotationSpeed>k__BackingField: 1
   <UseSourceRotationAsCenter>k__BackingField: 1
+--- !u!114 &6742910683319650984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4790845388610250178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09bb94fb1abb482f9691551301556efa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Blueprint>k__BackingField: {fileID: 11400000, guid: 56223ca616d121145bc07de915f273e1,
+    type: 2}
+  <Spawner>k__BackingField: {fileID: 4790845388695787113}
+  <Spawn>k__BackingField: {fileID: 4790845388695787118}
 --- !u!1 &4790845388695787119
 GameObject:
   m_ObjectHideFlags: 0

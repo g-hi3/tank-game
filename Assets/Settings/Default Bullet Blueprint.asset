@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48258be1311e496f95650f14399f9b66, type: 3}
   m_Name: Default Bullet Blueprint
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 1
+  <Speed>k__BackingField: 3
   <RicochetCount>k__BackingField: 3
   <Prefab>k__BackingField: {fileID: 5304965398125196526, guid: 7a4fa8c33a4bc9048b77b66dc0b9a2ab,
     type: 3}

@@ -12,18 +12,30 @@ namespace TankGame.Core
         private Collider2D _spawnArea;
         private readonly IList<GameObject> _activeObjects = new List<GameObject>();
 
-        public void Spawn()
+        public bool TrySpawn(out GameObject spawned)
         {
-            if (IsCapacityReached()
-                || IsSpawnAreaObstructed())
+            return TrySpawn(objectTemplate, out spawned);
+        }
+
+        public bool TrySpawn(GameObject template, out GameObject spawned)
+        {
+            if (IsCapacityReached() || IsSpawnAreaObstructed())
             {
-                return;
+                spawned = default;
+                return false;
             }
     
-            var spawnedObject = Instantiate(objectTemplate, _transform.position, _transform.rotation);
-            _activeObjects.Add(spawnedObject);
+            spawned = Spawn(template);
+            return true;
         }
-  
+
+        private GameObject Spawn(GameObject template)
+        {
+            var spawned = Instantiate(template, _transform.position, _transform.rotation);
+            _activeObjects.Add(spawned);
+            return spawned;
+        }
+
         private bool IsCapacityReached()
         {
             return _activeObjects.Count == capacity;

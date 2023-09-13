@@ -32,6 +32,7 @@ namespace TankGame.UI
         private void Start()
         {
             GameManager = GameManager.Instance;
+            GameManager.PlayerTankEliminated.AddListener(_ => ShowRemainingLives());
             ShowRemainingLives();
         }
 

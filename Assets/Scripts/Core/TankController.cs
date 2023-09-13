@@ -9,6 +9,7 @@ namespace TankGame.Core
         [SerializeField] private Transform head;
         [SerializeField] private float moveSpeed;
         [SerializeField] private ObjectSpawner bulletSpawner;
+        [field: SerializeField] public BulletFactory BulletFactory { get; private set; }
         [SerializeField] private ObjectSpawner bombSpawner;
         private Transform _transform;
         private Rigidbody2D _rigidbody;
@@ -60,12 +61,13 @@ namespace TankGame.Core
 
         public void Shoot()
         {
-            bulletSpawner.Spawn();
+            //bulletSpawner.Spawn();
+            _ = BulletFactory.Make();
         }
 
         public void Bomb()
         {
-            bombSpawner.Spawn();
+            _ = bombSpawner.TrySpawn(out _);
         }
 
         private void Awake()
@@ -89,9 +91,7 @@ namespace TankGame.Core
         private void FixedUpdate()
         {
             if (_isMoving)
-            {
                 _rigidbody.velocity = _moveDirection;
-            }
         }
     }
 }

@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 2876591361477649398}
   - component: {fileID: 2876591361477649289}
   - component: {fileID: 7235304754050443108}
+  - component: {fileID: 9099507725156548153}
   m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
@@ -190,6 +191,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.25}
   m_EdgeRadius: 0
+--- !u!114 &9099507725156548153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876591361477649399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09bb94fb1abb482f9691551301556efa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Blueprint>k__BackingField: {fileID: 11400000, guid: 56223ca616d121145bc07de915f273e1,
+    type: 2}
+  <Spawn>k__BackingField: {fileID: 2876591362073730994}
 --- !u!1 &2876591361655441340
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c835c4c923c4c4c94ec0aaad933b072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Tank>k__BackingField: {fileID: 0}
 --- !u!114 &2876591361655441342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,6 +274,7 @@ MonoBehaviour:
   head: {fileID: 2876591361477649398}
   moveSpeed: 2
   bulletSpawner: {fileID: 5830506474601925989}
+  <BulletFactory>k__BackingField: {fileID: 9099507725156548153}
   bombSpawner: {fileID: 3033687756125585298}
 --- !u!50 &2876591361655441328
 Rigidbody2D:
@@ -427,6 +445,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a53e67a8fd2a4300b03facc11c553fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Eliminated>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2876591362073730995
 GameObject:
   m_ObjectHideFlags: 0
