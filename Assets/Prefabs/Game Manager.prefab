@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4928,7 +4928,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -9740,6 +9740,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   <GameResumed>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <LevelLoaded>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
   <LevelSceneNames>k__BackingField:

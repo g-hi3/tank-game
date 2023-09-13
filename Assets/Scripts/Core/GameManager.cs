@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -65,22 +67,28 @@ namespace TankGame.Core
 
                 for (var i = 0; i < LevelSceneNames.Length; i++)
                 {
-                    if (LevelSceneNames[i] == _currentLevelSceneName)
+                    if (LevelSceneNames[i] != _currentLevelSceneName)
+                        continue;
+
+                    if (i < LevelSceneNames.Length - 1)
                     {
-                        if (i < LevelSceneNames.Length - 1)
-                        {
-                            CreateTimerStep();
-                            // TODO: Wait a couple of seconds here to let the confetti play before loading the next scen.
-                            LoadLevel(LevelSceneNames[i + 1]);
-                        }
-                        else
-                        {
-                            // TODO: This is the end of the game, show times.
-                            CreateTimerStep();
-                        }
+                        CreateTimerStep();
+                        var levelSceneName = LevelSceneNames[i + 1];
+                        StartCoroutine(WaitThenDo(() => LoadLevel(levelSceneName)));
+                    }
+                    else
+                    {
+                        // TODO: This is the end of the game, show times.
+                        CreateTimerStep();
                     }
                 }
             }
+        }
+
+        private static IEnumerator<WaitForSeconds> WaitThenDo(Action action)
+        {
+            yield return new WaitForSeconds(5f);
+            action.Invoke();
         }
 
         private static void ResetTimerStep()
@@ -112,6 +120,7 @@ namespace TankGame.Core
 
         private void LoadLevel(string levelSceneName)
         {
+            // TODO: Make sure to place all active player objects at the designated spawn area of the loaded level.
             var currentLevelScene = SceneManager.GetSceneByName(_currentLevelSceneName);
             if (currentLevelScene.isLoaded)
                 _ = SceneManager.UnloadSceneAsync(currentLevelScene);
