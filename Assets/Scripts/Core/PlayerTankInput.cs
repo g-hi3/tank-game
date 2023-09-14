@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace TankGame.Core
@@ -12,11 +13,15 @@ namespace TankGame.Core
         private const string ActionNameBomb = "Bomb";
         private const string ActionNameTogglePause = "Toggle Pause";
         private PlayerInput _playerInput;
+        private bool _paused;
 
         [field: SerializeField] public TankController Tank { get; private set; }
 
         private void RaiseTankMovingStarted()
         {
+            if (_paused)
+                return;
+
             Tank.StartMoving();
         }
 
@@ -49,8 +54,11 @@ namespace TankGame.Core
             Tank.Shoot();
         }
 
-        private void RaiseTankBombed() 
+        private void RaiseTankBombed()
         {
+            if (_paused)
+                return;
+
             Tank.Bomb();
         }
 
@@ -90,6 +98,9 @@ namespace TankGame.Core
 
         private void DelegatePerformedAction(InputAction.CallbackContext context)
         {
+            if (_paused)
+                return;
+
             switch (context.action.name)
             {
                 case ActionNameMove:
@@ -109,6 +120,9 @@ namespace TankGame.Core
 
         private void DelegateCanceledAction(InputAction.CallbackContext context)
         {
+            if (_paused)
+                return;
+
             if (context.action.name == ActionNameMove)
                 RaiseTankMovingCanceled();
         }
@@ -122,6 +136,18 @@ namespace TankGame.Core
         {
             _playerInput = GetComponent<PlayerInput>();
             _playerInput.onActionTriggered += DelegateTriggeredAction;
+        }
+
+        [UsedImplicitly]
+        private void OnPause()
+        {
+            _paused = true;
+        }
+
+        [UsedImplicitly]
+        private void OnResume()
+        {
+            _paused = false;
         }
 
         private void OnDestroy()

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 namespace TankGame.Core.Bomb
 {
@@ -11,6 +12,7 @@ namespace TankGame.Core.Bomb
         private Animator _animator;
         private float _remainingLifetimeSeconds;
         private bool _explosionActive;
+        private bool _paused;
 
         public void OnDetonationHit() => Detonate();
 
@@ -41,15 +43,27 @@ namespace TankGame.Core.Bomb
 
         private void Update()
         {
-            if (_explosionActive)
-            {
+            if (_paused || _explosionActive)
                 return;
-            }
+
             _remainingLifetimeSeconds -= Time.deltaTime;
+
             if (_remainingLifetimeSeconds <= 0f)
-            {
                 Detonate();
-            }
+        }
+
+        [UsedImplicitly]
+        private void OnPause()
+        {
+            _paused = true;
+            _animator.speed = 0f;
+        }
+
+        [UsedImplicitly]
+        private void OnResume()
+        {
+            _paused = false;
+            _animator.speed = 1f;
         }
 
         private void OnTriggerEnter2D(Collider2D other)

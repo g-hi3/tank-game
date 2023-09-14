@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 namespace TankGame.Core.Bullet
 {
@@ -7,6 +8,7 @@ namespace TankGame.Core.Bullet
         private const float BulletBaseOrientationDegrees = 90f;
         private uint _remainingRicochetCount;
         private Vector2 _velocity;
+        private bool _paused;
 
         public void OnDetonationHit() => Destroy(gameObject);
 
@@ -33,10 +35,25 @@ namespace TankGame.Core.Bullet
 
         private void Update()
         {
+            if (_paused)
+                return;
+            
             if (_remainingRicochetCount < 1)
                 Destroy(gameObject);
             
             transform.position += (Vector3)_velocity * Time.deltaTime;
+        }
+
+        [UsedImplicitly]
+        private void OnPause()
+        {
+            _paused = true;
+        }
+
+        [UsedImplicitly]
+        private void OnResume()
+        {
+            _paused = false;
         }
 
         private void OnCollisionEnter2D(Collision2D other)
