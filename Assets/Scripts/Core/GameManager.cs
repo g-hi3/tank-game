@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace TankGame.Core
@@ -135,6 +136,7 @@ namespace TankGame.Core
 
             loadSceneTask.completed += _ => FindEnemyTanks();
             loadSceneTask.completed += _ => LevelLoaded?.Invoke(new LevelLoadedEventArgs(_currentLevelSceneName));
+            loadSceneTask.completed += _ => MovePlayersToSpawn();
         }
 
         private void ResetLevel()
@@ -162,6 +164,28 @@ namespace TankGame.Core
 
             foreach (var tank in RemainingEnemyTanks)
                 tank.Eliminated.AddListener(OnTankEliminated);
+        }
+
+        private static void MovePlayersToSpawn()
+        {
+            var spawnArea = FindObjectOfType<SpawnArea>();
+            spawnArea.ResetSpawns();
+            var playerTanks = FindObjectsOfType<PlayerInput>();
+
+            foreach (var playerTank in playerTanks)
+            {
+                var playerObject = playerTank.gameObject;
+                var playerTransform = playerTank.transform;
+
+                if (playerObject.layer == LayerMask.NameToLayer("Player 1 Objects"))
+                    playerTransform.position = spawnArea.Player1Spawn.position;
+                else if (playerObject.layer == LayerMask.NameToLayer("Player 2 Objects"))
+                    playerTransform.position = spawnArea.Player2Spawn.position;
+                else if (playerObject.layer == LayerMask.NameToLayer("Player 3 Objects"))
+                    playerTransform.position = spawnArea.Player3Spawn.position;
+                else if (playerObject.layer == LayerMask.NameToLayer("Player 4 Objects"))
+                    playerTransform.position = spawnArea.Player4Spawn.position;
+            }
         }
     }
 }
