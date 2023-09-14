@@ -73,6 +73,15 @@ namespace TankGame.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Toggle Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""8d9fe505-ce3c-4624-8290-bb4cb830638e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -207,6 +216,28 @@ namespace TankGame.Input
                     ""action"": ""Point"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""658f5c9a-2684-43ea-93aa-a28e14cd0ccb"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Toggle Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""124f6d9f-e339-4a6b-a0c2-f34f39fe8b27"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Toggle Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -248,6 +279,7 @@ namespace TankGame.Input
             m_Tank_Shoot = m_Tank.FindAction("Shoot", throwIfNotFound: true);
             m_Tank_Bomb = m_Tank.FindAction("Bomb", throwIfNotFound: true);
             m_Tank_Point = m_Tank.FindAction("Point", throwIfNotFound: true);
+            m_Tank_TogglePause = m_Tank.FindAction("Toggle Pause", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -312,6 +344,7 @@ namespace TankGame.Input
         private readonly InputAction m_Tank_Shoot;
         private readonly InputAction m_Tank_Bomb;
         private readonly InputAction m_Tank_Point;
+        private readonly InputAction m_Tank_TogglePause;
         public struct TankActions
         {
             private @TankControl m_Wrapper;
@@ -321,6 +354,7 @@ namespace TankGame.Input
             public InputAction @Shoot => m_Wrapper.m_Tank_Shoot;
             public InputAction @Bomb => m_Wrapper.m_Tank_Bomb;
             public InputAction @Point => m_Wrapper.m_Tank_Point;
+            public InputAction @TogglePause => m_Wrapper.m_Tank_TogglePause;
             public InputActionMap Get() { return m_Wrapper.m_Tank; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -345,6 +379,9 @@ namespace TankGame.Input
                     @Point.started -= m_Wrapper.m_TankActionsCallbackInterface.OnPoint;
                     @Point.performed -= m_Wrapper.m_TankActionsCallbackInterface.OnPoint;
                     @Point.canceled -= m_Wrapper.m_TankActionsCallbackInterface.OnPoint;
+                    @TogglePause.started -= m_Wrapper.m_TankActionsCallbackInterface.OnTogglePause;
+                    @TogglePause.performed -= m_Wrapper.m_TankActionsCallbackInterface.OnTogglePause;
+                    @TogglePause.canceled -= m_Wrapper.m_TankActionsCallbackInterface.OnTogglePause;
                 }
                 m_Wrapper.m_TankActionsCallbackInterface = instance;
                 if (instance != null)
@@ -364,6 +401,9 @@ namespace TankGame.Input
                     @Point.started += instance.OnPoint;
                     @Point.performed += instance.OnPoint;
                     @Point.canceled += instance.OnPoint;
+                    @TogglePause.started += instance.OnTogglePause;
+                    @TogglePause.performed += instance.OnTogglePause;
+                    @TogglePause.canceled += instance.OnTogglePause;
                 }
             }
         }
@@ -393,6 +433,7 @@ namespace TankGame.Input
             void OnShoot(InputAction.CallbackContext context);
             void OnBomb(InputAction.CallbackContext context);
             void OnPoint(InputAction.CallbackContext context);
+            void OnTogglePause(InputAction.CallbackContext context);
         }
     }
 }

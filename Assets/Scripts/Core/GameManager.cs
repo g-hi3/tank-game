@@ -23,16 +23,17 @@ namespace TankGame.Core
         [field: SerializeField] public UnityEvent GameResumed { get; private set; }
         [field: SerializeField] public UnityEvent<LevelLoadedEventArgs> LevelLoaded { get; private set; }
         [field: SerializeField] public string[] LevelSceneNames { get; private set; }
+        [field: SerializeField] public bool Paused { get; private set; }
 
         public void PauseGame()
         {
-            FindObjectOfType<LevelTimer>()?.Pause();
+            Paused = true;
             GamePaused?.Invoke();
         }
 
         public void ResumeGame()
         {
-            FindObjectOfType<LevelTimer>()?.Resume();
+            Paused = false;
             GameResumed?.Invoke();
         }
 
@@ -95,14 +96,14 @@ namespace TankGame.Core
         private static void ResetTimerStep()
         {
             var levelTimer = FindObjectOfType<LevelTimer>()!;
-            levelTimer.Pause();
+            levelTimer.OnPause();
             levelTimer.ResetStep();
         }
 
         private static void CreateTimerStep()
         {
             var levelTimer = FindObjectOfType<LevelTimer>()!;
-            levelTimer.Pause();
+            levelTimer.OnPause();
             levelTimer.CreateStep();
         }
 
@@ -116,7 +117,7 @@ namespace TankGame.Core
 
         private void Start()
         {
-            FindObjectOfType<LevelTimer>()?.Resume();
+            FindObjectOfType<LevelTimer>()?.OnResume();
         }
 
         private void LoadLevel(string levelSceneName)

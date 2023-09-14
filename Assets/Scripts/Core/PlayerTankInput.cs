@@ -10,6 +10,7 @@ namespace TankGame.Core
         private const string ActionNamePoint = "Point";
         private const string ActionNameShoot = "Shoot";
         private const string ActionNameBomb = "Bomb";
+        private const string ActionNameTogglePause = "Toggle Pause";
         private PlayerInput _playerInput;
 
         [field: SerializeField] public TankController Tank { get; private set; }
@@ -53,6 +54,14 @@ namespace TankGame.Core
             Tank.Bomb();
         }
 
+        private static void RaisePauseToggled()
+        {
+            if (GameManager.Instance.Paused)
+                GameManager.Instance.ResumeGame();
+            else
+                GameManager.Instance.PauseGame();
+        }
+
         private void DelegateTriggeredAction(InputAction.CallbackContext context)
         {
             if (context.started)
@@ -72,6 +81,9 @@ namespace TankGame.Core
                     break;
                 case ActionNameBomb:
                     RaiseTankBombed();
+                    break;
+                case ActionNameTogglePause:
+                    RaisePauseToggled();
                     break;
             }
         }

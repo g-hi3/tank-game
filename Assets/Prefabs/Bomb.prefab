@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetimeSeconds: 3
-  _explosionScale: {x: 2.5, y: 2.5, z: 0}
+  _explosionScale: {x: 2.5, y: 2.5}
 --- !u!50 &1790282631660540637
 Rigidbody2D:
   serializedVersion: 4

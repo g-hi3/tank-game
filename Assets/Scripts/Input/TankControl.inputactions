@@ -1,5 +1,5 @@
 {
-    "name": "Tank Controls",
+    "name": "TankControl",
     "maps": [
         {
             "name": "Tank",
@@ -11,7 +11,8 @@
                     "id": "0223c6a5-2328-4fc1-9fd0-7494872e0d3b",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Look",
@@ -19,7 +20,8 @@
                     "id": "04456c84-ebc6-4cff-bfe8-97bade7dc3d6",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Shoot",
@@ -27,7 +29,8 @@
                     "id": "e370c642-26f2-43d5-8b80-adc50857746e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Bomb",
@@ -35,7 +38,8 @@
                     "id": "6e3fe442-7e41-4052-a466-d9c5645ca372",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Point",
@@ -43,7 +47,17 @@
                     "id": "15b81f51-35a6-414d-ac55-83f57ba5aa43",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Toggle Pause",
+                    "type": "Button",
+                    "id": "8d9fe505-ce3c-4624-8290-bb4cb830638e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -176,6 +190,28 @@
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "Point",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "658f5c9a-2684-43ea-93aa-a28e14cd0ccb",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Toggle Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "124f6d9f-e339-4a6b-a0c2-f34f39fe8b27",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Toggle Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

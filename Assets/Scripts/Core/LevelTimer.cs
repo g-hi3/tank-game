@@ -13,12 +13,12 @@ namespace TankGame.Core
         public int Seconds => _totalMilliseconds / 1000 % 60;
         public int Minutes => _totalMilliseconds / 60_000;
 
-        public void Pause()
+        public void OnPause()
         {
             _paused = true;
         }
 
-        public void Resume()
+        public void OnResume()
         {
             _paused = false;
         }
@@ -48,7 +48,7 @@ namespace TankGame.Core
         private void Update()
         {
             if (!_paused)
-                _totalMilliseconds = (int)(Time.time * 1000f);
+                _totalMilliseconds += (int)(Time.deltaTime * 1000f);
         }
     }
 }
