@@ -28,12 +28,14 @@ namespace TankGame.Core
         public void PauseGame()
         {
             Paused = true;
+            FindObjectOfType<LevelTimer>()?.Pause();
             GamePaused?.Invoke();
         }
 
         public void ResumeGame()
         {
             Paused = false;
+            FindObjectOfType<LevelTimer>()?.Resume();
             GameResumed?.Invoke();
         }
 
@@ -96,14 +98,14 @@ namespace TankGame.Core
         private static void ResetTimerStep()
         {
             var levelTimer = FindObjectOfType<LevelTimer>()!;
-            levelTimer.OnPause();
+            levelTimer.Pause();
             levelTimer.ResetStep();
         }
 
         private static void CreateTimerStep()
         {
             var levelTimer = FindObjectOfType<LevelTimer>()!;
-            levelTimer.OnPause();
+            levelTimer.Pause();
             levelTimer.CreateStep();
         }
 
@@ -117,7 +119,7 @@ namespace TankGame.Core
 
         private void Start()
         {
-            FindObjectOfType<LevelTimer>()?.OnResume();
+            FindObjectOfType<LevelTimer>()?.Resume();
         }
 
         private void LoadLevel(string levelSceneName)

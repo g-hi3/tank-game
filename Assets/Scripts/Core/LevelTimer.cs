@@ -13,12 +13,12 @@ namespace TankGame.Core
         public int Seconds => _totalMilliseconds / 1000 % 60;
         public int Minutes => _totalMilliseconds / 60_000;
 
-        public void OnPause()
+        public void Pause()
         {
             _paused = true;
         }
 
-        public void OnResume()
+        public void Resume()
         {
             _paused = false;
         }
