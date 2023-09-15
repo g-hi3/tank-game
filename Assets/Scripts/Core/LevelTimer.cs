@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace TankGame.Core
@@ -12,6 +14,13 @@ namespace TankGame.Core
         public int Milliseconds => _totalMilliseconds % 1000;
         public int Seconds => _totalMilliseconds / 1000 % 60;
         public int Minutes => _totalMilliseconds / 60_000;
+
+        public TimeSpan[] GetSteps()
+        {
+            return _steps
+                .Select(milliseconds => TimeSpan.FromMilliseconds(milliseconds))
+                .ToArray();
+        }
 
         public void Pause()
         {

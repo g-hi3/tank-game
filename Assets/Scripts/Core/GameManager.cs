@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TankGame.Core.Save;
 using TankGame.Core.Spawn;
 using UnityEngine;
 using UnityEngine.Events;
@@ -80,6 +81,7 @@ namespace TankGame.Core
                     {
                         // TODO: This is the end of the game, show times.
                         CreateTimerStep();
+                        SaveAttempt();
                     }
                 }
             }
@@ -103,6 +105,23 @@ namespace TankGame.Core
             var levelTimer = FindObjectOfType<LevelTimer>()!;
             levelTimer.Pause();
             levelTimer.CreateStep();
+        }
+
+        private void SaveAttempt()
+        {
+            var levelTimer = FindObjectOfType<LevelTimer>();
+            if (levelTimer == null)
+                return;
+
+            var steps = LevelSceneNames
+                .Zip(
+                    levelTimer.GetSteps(),
+                    (level, time) => new LevelTime(level, time));
+            var saveData = GameSaveData.Load();
+            var attempts = saveData.Attempts.ToList();
+            attempts.Add(new Attempt(steps));
+            saveData.Attempts = attempts.ToArray();
+            GameSaveData.Save(saveData);
         }
 
         private void Awake()
