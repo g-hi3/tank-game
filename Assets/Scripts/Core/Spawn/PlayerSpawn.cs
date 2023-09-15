@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TankGame.Core
+namespace TankGame.Core.Spawn
 {
     public class PlayerSpawn : MonoBehaviour
     {

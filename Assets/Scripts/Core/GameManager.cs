@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TankGame.Core.Spawn;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -37,11 +38,6 @@ namespace TankGame.Core
             Paused = false;
             FindObjectOfType<LevelTimer>()?.Resume();
             GameResumed?.Invoke();
-        }
-
-        public void RegisterTank(Tank tank)
-        {
-            tank.Eliminated.AddListener(OnTankEliminated);
         }
 
         private void OnTankEliminated(Tank tank)
@@ -120,6 +116,12 @@ namespace TankGame.Core
         private void Start()
         {
             FindObjectOfType<LevelTimer>()?.Resume();
+        }
+
+        public void OnPlayerSpawned(GameObject playerObject)
+        {
+            var tank = playerObject.GetComponent<Tank>();
+            tank.Eliminated.AddListener(OnTankEliminated);
         }
 
         private void LoadLevel(string levelSceneName)

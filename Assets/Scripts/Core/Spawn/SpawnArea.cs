@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace TankGame.Core
+namespace TankGame.Core.Spawn
 {
     public class SpawnArea : MonoBehaviour
     {
@@ -10,19 +10,6 @@ namespace TankGame.Core
         [field: SerializeField] public Transform Player2Spawn { get; private set; }
         [field: SerializeField] public Transform Player3Spawn { get; private set; }
         [field: SerializeField] public Transform Player4Spawn { get; private set; }
-
-        private IEnumerable<Transform> ChildTransforms =>
-            Enumerable
-                .Range(0, transform.childCount)
-                .Select(childIndex => transform.GetChild(childIndex));
-
-        private void Start()
-        {
-            var playerSpawner = FindObjectOfType<PlayerSpawner>();
-
-            foreach (var childTransform in ChildTransforms)
-                playerSpawner.RegisterSpawnPoint(childTransform);
-        }
 
         public void ResetSpawns()
         {
@@ -35,19 +22,10 @@ namespace TankGame.Core
 
         private static Transform ExtractSpawnPointTransform(IEnumerable<PlayerSpawn> playerSpawns, string layerName)
         {
-            return playerSpawns
+            return (playerSpawns ?? Enumerable.Empty<PlayerSpawn>())
+                .Where(playerSpawn => playerSpawn != null)
                 .Single(playerSpawn => playerSpawn.gameObject.layer == LayerMask.NameToLayer(layerName))
                 .GetComponent<Transform>();
-        }
-
-        private void OnDestroy()
-        {
-            var playerSpawner = FindObjectOfType<PlayerSpawner>();
-            if (playerSpawner == null)
-                return;
-
-            foreach (var childTransform in ChildTransforms)
-                playerSpawner.UnregisterSpawnPoint(childTransform);
         }
     }
 }

@@ -44,8 +44,12 @@ namespace TankGame.Core
 
         private void RaiseTankLookedAt(InputAction.CallbackContext context)
         {
+            var camera = FindObjectOfType<Camera>();
+            if (camera == null)
+                return;
+
             var pointPosition = context.ReadValue<Vector2>();
-            var lookPosition = FindObjectOfType<Camera>().ScreenToWorldPoint(pointPosition);
+            var lookPosition = camera.ScreenToWorldPoint(pointPosition);
             Tank.LookAt(lookPosition);
         }
 

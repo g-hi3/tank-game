@@ -202,6 +202,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c8547abad90aa849afd8b70d5e1afad, type: 3}
+--- !u!114 &577362832 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7364031713259018150, guid: 64b43ddf6ed2b3d4483edff544ed7450,
+    type: 3}
+  m_PrefabInstance: {fileID: 1549201254}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &818215362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -381,6 +393,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364031713259018151, guid: 64b43ddf6ed2b3d4483edff544ed7450,
+        type: 3}
+      propertyPath: <PlayerInputManager>k__BackingField
+      value: 
+      objectReference: {fileID: 577362832}
+    - target: {fileID: 7364031713259018151, guid: 64b43ddf6ed2b3d4483edff544ed7450,
+        type: 3}
+      propertyPath: <PlayerSpawned>k__BackingField.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364031713259018151, guid: 64b43ddf6ed2b3d4483edff544ed7450,
+        type: 3}
+      propertyPath: <PlayerSpawned>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364031713259018151, guid: 64b43ddf6ed2b3d4483edff544ed7450,
+        type: 3}
+      propertyPath: <PlayerSpawned>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7523759346489586246}
+    - target: {fileID: 7364031713259018151, guid: 64b43ddf6ed2b3d4483edff544ed7450,
+        type: 3}
+      propertyPath: <PlayerSpawned>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364031713259018151, guid: 64b43ddf6ed2b3d4483edff544ed7450,
+        type: 3}
+      propertyPath: <PlayerSpawned>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPlayerSpawned
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364031713259018151, guid: 64b43ddf6ed2b3d4483edff544ed7450,
+        type: 3}
+      propertyPath: <PlayerSpawned>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TankGame.Core.GameManager, TankGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364031713259018151, guid: 64b43ddf6ed2b3d4483edff544ed7450,
+        type: 3}
+      propertyPath: <PlayerSpawned>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7364031713259018153, guid: 64b43ddf6ed2b3d4483edff544ed7450,
         type: 3}
