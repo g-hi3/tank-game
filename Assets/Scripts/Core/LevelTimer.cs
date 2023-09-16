@@ -7,10 +7,10 @@ namespace TankGame.Core
 {
     public class LevelTimer : MonoBehaviour
     {
-        private bool _paused;
         private int _totalMilliseconds;
         private readonly Stack<int> _steps = new();
 
+        public bool Paused { get; private set; } = true;
         public int Milliseconds => _totalMilliseconds % 1000;
         public int Seconds => _totalMilliseconds / 1000 % 60;
         public int Minutes => _totalMilliseconds / 60_000;
@@ -24,12 +24,12 @@ namespace TankGame.Core
 
         public void Pause()
         {
-            _paused = true;
+            Paused = true;
         }
 
         public void Resume()
         {
-            _paused = false;
+            Paused = false;
         }
 
         public void ResetTime()
@@ -56,7 +56,7 @@ namespace TankGame.Core
 
         private void Update()
         {
-            if (!_paused)
+            if (!Paused)
                 _totalMilliseconds += (int)(Time.deltaTime * 1000f);
         }
     }

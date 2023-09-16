@@ -137,15 +137,14 @@ namespace TankGame.Core
             LoadLevel(LevelSceneNames[0]);
         }
 
-        private void Start()
-        {
-            FindObjectOfType<LevelTimer>()?.Resume();
-        }
-
         public void OnPlayerSpawned(GameObject playerObject)
         {
             var tank = playerObject.GetComponent<Tank>();
             tank.Eliminated.AddListener(OnTankEliminated);
+
+            var levelTimer = FindObjectOfType<LevelTimer>()!;
+            if (levelTimer.Paused)
+                levelTimer.Resume();
         }
 
         private void LoadLevel(string levelSceneName)
