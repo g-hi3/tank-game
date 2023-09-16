@@ -58,7 +58,6 @@ namespace TankGame.Core.Bullet
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            // TODO: This is called twice, the gameObject of "other" is Tank(Clone) both times!
             if (other.gameObject.TryGetComponent(out IBulletTarget bulletTarget))
                 Hit(bulletTarget);
             else
