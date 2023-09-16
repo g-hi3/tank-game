@@ -47,9 +47,9 @@ namespace TankGame.Core
             if (tank.CompareTag("Player"))
             {
                 RemainingLives--;
+                PlayerTankEliminated?.Invoke(new PlayerTankEliminatedEventArgs(RemainingLives));
                 if (RemainingLives > 0)
                 {
-                    PlayerTankEliminated?.Invoke(new PlayerTankEliminatedEventArgs(RemainingLives));
                     ResetTimerStep();
                     ResetLevel();
                 }
@@ -60,7 +60,7 @@ namespace TankGame.Core
                     GameOver?.Invoke();
                 }
             }
-            // Warning: tank isn't destroyed yet, so one should still be remaining.
+            // Warning: tank is destroyed next frame, so one should still be remaining.
             else if (RemainingEnemyTanks.Count(enemyTank => enemyTank != null) == 1)
             {
                 AllEnemyTanksEliminated?.Invoke();

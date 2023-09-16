@@ -208,7 +208,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1549201254}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1336667715}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
@@ -394,6 +394,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d669a9c128f4d234087c5f2a4be98139, type: 3}
+--- !u!1 &1336667715 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7364031713259018148, guid: 64b43ddf6ed2b3d4483edff544ed7450,
+    type: 3}
+  m_PrefabInstance: {fileID: 1549201254}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &1396045998 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5592943858938558887, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
@@ -585,7 +591,7 @@ PrefabInstance:
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
       propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
@@ -599,9 +605,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
+      propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
       propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1048366680}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1336667715}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
       propertyPath: <LevelLoaded>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -614,6 +630,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
+      propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
       propertyPath: <LevelLoaded>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1048366680}
@@ -621,6 +642,11 @@ PrefabInstance:
         type: 3}
       propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ShowGameOver
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
@@ -646,6 +672,11 @@ PrefabInstance:
         type: 3}
       propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: TankGame.UI.GameUIViewModel, TankGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
@@ -675,6 +706,11 @@ PrefabInstance:
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
       propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
