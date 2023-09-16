@@ -23,6 +23,7 @@ namespace TankGame.Core
         [field: SerializeField] public UnityEvent AllEnemyTanksEliminated { get; private set; }
         [field: SerializeField] public UnityEvent GamePaused { get; private set; }
         [field: SerializeField] public UnityEvent GameResumed { get; private set; }
+        [field: SerializeField] public UnityEvent GameOver { get; private set; }
         [field: SerializeField] public UnityEvent<LevelLoadedEventArgs> LevelLoaded { get; private set; }
         [field: SerializeField] public string[] LevelSceneNames { get; private set; }
         [field: SerializeField] public bool Paused { get; private set; }
@@ -54,15 +55,13 @@ namespace TankGame.Core
                 }
                 else
                 {
-                    // TODO: Show final times and save them.
                     CreateTimerStep();
-                    GoToMainMenu();
+                    SaveAttempt();
+                    GameOver?.Invoke();
                 }
             }
-            else if (RemainingEnemyTanks.All(
-                         enemyTank => enemyTank == null
-                                      || !enemyTank.CompareTag("Player")
-                                      || enemyTank.gameObject == null))
+            // Warning: tank isn't destroyed yet, so one should still be remaining.
+            else if (RemainingEnemyTanks.Count(enemyTank => enemyTank != null) == 1)
             {
                 AllEnemyTanksEliminated?.Invoke();
 
@@ -79,9 +78,9 @@ namespace TankGame.Core
                     }
                     else
                     {
-                        // TODO: This is the end of the game, show times.
                         CreateTimerStep();
                         SaveAttempt();
+                        GameOver?.Invoke();
                     }
                 }
             }
@@ -149,7 +148,6 @@ namespace TankGame.Core
 
         private void LoadLevel(string levelSceneName)
         {
-            // TODO: Make sure to place all active player objects at the designated spawn area of the loaded level.
             var currentLevelScene = SceneManager.GetSceneByName(_currentLevelSceneName);
             if (currentLevelScene.isLoaded)
                 _ = SceneManager.UnloadSceneAsync(currentLevelScene);

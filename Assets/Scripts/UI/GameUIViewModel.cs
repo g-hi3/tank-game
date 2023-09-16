@@ -18,6 +18,12 @@ namespace TankGame.UI
         [field: SerializeField] public LevelTimer Timer { get; private set; }
         [field: SerializeField] public GameManager GameManager { get; private set; }
 
+        public void ShowGameOver()
+        {
+            var gameOverScreen = DocumentRoot.rootVisualElement.Q("GameOverScreen");
+            gameOverScreen.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
+        }
+
         private void ShowRemainingLives()
         {
             _remainingLives.text = string.Format(LivesFormat, GameManager.RemainingLives);
@@ -43,6 +49,9 @@ namespace TankGame.UI
 
             var mainMenuButton = DocumentRoot.rootVisualElement.Q<Button>("MainMenuButton")!;
             mainMenuButton.clicked += OnMainMenuButtonClicked;
+
+            var mainMenuButton2 = DocumentRoot.rootVisualElement.Q<Button>("MainMenuButton2")!;
+            mainMenuButton2.clicked += OnMainMenuButtonClicked;
         }
 
         private void Update()

@@ -12,6 +12,10 @@
             <ui:VisualElement style="position: absolute; right: 20px; bottom: 0; align-items: flex-start; min-width: 200px;">
                 <ui:Label text="{Label.SpeedRunTimer}" display-tooltip-when-elided="true" name="SpeedRunTimer" style="font-size: 36px; color: rgb(255, 255, 255); -unity-text-align: upper-left; align-items: flex-start;" />
             </ui:VisualElement>
+            <ui:VisualElement name="GameOverScreen" style="align-items: center; margin-top: 10%; display: none;">
+                <ui:Label text="Game Over" display-tooltip-when-elided="true" style="font-size: 60px;" />
+                <ui:Button text="Go to Main Menu" display-tooltip-when-elided="true" name="MainMenuButton2" style="margin-top: 1%;" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="PauseMenu" style="background-color: rgba(0, 0, 0, 0.33); align-items: center; justify-content: center; width: 100%; height: 100%; position: absolute; display: none; visibility: visible;">
             <ui:Label text="- Paused -" display-tooltip-when-elided="true" name="PauseMenuHeading" />

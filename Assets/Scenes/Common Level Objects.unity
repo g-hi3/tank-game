@@ -584,9 +584,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
+      propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
       propertyPath: <LevelLoaded>k__BackingField.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1048366680}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
       propertyPath: <LevelLoaded>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -594,9 +609,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
+      propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
       propertyPath: <LevelLoaded>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1048366680}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowGameOver
+      objectReference: {fileID: 0}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
       propertyPath: <LevelLoaded>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -617,6 +642,11 @@ PrefabInstance:
       propertyPath: <AllEnemyTanksEliminated>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1396045998}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TankGame.UI.GameUIViewModel, TankGame
+      objectReference: {fileID: 0}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
       propertyPath: <AllEnemyTanksEliminated>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -641,6 +671,11 @@ PrefabInstance:
         type: 3}
       propertyPath: <AllEnemyTanksEliminated>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: UnityEngine.ParticleSystem, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
