@@ -1,4 +1,5 @@
-﻿using TankGame.Core;
+﻿using JetBrains.Annotations;
+using TankGame.Core;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,6 +12,7 @@ namespace TankGame.UI
         private Label _levelName;
         private Label _speedRunTimer;
         private Label _remainingLives;
+        private VisualElement _pauseMenu;
 
         [field: SerializeField] public UIDocument DocumentRoot { get; private set; }
         [field: SerializeField] public LevelTimer Timer { get; private set; }
@@ -27,6 +29,7 @@ namespace TankGame.UI
             _levelName = DocumentRoot.rootVisualElement.Q<Label>("LevelName");
             _speedRunTimer = DocumentRoot.rootVisualElement.Q<Label>("SpeedRunTimer");
             _remainingLives = DocumentRoot.rootVisualElement.Q<Label>("RemainingLives");
+            _pauseMenu = DocumentRoot.rootVisualElement.Q("PauseMenu");
         }
 
         private void Start()
@@ -34,6 +37,12 @@ namespace TankGame.UI
             GameManager = GameManager.Instance;
             GameManager.PlayerTankEliminated.AddListener(_ => ShowRemainingLives());
             ShowRemainingLives();
+
+            var resumeButton = DocumentRoot!.rootVisualElement.Q<Button>("ResumeButton")!;
+            resumeButton.clicked += OnResumeButtonClicked;
+
+            var mainMenuButton = DocumentRoot.rootVisualElement.Q<Button>("MainMenuButton")!;
+            mainMenuButton.clicked += OnMainMenuButtonClicked;
         }
 
         private void Update()
@@ -43,6 +52,28 @@ namespace TankGame.UI
                 Timer.Minutes,
                 Timer.Seconds,
                 Timer.Milliseconds);
+        }
+
+        [UsedImplicitly]
+        private void OnPause()
+        {
+            _pauseMenu.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
+        }
+
+        [UsedImplicitly]
+        private void OnResume()
+        {
+            _pauseMenu.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
+        }
+
+        private void OnResumeButtonClicked()
+        {
+            GameManager.ResumeGame();
+        }
+
+        private static void OnMainMenuButtonClicked()
+        {
+            GameManager.GoToMainMenu();
         }
 
         public void OnLevelLoaded(LevelLoadedEventArgs eventArgs)

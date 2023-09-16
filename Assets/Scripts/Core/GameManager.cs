@@ -56,7 +56,7 @@ namespace TankGame.Core
                 {
                     // TODO: Show final times and save them.
                     CreateTimerStep();
-                    SceneManager.LoadScene("Main Menu");
+                    GoToMainMenu();
                 }
             }
             else if (RemainingEnemyTanks.All(
@@ -85,6 +85,11 @@ namespace TankGame.Core
                     }
                 }
             }
+        }
+
+        public static void GoToMainMenu()
+        {
+            SceneManager.LoadScene("Main Menu");
         }
 
         private static IEnumerator<WaitForSeconds> WaitThenDo(Action action)
