@@ -161,6 +161,7 @@ namespace TankGame.Core
             loadSceneTask.completed += _ => FindEnemyTanks();
             loadSceneTask.completed += _ => LevelLoaded?.Invoke(new LevelLoadedEventArgs(_currentLevelSceneName));
             loadSceneTask.completed += _ => MovePlayersToSpawn();
+            loadSceneTask.completed += _ => FindObjectOfType<LevelTimer>()?.Resume();
         }
 
         private void ResetLevel()
