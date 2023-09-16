@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using TankGame.Core.Bullet;
 using UnityEngine;
 
-namespace TankGame.Core
+namespace TankGame.Core.AI
 {
     public class EnemyTank : MonoBehaviour
     {

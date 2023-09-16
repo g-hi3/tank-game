@@ -1,4 +1,4 @@
-﻿namespace TankGame.Core
+﻿namespace TankGame.Core.Bomb
 {
     public interface IDetonationTarget
     {

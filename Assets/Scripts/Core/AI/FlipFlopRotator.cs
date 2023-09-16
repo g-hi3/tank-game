@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TankGame.Core
+namespace TankGame.Core.AI
 {
     public class FlipFlopRotator : Rotator
     {

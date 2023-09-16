@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace TankGame.Core
+namespace TankGame.Core.AI
 {
     public class TankVision : MonoBehaviour
     {

@@ -1,4 +1,4 @@
-﻿namespace TankGame.Core
+﻿namespace TankGame.Core.AI
 {
     public abstract class TargetingRotator : Rotator
     {
