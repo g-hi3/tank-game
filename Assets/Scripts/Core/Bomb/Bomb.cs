@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace TankGame.Core.Bomb
@@ -66,7 +67,7 @@ namespace TankGame.Core.Bomb
             _animator.speed = 1f;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerStay2D(Collider2D other)
         {
             if (_explosionActive && other.TryGetComponent(out IDetonationTarget detonationTarget))
                 detonationTarget.OnDetonationHit();
