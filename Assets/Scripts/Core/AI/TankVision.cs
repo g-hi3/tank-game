@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace TankGame.Core.AI
@@ -16,6 +17,8 @@ namespace TankGame.Core.AI
         [SerializeField] private float castWidth;
         private Transform _transform;
         private CastInfo[] _casts = Array.Empty<CastInfo>();
+        [NotNull] private readonly RaycastHit2D[] _collisionHits = new RaycastHit2D[5];
+        [NotNull] private readonly RaycastHit2D[] _reflectionHits = new RaycastHit2D[5];
 
         public bool IsTargetVisible => _casts.Any(c => c.IsTargetHit);
 
@@ -42,10 +45,10 @@ namespace TankGame.Core.AI
 
         private CastInfo Multicast(Vector3 origin, Vector3 direction, float distance, int reflectCount)
         {
-            var collidingHit = Physics2D.CircleCastAll(origin, castWidth, direction, distance, collidingLayers)
-                .FirstOrDefault(rh => rh.distance > 0.1f);
-            var reflectingHit = Physics2D.CircleCastAll(origin, castWidth, direction, distance, reflectiveLayers)
-                .FirstOrDefault(rh => rh.distance > 0.1f);
+            var collidingHitCount = Physics2D.CircleCastNonAlloc(origin, castWidth, direction, _collisionHits, distance, collidingLayers);
+            var collidingHit = collidingHitCount > 0 ? _collisionHits.First(rh => rh.distance > 0.1f) : default;
+            var reflectingHitCount = Physics2D.CircleCastNonAlloc(origin, castWidth, direction, _reflectionHits, distance, reflectiveLayers);
+            var reflectingHit = reflectingHitCount > 0 ? _reflectionHits.First(rh => rh.distance > 0.1f) : default;
             if (collidingHit != default
                 && (reflectingHit == default
                     || collidingHit.distance < reflectingHit.distance))
