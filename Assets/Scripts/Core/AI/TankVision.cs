@@ -47,9 +47,9 @@ namespace TankGame.Core.AI
         private CastInfo Multicast(Vector3 origin, Vector3 direction, float distance, int reflectCount)
         {
             var collidingHitCount = Physics2D.CircleCastNonAlloc(origin, castWidth, direction, _collisionHits, distance, collidingLayers);
-            var collidingHit = collidingHitCount > 0 ? _collisionHits.First(rh => rh.distance > 0.1f) : default;
+            var collidingHit = collidingHitCount > 0 ? _collisionHits.Take(collidingHitCount).FirstOrDefault(rh => rh.distance > 0.1f) : default;
             var reflectingHitCount = Physics2D.CircleCastNonAlloc(origin, castWidth, direction, _reflectionHits, distance, reflectiveLayers);
-            var reflectingHit = reflectingHitCount > 0 ? _reflectionHits.First(rh => rh.distance > 0.1f) : default;
+            var reflectingHit = reflectingHitCount > 0 ? _reflectionHits.Take(reflectingHitCount).FirstOrDefault(rh => rh.distance > 0.1f) : default;
             if (collidingHit != default
                 && (reflectingHit == default
                     || collidingHit.distance < reflectingHit.distance))
