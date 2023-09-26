@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace TankGame.Core.AI
 {
+    [RequireComponent(typeof(Transform))]
     public class PathMover : Mover
     {
+        [NotNull] private Transform _transform = default!;
+
         [field: SerializeField] public float Speed { get; private set; }
         [field: SerializeField] public List<Transform> PathPoints { get; private set; }
         [field: SerializeField] public Transform CurrentTarget { get; private set; }
@@ -27,7 +32,16 @@ namespace TankGame.Core.AI
                     : PathPoints[0];
             }
 
-            transform.position = Vector2.MoveTowards(transform.position, CurrentTarget.position, Speed * Time.deltaTime);
+            _transform.position = Vector2.MoveTowards(
+                _transform.position,
+                CurrentTarget.position,
+                Speed * Time.deltaTime);
+        }
+
+        private void Awake()
+        {
+            _transform = GetComponent<Transform>()
+                         ?? throw new InvalidOperationException($"Missing {nameof(Transform)} component!");
         }
     }
 }

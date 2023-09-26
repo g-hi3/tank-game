@@ -1,12 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using JetBrains.Annotations;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace TankGame.UI
 {
+    [RequireComponent(typeof(UIDocument))]
     public class MainMenuViewModel : MonoBehaviour
     {
-        [field: SerializeField] public UIDocument DocumentRoot { get; private set; }
+        [NotNull]
+        [field: SerializeField]
+        public UIDocument DocumentRoot { get; private set; } = default!;
+
         [field: SerializeField] public string GameStartSceneName { get; private set; }
         [field: SerializeField] public string BestTimesSceneName { get; private set; }
 
@@ -31,12 +37,13 @@ namespace TankGame.UI
 
         private void Awake()
         {
-            DocumentRoot = GetComponent<UIDocument>();
+            DocumentRoot = GetComponent<UIDocument>()
+                           ?? throw new InvalidOperationException($"Missing {nameof(UIDocument)} component!");
         }
 
         private void Start()
         {
-            var startGameButton = DocumentRoot!.rootVisualElement.Q<Button>("StartGameButton")!;
+            var startGameButton = DocumentRoot.rootVisualElement.Q<Button>("StartGameButton")!;
             startGameButton.clicked += OnStartGameButtonClicked;
 
             var bestTimesButton = DocumentRoot.rootVisualElement.Q<Button>("BestTimesButton")!;

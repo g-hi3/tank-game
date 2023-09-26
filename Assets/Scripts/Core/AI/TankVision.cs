@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace TankGame.Core.AI
 {
+    [RequireComponent(typeof(Transform))]
     public class TankVision : MonoBehaviour
     {
         [SerializeField, Min(float.Epsilon)] private float radius;
@@ -15,7 +16,7 @@ namespace TankGame.Core.AI
         [SerializeField] private LayerMask reflectiveLayers;
         [SerializeField] private LayerMask collidingLayers;
         [SerializeField] private float castWidth;
-        private Transform _transform;
+        [NotNull] private Transform _transform = default!;
         private CastInfo[] _casts = Array.Empty<CastInfo>();
         [NotNull] private readonly RaycastHit2D[] _collisionHits = new RaycastHit2D[5];
         [NotNull] private readonly RaycastHit2D[] _reflectionHits = new RaycastHit2D[5];
@@ -86,7 +87,8 @@ namespace TankGame.Core.AI
 
         private void Awake()
         {
-            _transform = GetComponent<Transform>();
+            _transform = GetComponent<Transform>() 
+                         ?? throw new InvalidOperationException($"Missing {nameof(Transform)} component!");
         }
 
         private void FixedUpdate()

@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -128,6 +128,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 8903261236142210336, guid: 7c8547abad90aa849afd8b70d5e1afad,
@@ -201,6 +202,13 @@ PrefabInstance:
       value: UIDocument
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8903261236142210351, guid: 7c8547abad90aa849afd8b70d5e1afad,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1048366683}
   m_SourcePrefab: {fileID: 100100000, guid: 7c8547abad90aa849afd8b70d5e1afad, type: 3}
 --- !u!114 &577362832 stripped
 MonoBehaviour:
@@ -225,6 +233,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4275166421337368624, guid: b202b9d2c6efc1941911e103fc1d2747,
@@ -288,6 +297,9 @@ PrefabInstance:
       value: Level Timer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b202b9d2c6efc1941911e103fc1d2747, type: 3}
 --- !u!114 &818215363 stripped
 MonoBehaviour:
@@ -330,6 +342,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1287357046612844760, guid: d669a9c128f4d234087c5f2a4be98139,
@@ -393,6 +406,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d669a9c128f4d234087c5f2a4be98139, type: 3}
 --- !u!1 &1336667715 stripped
 GameObject:
@@ -411,6 +427,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7364031713259018148, guid: 64b43ddf6ed2b3d4483edff544ed7450,
@@ -514,6 +531,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64b43ddf6ed2b3d4483edff544ed7450, type: 3}
 --- !u!198 &1738282389 stripped
 ParticleSystem:
@@ -526,6 +546,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 8193874908390615588, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
@@ -588,6 +609,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
+        type: 3}
+      propertyPath: <LevelTimer>k__BackingField
+      value: 
+      objectReference: {fileID: 818215363}
     - target: {fileID: 8193874908390615591, guid: b47047a91e7ee8341b2c8bf45d29f8e7,
         type: 3}
       propertyPath: <GameOver>k__BackingField.m_PersistentCalls.m_Calls.Array.size
@@ -719,6 +745,9 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b47047a91e7ee8341b2c8bf45d29f8e7, type: 3}
 --- !u!114 &7523759346489586246 stripped
 MonoBehaviour:
@@ -732,3 +761,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739de28c336143c193816bd7dbdd5633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 1549201254}
+  - {fileID: 7523759346489586245}
+  - {fileID: 818215362}
+  - {fileID: 536951184}
+  - {fileID: 1217256851}

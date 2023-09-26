@@ -1,16 +1,19 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using TankGame.Core.Bullet;
 using UnityEngine;
 
 namespace TankGame.Core.Bomb
 {
+    [RequireComponent(typeof(Transform))]
+    [RequireComponent(typeof(Animator))]
     public class Bomb : MonoBehaviour, IDetonationTarget, IBulletTarget
     {
         private static readonly int TriggerNameExplosionTrigger = Animator.StringToHash("Explosion Trigger");
         [SerializeField] private float lifetimeSeconds;
         [SerializeField] private Vector2 _explosionScale;
-        private Transform _transform;
-        private Animator _animator;
+        [NotNull] private Transform _transform = default!;
+        [NotNull] private Animator _animator = default!;
         private float _remainingLifetimeSeconds;
         private bool _explosionActive;
         private bool _paused;
@@ -33,8 +36,10 @@ namespace TankGame.Core.Bomb
 
         private void Awake()
         {
-            _transform = GetComponent<Transform>();
-            _animator = GetComponent<Animator>();
+            _transform = GetComponent<Transform>()
+                         ?? throw new InvalidOperationException($"Missing {nameof(Transform)} component!");
+            _animator = GetComponent<Animator>()
+                        ?? throw new InvalidOperationException($"Missing {nameof(Animator)} component!");
         }
 
         private void Start()

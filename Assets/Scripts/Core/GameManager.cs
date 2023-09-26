@@ -27,18 +27,19 @@ namespace TankGame.Core
         [field: SerializeField] public UnityEvent<LevelLoadedEventArgs> LevelLoaded { get; private set; }
         [field: SerializeField] public string[] LevelSceneNames { get; private set; }
         [field: SerializeField] public bool Paused { get; private set; }
+        [field: SerializeField] public LevelTimer LevelTimer { get; private set; }
 
         public void PauseGame()
         {
             Paused = true;
-            FindObjectOfType<LevelTimer>()?.Pause();
+            LevelTimer.Pause();
             GamePaused?.Invoke();
         }
 
         public void ResumeGame()
         {
             Paused = false;
-            FindObjectOfType<LevelTimer>()?.Resume();
+            LevelTimer.Resume();
             GameResumed?.Invoke();
         }
 
@@ -97,23 +98,23 @@ namespace TankGame.Core
             action.Invoke();
         }
 
-        private static void ResetTimerStep()
+        private void ResetTimerStep()
         {
-            var levelTimer = FindObjectOfType<LevelTimer>()!;
+            var levelTimer = LevelTimer;
             levelTimer.Pause();
             levelTimer.ResetStep();
         }
 
-        private static void CreateTimerStep()
+        private void CreateTimerStep()
         {
-            var levelTimer = FindObjectOfType<LevelTimer>()!;
+            var levelTimer = LevelTimer;
             levelTimer.Pause();
             levelTimer.CreateStep();
         }
 
         private void SaveAttempt()
         {
-            var levelTimer = FindObjectOfType<LevelTimer>();
+            var levelTimer = LevelTimer;
             if (levelTimer == null)
                 return;
 
@@ -141,7 +142,7 @@ namespace TankGame.Core
             var tank = playerObject.GetComponent<Tank>();
             tank.Eliminated.AddListener(OnTankEliminated);
 
-            var levelTimer = FindObjectOfType<LevelTimer>()!;
+            var levelTimer = LevelTimer;
             if (levelTimer.Paused)
                 levelTimer.Resume();
         }

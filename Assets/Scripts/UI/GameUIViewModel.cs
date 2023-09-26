@@ -1,10 +1,12 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using TankGame.Core;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace TankGame.UI
 {
+    [RequireComponent(typeof(UIDocument))]
     public class GameUIViewModel : MonoBehaviour
     {
         private const string TimerFormat = "{0:D2}:{1:D2}.{2:D3}";
@@ -14,7 +16,10 @@ namespace TankGame.UI
         private Label _remainingLives;
         private VisualElement _pauseMenu;
 
-        [field: SerializeField] public UIDocument DocumentRoot { get; private set; }
+        [NotNull]
+        [field: SerializeField]
+        public UIDocument DocumentRoot { get; private set; } = default!;
+
         [field: SerializeField] public LevelTimer Timer { get; private set; }
         [field: SerializeField] public GameManager GameManager { get; private set; }
 
@@ -31,7 +36,8 @@ namespace TankGame.UI
 
         private void Awake()
         {
-            DocumentRoot = GetComponent<UIDocument>();
+            DocumentRoot = GetComponent<UIDocument>()
+                           ?? throw new InvalidOperationException($"Missing {nameof(UIDocument)} component!");
             _levelName = DocumentRoot.rootVisualElement.Q<Label>("LevelName");
             _speedRunTimer = DocumentRoot.rootVisualElement.Q<Label>("SpeedRunTimer");
             _remainingLives = DocumentRoot.rootVisualElement.Q<Label>("RemainingLives");
@@ -44,7 +50,7 @@ namespace TankGame.UI
             GameManager.PlayerTankEliminated.AddListener(_ => ShowRemainingLives());
             ShowRemainingLives();
 
-            var resumeButton = DocumentRoot!.rootVisualElement.Q<Button>("ResumeButton")!;
+            var resumeButton = DocumentRoot.rootVisualElement.Q<Button>("ResumeButton")!;
             resumeButton.clicked += OnResumeButtonClicked;
 
             var mainMenuButton = DocumentRoot.rootVisualElement.Q<Button>("MainMenuButton")!;

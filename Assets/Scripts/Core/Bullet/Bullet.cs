@@ -1,12 +1,15 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using TankGame.Core.Bomb;
 using UnityEngine;
 
 namespace TankGame.Core.Bullet
 {
+    [RequireComponent(typeof(Transform))]
     public class Bullet : MonoBehaviour, IDetonationTarget, IBulletTarget
     {
         private const float BulletBaseOrientationDegrees = 90f;
+        [NotNull] private Transform _transform = default!;
         private uint _remainingRicochetCount;
         private Vector2 _velocity;
         private bool _paused;
@@ -31,7 +34,13 @@ namespace TankGame.Core.Bullet
         private void RotateUsingVelocity()
         {
             var rotationZ = BulletBaseOrientationDegrees - Mathf.Atan2(_velocity.x, _velocity.y) * Mathf.Rad2Deg;
-            transform.eulerAngles = new Vector3(0f, 0f, rotationZ);
+            _transform.eulerAngles = new Vector3(0f, 0f, rotationZ);
+        }
+
+        private void Awake()
+        {
+            _transform = GetComponent<Transform>()
+                         ?? throw new InvalidOperationException($"Missing {nameof(Transform)} component!");
         }
 
         private void Update()
@@ -42,7 +51,7 @@ namespace TankGame.Core.Bullet
             if (_remainingRicochetCount < 1)
                 Destroy(gameObject);
             
-            transform.position += (Vector3)_velocity * Time.deltaTime;
+            _transform.position += (Vector3)_velocity * Time.deltaTime;
         }
 
         [UsedImplicitly]

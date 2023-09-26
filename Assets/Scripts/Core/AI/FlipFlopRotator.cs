@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using JetBrains.Annotations;
+using UnityEngine;
 
 namespace TankGame.Core.AI
 {
+    [RequireComponent(typeof(Transform))]
     public class FlipFlopRotator : Rotator
     {
+        [NotNull] private Transform _transform = default!;
         private float _baseInput;
         private float _currentRotation;
         
@@ -42,8 +46,8 @@ namespace TankGame.Core.AI
                 return;
 
             _currentRotation = GetRotationAngle();
-            transform.rotation = Quaternion.RotateTowards(
-                from: Quaternion.Euler(0f, 0f, transform.eulerAngles.z),
+            _transform.rotation = Quaternion.RotateTowards(
+                from: Quaternion.Euler(0f, 0f, _transform.eulerAngles.z),
                 to: Quaternion.Euler(0f, 0f, _currentRotation),
                 maxDegreesDelta: 1f);
         }
@@ -60,21 +64,27 @@ namespace TankGame.Core.AI
             return adjustedRotationRange * Mathf.Sin(adjustedRotationSpeed * _baseInput) + RotationCenter;
         }
 
+        private void Awake()
+        {
+            _transform = GetComponent<Transform>()
+                         ?? throw new InvalidOperationException($"Missing {nameof(Transform)} component!");
+        }
+
         private void Start()
         {
             if (UseSourceRotationAsCenter)
-                RotationCenter = transform.eulerAngles.z;
+                RotationCenter = _transform.eulerAngles.z;
             else
-                transform.eulerAngles = new Vector3(0f, 0f, RotationCenter);
+                _transform.eulerAngles = new Vector3(0f, 0f, RotationCenter);
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(transform.position, Quaternion.Euler(0f, 0f, _currentRotation) * Vector3.right);
+            Gizmos.DrawRay(_transform.position, Quaternion.Euler(0f, 0f, _currentRotation) * Vector3.right);
             
             Gizmos.color = Color.magenta;
-            Gizmos.DrawRay(transform.position, Quaternion.Euler(0f, 0f, transform.eulerAngles.z) * Vector3.right);
+            Gizmos.DrawRay(_transform.position, Quaternion.Euler(0f, 0f, _transform.eulerAngles.z) * Vector3.right);
         }
     }
 }

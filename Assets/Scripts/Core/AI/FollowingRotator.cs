@@ -1,10 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using JetBrains.Annotations;
+using UnityEngine;
 
 namespace TankGame.Core.AI
 {
+    [RequireComponent(typeof(TankVision))]
+    [RequireComponent(typeof(Transform))]
     public class FollowingRotator : TargetingRotator
     {
-        private TankVision _tankVision;
+        [NotNull] private TankVision _tankVision = default!;
+        [NotNull] private Transform _transform = default!;
         private Vector2 _targetDirection;
         
         [field: SerializeField] public float RotationSpeed { get; private set; }
@@ -39,21 +44,24 @@ namespace TankGame.Core.AI
                 return;
 
             _targetDirection = bestTargetDirection.Value.normalized;
-            transform.right = Vector3.MoveTowards(transform.right, _targetDirection, RotationSpeed);
+            _transform.right = Vector3.MoveTowards(_transform.right, _targetDirection, RotationSpeed);
         }
 
         private void Awake()
         {
-            _tankVision = GetComponent<TankVision>();
+            _tankVision = GetComponent<TankVision>()
+                          ?? throw new InvalidOperationException($"Missing {nameof(TankVision)} component!");
+            _transform = GetComponent<Transform>()
+                         ?? throw new InvalidOperationException($"Missing {nameof(Transform)} component!");
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(transform.position, _targetDirection);
+            Gizmos.DrawRay(_transform.position, _targetDirection);
             
             Gizmos.color = Color.magenta;
-            Gizmos.DrawRay(transform.position, transform.rotation * Vector3.right);
+            Gizmos.DrawRay(_transform.position, _transform.rotation * Vector3.right);
         }
     }
 }

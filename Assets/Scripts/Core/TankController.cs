@@ -1,18 +1,23 @@
-﻿using TankGame.Core.Bomb;
+﻿using System;
+using JetBrains.Annotations;
+using TankGame.Core.Bomb;
 using TankGame.Core.Bullet;
 using UnityEngine;
 
 namespace TankGame.Core
 {
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(Transform))]
     public class TankController : MonoBehaviour
     {
         private const float RotationZOffset = 270f;
         private static readonly int MoveSpeedAnimatorProperty = Animator.StringToHash("Move Speed");
         [SerializeField] private Transform head;
         [SerializeField] private float moveSpeed;
-        private Transform _transform;
-        private Rigidbody2D _rigidbody;
-        private Animator _animator;
+        [NotNull] private Transform _transform = default!;
+        [NotNull] private Rigidbody2D _rigidbody = default!;
+        [NotNull] private Animator _animator = default!;
         private bool _isMoving;
         private Vector3 _moveDirection;
         private Quaternion _moveRotation;
@@ -73,9 +78,12 @@ namespace TankGame.Core
 
         private void Awake()
         {
-            _transform = GetComponent<Transform>();
-            _rigidbody = GetComponent<Rigidbody2D>();
-            _animator = GetComponent<Animator>();
+            _transform = GetComponent<Transform>()
+                         ?? throw new InvalidOperationException($"Missing {nameof(Transform)} component!");
+            _rigidbody = GetComponent<Rigidbody2D>()
+                         ?? throw new InvalidOperationException($"Missing {nameof(Rigidbody2D)} component!");
+            _animator = GetComponent<Animator>()
+                        ?? throw new InvalidOperationException($"Missing {nameof(Animator)} component!");
         }
 
         private void Start()

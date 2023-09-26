@@ -1,9 +1,12 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace TankGame.Core
 {
+    [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(TankController))]
     public class PlayerTankInput : MonoBehaviour
     {
         private const string ActionNameMove = "Move";
@@ -12,10 +15,12 @@ namespace TankGame.Core
         private const string ActionNameShoot = "Shoot";
         private const string ActionNameBomb = "Bomb";
         private const string ActionNameTogglePause = "Toggle Pause";
-        private PlayerInput _playerInput;
+        private PlayerInput _playerInput = default!;
         private bool _paused;
 
-        [field: SerializeField] public TankController Tank { get; private set; }
+        [NotNull]
+        [field: SerializeField]
+        public TankController Tank { get; private set; } = default!;
 
         private void RaiseTankMovingStarted()
         {
@@ -133,12 +138,14 @@ namespace TankGame.Core
 
         private void Awake()
         {
-            Tank = GetComponent<TankController>();
+            Tank ??= GetComponent<TankController>()
+                     ?? throw new InvalidOperationException($"Missing {nameof(TankController)} component!");
         }
 
         private void Start()
         {
-            _playerInput = GetComponent<PlayerInput>();
+            _playerInput = GetComponent<PlayerInput>()
+                           ?? throw new InvalidOperationException($"Missing {nameof(PlayerInput)} component!");
             _playerInput.onActionTriggered += DelegateTriggeredAction;
         }
 
