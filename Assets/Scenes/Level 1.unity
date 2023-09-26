@@ -1044,11 +1044,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Tank
       objectReference: {fileID: 0}
-    - target: {fileID: 4790845387394622626, guid: 7bbec2716136b5445b557ed479395097,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 4790845387394622639, guid: 7bbec2716136b5445b557ed479395097,
         type: 3}
       propertyPath: m_RootOrder
@@ -1099,11 +1094,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4790845388610250191, guid: 7bbec2716136b5445b557ed479395097,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7817383499943312449, guid: 7bbec2716136b5445b557ed479395097,
         type: 3}
       propertyPath: <RotationSpeed>k__BackingField
