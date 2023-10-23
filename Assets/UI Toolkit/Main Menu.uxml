@@ -1,11 +1,18 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement style="height: 80%;" />
+    <ui:VisualElement style="height: 20%;" />
     <ui:VisualElement style="flex-direction: row; justify-content: flex-start;">
         <ui:VisualElement style="flex-direction: column; align-items: stretch; width: 40%;">
             <ui:Button text="Start Game" display-tooltip-when-elided="true" name="StartGameButton" />
             <ui:Button text="Best Times" display-tooltip-when-elided="true" name="BestTimesButton" />
+            <ui:Button text="Credits" display-tooltip-when-elided="true" name="CreditsButton" />
             <ui:Button text="Quit" display-tooltip-when-elided="true" name="QuitButton" />
         </ui:VisualElement>
-        <ui:VisualElement style="width: 60%; align-items: stretch;" />
+        <ui:VisualElement name="CreditsContainer" style="width: 60%; align-items: stretch; display: none;">
+            <ui:Label tabindex="-1" text="Credits" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 26px; color: rgb(255, 255, 255);" />
+            <ui:Label tabindex="-1" text="Game Development" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 18px; color: rgb(255, 255, 255);" />
+            <ui:Label tabindex="-1" text="https://github.com/g-hi3" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
+            <ui:Label tabindex="-1" text="Music" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 18px; color: rgb(255, 255, 255);" />
+            <ui:Label tabindex="-1" text="Fluffing a Duck - Kevin MacLeod&#10;https://creativecommons.org/licenses/by/3.0/" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

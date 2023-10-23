@@ -9,6 +9,8 @@ namespace TankGame.UI
     [RequireComponent(typeof(UIDocument))]
     public class MainMenuViewModel : MonoBehaviour
     {
+        private VisualElement _creditsContainer;
+
         [NotNull]
         [field: SerializeField]
         public UIDocument DocumentRoot { get; private set; } = default!;
@@ -24,6 +26,12 @@ namespace TankGame.UI
         private void OnBestTimesButtonClicked()
         {
             SceneManager.LoadSceneAsync(BestTimesSceneName);
+        }
+
+        private void OnCreditsButtonClicked()
+        {
+            if (_creditsContainer is { style: { } creditsStyle })
+                creditsStyle.display = creditsStyle.display == DisplayStyle.None ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         private static void OnQuitButtonClicked()
@@ -43,11 +51,15 @@ namespace TankGame.UI
 
         private void Start()
         {
+            _creditsContainer = DocumentRoot.rootVisualElement.Q<VisualElement>("CreditsContainer");
             var startGameButton = DocumentRoot.rootVisualElement.Q<Button>("StartGameButton")!;
             startGameButton.clicked += OnStartGameButtonClicked;
 
             var bestTimesButton = DocumentRoot.rootVisualElement.Q<Button>("BestTimesButton")!;
             bestTimesButton.clicked += OnBestTimesButtonClicked;
+
+            var creditsButton = DocumentRoot.rootVisualElement.Q<Button>("CreditsButton")!;
+            creditsButton.clicked += OnCreditsButtonClicked;
 
             var quitButton = DocumentRoot.rootVisualElement.Q<Button>("QuitButton")!;
             quitButton.clicked += OnQuitButtonClicked;
