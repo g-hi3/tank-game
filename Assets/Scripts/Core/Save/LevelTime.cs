@@ -5,6 +5,9 @@ namespace TankGame.Core.Save
     [Serializable]
     public class LevelTime
     {
+        public string Name;
+        public TimeSpan Time;
+
         public LevelTime()
         {
         }
@@ -14,8 +17,5 @@ namespace TankGame.Core.Save
             Name = name;
             Time = time;
         }
-
-        public string Name { get; set; }
-        public TimeSpan Time { get; set; }
     }
 }

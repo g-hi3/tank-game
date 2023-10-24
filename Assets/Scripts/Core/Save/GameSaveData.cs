@@ -11,6 +11,7 @@ namespace TankGame.Core.Save
     public class GameSaveData
     {
         private static readonly string SaveDataPath = Path.Combine(Application.persistentDataPath, "data.json");
+        public Attempt[] Attempts;
 
         public GameSaveData() : this(Array.Empty<Attempt>())
         {
@@ -21,11 +22,12 @@ namespace TankGame.Core.Save
             Attempts = attempts?.ToArray() ?? Array.Empty<Attempt>();
         }
         
-        public Attempt[] Attempts { get; set; }
-
         public static void Save(GameSaveData data)
         {
-            var fileContent = JsonSerialization.ToJson(data);
+            var fileContent = JsonSerialization.ToJson(data, new JsonSerializationParameters
+            {
+                DisableSerializedReferences = true
+            });
             File.WriteAllText(SaveDataPath, fileContent);
         }
 
@@ -35,7 +37,10 @@ namespace TankGame.Core.Save
                 return new();
 
             var fileContent = File.ReadAllText(SaveDataPath);
-            return JsonSerialization.FromJson<GameSaveData>(fileContent) ?? new();
+            return JsonSerialization.FromJson<GameSaveData>(fileContent, new JsonSerializationParameters
+            {
+                DisableSerializedReferences = true
+            }) ?? new();
         }
     }
 }

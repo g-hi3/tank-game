@@ -7,6 +7,8 @@ namespace TankGame.Core.Save
     [Serializable]
     public class Attempt
     {
+        public LevelTime[] LevelTimes;
+
         public Attempt() : this(Array.Empty<LevelTime>())
         {
         }
@@ -15,7 +17,5 @@ namespace TankGame.Core.Save
         {
             LevelTimes = levelTimes?.ToArray() ?? Array.Empty<LevelTime>();
         }
-
-        public LevelTime[] LevelTimes { get; set; }
     }
 }
