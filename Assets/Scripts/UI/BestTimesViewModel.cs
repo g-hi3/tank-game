@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using JetBrains.Annotations;
+using TankGame.Core.Save;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -30,6 +32,16 @@ namespace TankGame.UI
         {
             var mainMenuButton = DocumentRoot!.rootVisualElement.Q<Button>("MainMenuButton")!;
             mainMenuButton.clicked += OnMainMenuButtonClicked;
+
+            var gameSaveData = GameSaveData.Load();
+            var bestTimesContainer = DocumentRoot.rootVisualElement.Q<ScrollView>("best-times-container");
+            foreach (var attempt in gameSaveData.Attempts)
+            {
+                bestTimesContainer.Add(new Label
+                {
+                    text = string.Join("\t", attempt.LevelTimes.Select(levelTime => $"{levelTime.Name}: {levelTime.Time}"))
+                });
+            }
         }
     }
 }

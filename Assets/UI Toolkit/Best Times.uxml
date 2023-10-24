@@ -1,5 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement style="height: 80%;" />
+    <ui:VisualElement style="height: 80%;">
+        <ui:Label tabindex="-1" text="Best Times" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 26px; -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
+        <ui:ScrollView name="best-times-container" horizontal-scroller-visibility="Hidden" />
+    </ui:VisualElement>
     <ui:VisualElement style="flex-direction: row; justify-content: flex-start;">
         <ui:VisualElement style="flex-direction: column; align-items: stretch; width: 40%;">
             <ui:Button text="Back to Main Menu" display-tooltip-when-elided="true" name="MainMenuButton" />
