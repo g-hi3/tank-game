@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Unity.Serialization.Json;
 using UnityEngine;
 
 namespace TankGame.Core.Save
@@ -24,7 +25,7 @@ namespace TankGame.Core.Save
 
         public static void Save(GameSaveData data)
         {
-            var fileContent = JsonUtility.ToJson(data);
+            var fileContent = JsonSerialization.ToJson(data);
             File.WriteAllText(SaveDataPath, fileContent);
         }
 
@@ -34,7 +35,7 @@ namespace TankGame.Core.Save
                 return new();
 
             var fileContent = File.ReadAllText(SaveDataPath);
-            return JsonUtility.FromJson<GameSaveData>(fileContent) ?? new();
+            return JsonSerialization.FromJson<GameSaveData>(fileContent) ?? new();
         }
     }
 }

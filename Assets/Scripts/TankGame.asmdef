@@ -2,7 +2,8 @@
     "name": "TankGame",
     "rootNamespace": "TankGame",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:2765e68924a08a94ea0ea66b31c0168f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
