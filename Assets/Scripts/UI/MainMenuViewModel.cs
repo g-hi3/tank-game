@@ -52,6 +52,7 @@ namespace TankGame.UI
         private void Start()
         {
             _creditsContainer = DocumentRoot.rootVisualElement.Q<VisualElement>("CreditsContainer");
+            _creditsContainer.style.display = DisplayStyle.None;
             var startGameButton = DocumentRoot.rootVisualElement.Q<Button>("StartGameButton")!;
             startGameButton.clicked += OnStartGameButtonClicked;
 
