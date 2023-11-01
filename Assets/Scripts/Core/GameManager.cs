@@ -28,6 +28,7 @@ namespace TankGame.Core
         [field: SerializeField] public string[] LevelSceneNames { get; private set; }
         [field: SerializeField] public bool Paused { get; private set; }
         [field: SerializeField] public LevelTimer LevelTimer { get; private set; }
+        public bool GameRulesActive { get; private set; }
 
         public void PauseGame()
         {
@@ -71,6 +72,7 @@ namespace TankGame.Core
                     if (LevelSceneNames[i] != _currentLevelSceneName)
                         continue;
 
+                    GameRulesActive = false;
                     if (i < LevelSceneNames.Length - 1)
                     {
                         CreateTimerStep();
@@ -165,6 +167,7 @@ namespace TankGame.Core
             loadSceneTask.completed += _ => LevelLoaded?.Invoke(new LevelLoadedEventArgs(_currentLevelSceneName));
             loadSceneTask.completed += _ => MovePlayersToSpawn();
             loadSceneTask.completed += _ => FindObjectOfType<LevelTimer>()?.Resume();
+            loadSceneTask.completed += _ => GameRulesActive = true;
         }
 
         private void ResetLevel()

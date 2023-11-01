@@ -15,6 +15,9 @@ namespace TankGame.Core
 
         private void Eliminate()
         {
+            if (!GameManager.Instance.GameRulesActive)
+                return;
+
             Destroy(gameObject);
             Eliminated?.Invoke(this);
         }
