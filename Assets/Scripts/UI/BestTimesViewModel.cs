@@ -39,10 +39,12 @@ namespace TankGame.UI
                          .OrderByDescending(attempt => attempt.LevelTimes.Length)
                          .ThenBy(attempt => attempt.LevelTimes.Sum(levelTime => levelTime.Time.Ticks)))
             {
-                bestTimesContainer.Add(new Label
-                {
-                    text = string.Join("\t", attempt.LevelTimes.Select(levelTime => $"{levelTime.Name}: {levelTime.Time}"))
-                });
+                var labelText = string.Join("\t", attempt.LevelTimes.Select(levelTime => $"{levelTime.Name}: {levelTime.Time:g}"));
+                var bestTimeAttempt = new Label(labelText);
+                bestTimeAttempt.AddToClassList("best-time-attempt");
+                var container = new VisualElement { style = { alignItems = Align.Center } };
+                container.Add(bestTimeAttempt);
+                bestTimesContainer.Add(container);
             }
         }
     }
