@@ -35,7 +35,9 @@ namespace TankGame.UI
 
             var gameSaveData = GameSaveData.Load();
             var bestTimesContainer = DocumentRoot.rootVisualElement.Q<ScrollView>("best-times-container");
-            foreach (var attempt in gameSaveData.Attempts)
+            foreach (var attempt in gameSaveData.Attempts
+                         .OrderByDescending(attempt => attempt.LevelTimes.Length)
+                         .ThenBy(attempt => attempt.LevelTimes.Sum(levelTime => levelTime.Time.Ticks)))
             {
                 bestTimesContainer.Add(new Label
                 {
