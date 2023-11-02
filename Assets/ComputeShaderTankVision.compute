@@ -1,0 +1,49 @@
+#pragma kernel cs_main
+
+uint num_rays;
+
+struct multicast_ray
+{
+    float2 origin;
+    float2 direction;
+    float radius;
+};
+
+struct multicast_hit
+{
+    float2 centroid_position;
+};
+
+struct multicast_result
+{
+    bool hit;
+    float2 origin;
+    float2 direction;
+    uint reflection_count;
+    float total_distance;
+};
+
+RWStructuredBuffer<multicast_ray> ray_buffer;
+ConsumeStructuredBuffer<uint> in_index_buffer;
+AppendStructuredBuffer<multicast_result> out_result_buffer;
+
+multicast_result multicast(const multicast_ray ray)
+{
+    // https://discussions.unity.com/t/computeshader-version-of-physics-raycast/102962/4
+    return multicast_result {
+        .hit = false,
+        .origin = ray.origin,
+        .direction = ray.direction,
+        .reflection_count = (uint)0,
+        .total_distance = 0.0f
+    };
+}
+
+[numthreads(32,1,1)]
+void cs_main (uint3 id : SV_DispatchThreadID)
+{
+    const uint index = in_index_buffer.Consume();
+    const multicast_ray ray = ray_buffer[index];
+    const multicast_result result = multicast(ray);
+    out_result_buffer.Append(result);
+}

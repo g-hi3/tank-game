@@ -8,7 +8,8 @@ namespace TankGame.Core.AI
     [RequireComponent(typeof(Transform))]
     public class FollowingRotator : TargetingRotator
     {
-        [NotNull] private TankVision _tankVision = default!;
+        //[NotNull] private TankVision _tankVision = default!;
+        public MultithreadingTankVision _tankVision;
         [NotNull] private Transform _transform = default!;
         private Vector2 _targetDirection;
         
@@ -49,8 +50,8 @@ namespace TankGame.Core.AI
 
         private void Awake()
         {
-            _tankVision = GetComponent<TankVision>()
-                          ?? throw new InvalidOperationException($"Missing {nameof(TankVision)} component!");
+            //_tankVision = GetComponent<TankVision>()
+            //              ?? throw new InvalidOperationException($"Missing {nameof(TankVision)} component!");
             _transform = GetComponent<Transform>()
                          ?? throw new InvalidOperationException($"Missing {nameof(Transform)} component!");
         }

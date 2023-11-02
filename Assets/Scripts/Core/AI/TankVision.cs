@@ -7,7 +7,7 @@ using UnityEngine;
 namespace TankGame.Core.AI
 {
     [RequireComponent(typeof(Transform))]
-    public class TankVision : MonoBehaviour
+    public class TankVision : MonoBehaviour, ITankVision
     {
         [SerializeField, Min(float.Epsilon)] private float radius;
         [SerializeField, Range(float.Epsilon, 360f)] private float angle;

@@ -1039,6 +1039,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4367671586911362324, guid: 7bbec2716136b5445b557ed479395097,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4790845387394622624, guid: 7bbec2716136b5445b557ed479395097,
         type: 3}
       propertyPath: m_Name
@@ -1094,6 +1099,56 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6505611816421144846, guid: 7bbec2716136b5445b557ed479395097,
+        type: 3}
+      propertyPath: _tankVision
+      value: 
+      objectReference: {fileID: 4790845386599236486}
+    - target: {fileID: 6553421762098651547, guid: 7bbec2716136b5445b557ed479395097,
+        type: 3}
+      propertyPath: RayCount
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553421762098651547, guid: 7bbec2716136b5445b557ed479395097,
+        type: 3}
+      propertyPath: CastRadius
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553421762098651547, guid: 7bbec2716136b5445b557ed479395097,
+        type: 3}
+      propertyPath: VisionDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553421762098651547, guid: 7bbec2716136b5445b557ed479395097,
+        type: 3}
+      propertyPath: WaitTimeSeconds
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553421762098651547, guid: 7bbec2716136b5445b557ed479395097,
+        type: 3}
+      propertyPath: BaseAngleDegrees
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553421762098651547, guid: 7bbec2716136b5445b557ed479395097,
+        type: 3}
+      propertyPath: ConeAngleDegrees
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553421762098651547, guid: 7bbec2716136b5445b557ed479395097,
+        type: 3}
+      propertyPath: MaxReflectionCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553421762098651547, guid: 7bbec2716136b5445b557ed479395097,
+        type: 3}
+      propertyPath: TargetLayers.m_Bits
+      value: 3840
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553421762098651547, guid: 7bbec2716136b5445b557ed479395097,
+        type: 3}
+      propertyPath: Reflectionlayers.m_Bits
+      value: 16384
+      objectReference: {fileID: 0}
     - target: {fileID: 7817383499943312449, guid: 7bbec2716136b5445b557ed479395097,
         type: 3}
       propertyPath: <RotationSpeed>k__BackingField
@@ -1105,6 +1160,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bbec2716136b5445b557ed479395097, type: 3}
+--- !u!114 &4790845386599236486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6553421762098651547, guid: 7bbec2716136b5445b557ed479395097,
+    type: 3}
+  m_PrefabInstance: {fileID: 4790845386599236485}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88d476fe8b59c744af60bc7c88916dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
