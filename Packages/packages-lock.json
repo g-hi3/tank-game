@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.g-hi3.palettes-shader": {
+      "version": "file:C:/Users/m.forrer/GitHubProjects/palette-shader-unity/Palettes Shader/Assets/PalettesShader",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.2d.animation": {
       "version": "9.0.3",
       "depth": 0,

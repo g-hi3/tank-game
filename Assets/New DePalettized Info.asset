@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4baf174dbaba43db8747df1cf2054649, type: 3}
+  m_Name: New DePalettized Info
+  m_EditorClassIdentifier: 
+  palettes:
+  - {fileID: 11400000, guid: 79ca72463b898204db2e10771d69f170, type: 2}
+  - {fileID: 11400000, guid: 295bc24a4bc7fa44e87256c994b53cf6, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: ffac538b7621c2f4a9dffe6520c92f5c, type: 2}
+  <OriginalTexture>k__BackingField: {fileID: 2800000, guid: 4fd8ebd3face67440896b210db19fdf0,
+    type: 3}
+  <DePalettizedTexture>k__BackingField: {fileID: 2800000, guid: 9639d8a9cd9e2ab4ea97a737cdccaf90,
+    type: 3}
