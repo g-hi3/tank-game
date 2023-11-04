@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace TankGame.Core.AI
 {
+    /// <summary>
+    /// Represents the AI of an enemy tank.
+    /// </summary>
     public class EnemyTank : MonoBehaviour
     {
         [SerializeField] private float heatUpTime;
@@ -12,8 +15,19 @@ namespace TankGame.Core.AI
         private Coroutine _shootingCoroutine;
         private bool _paused;
 
+        /// <summary>
+        /// Component that controls the aim direction of the tank.
+        /// </summary>
         [field: SerializeField] public TargetingRotator Rotator { get; private set; }
+
+        /// <summary>
+        /// Component that controls the movement of the tank.
+        /// </summary>
         [field: SerializeField] public Mover Mover { get; private set; }
+
+        /// <summary>
+        /// Component that spawns bullets, when the AI decides to shoot.
+        /// </summary>
         [field: SerializeField] public BulletSpawner BulletSpawner { get; private set; }
 
         private IEnumerator Shoot()

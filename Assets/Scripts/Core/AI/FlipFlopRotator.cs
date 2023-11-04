@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace TankGame.Core.AI
 {
+    /// <summary>
+    /// Rotates the aim of an enemy tank back and forth.
+    /// </summary>
     [RequireComponent(typeof(Transform))]
     public class FlipFlopRotator : Rotator
     {
@@ -40,6 +43,9 @@ namespace TankGame.Core.AI
         [field: Tooltip("Copies the rotation from the Transform component at start.")]
         public bool UseSourceRotationAsCenter { get; private set; }
 
+        /// <summary>
+        /// Rotates around <see cref="RotationCenter"/> for a total of <see cref="RotationRange"/>.
+        /// </summary>
         public override void Rotate()
         {
             if (RotationRange == 0f)
@@ -80,11 +86,12 @@ namespace TankGame.Core.AI
 
         private void OnDrawGizmos()
         {
+            var transformPosition = _transform.position;
             Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(_transform.position, Quaternion.Euler(0f, 0f, _currentRotation) * Vector3.right);
+            Gizmos.DrawRay(transformPosition, Quaternion.Euler(0f, 0f, _currentRotation) * Vector3.right);
             
             Gizmos.color = Color.magenta;
-            Gizmos.DrawRay(_transform.position, Quaternion.Euler(0f, 0f, _transform.eulerAngles.z) * Vector3.right);
+            Gizmos.DrawRay(transformPosition, Quaternion.Euler(0f, 0f, _transform.eulerAngles.z) * Vector3.right);
         }
     }
 }

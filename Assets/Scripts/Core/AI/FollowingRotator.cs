@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace TankGame.Core.AI
 {
+    /// <summary>
+    /// Tries to find a player and aims at them.
+    /// </summary>
     [RequireComponent(typeof(TankVision))]
     [RequireComponent(typeof(Transform))]
     public class FollowingRotator : TargetingRotator
@@ -11,7 +14,10 @@ namespace TankGame.Core.AI
         [NotNull] private TankVision _tankVision = default!;
         [NotNull] private Transform _transform = default!;
         private Vector2 _targetDirection;
-        
+
+        /// <summary>
+        /// Determines the speed in which the tank aim will rotate towards the player.
+        /// </summary>
         [field: SerializeField] public float RotationSpeed { get; private set; }
 
         /// <summary>
@@ -29,11 +35,15 @@ namespace TankGame.Core.AI
                    && Vector2.Distance(transform.right, targetDirection.Value.normalized) < 0.02f;
         }
 
+        /// <summary>
+        /// When a player is in sight, this method will rotate the tank's aim towards the player; otherwise,
+        /// <see cref="FallbackRotator"/> will be used.
+        /// </summary>
         public override void Rotate()
         {
             if (_tankVision.IsTargetVisible)
                 RotateTowardsTarget();
-            else
+            else if (FallbackRotator)
                 FallbackRotator.Rotate();
         }
 
@@ -57,11 +67,12 @@ namespace TankGame.Core.AI
 
         private void OnDrawGizmos()
         {
+            var transformPosition = _transform.position;
             Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(_transform.position, _targetDirection);
+            Gizmos.DrawRay(transformPosition, _targetDirection);
             
             Gizmos.color = Color.magenta;
-            Gizmos.DrawRay(_transform.position, _transform.rotation * Vector3.right);
+            Gizmos.DrawRay(transformPosition, _transform.rotation * Vector3.right);
         }
     }
 }
