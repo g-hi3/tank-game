@@ -561,10 +561,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99393d3f14d24cf29c8f587312568742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Player1Spawn>k__BackingField: {fileID: 0}
-  <Player2Spawn>k__BackingField: {fileID: 0}
-  <Player3Spawn>k__BackingField: {fileID: 0}
-  <Player4Spawn>k__BackingField: {fileID: 0}
+  <Player1Spawn>k__BackingField: {fileID: 2067527559}
+  <Player2Spawn>k__BackingField: {fileID: 1387611297}
+  <Player3Spawn>k__BackingField: {fileID: 1950705524}
+  <Player4Spawn>k__BackingField: {fileID: 1849668338}
 --- !u!1 &1387611296
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,10 +574,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1387611297}
-  - component: {fileID: 1387611298}
   m_Layer: 9
   m_Name: Spawn Point B
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -597,18 +596,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1239964390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1387611298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387611296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 596f99738aa1452383e3e5922d23b41d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1505159556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -945,10 +932,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1849668338}
-  - component: {fileID: 1849668339}
   m_Layer: 11
   m_Name: Spawn Point D
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -968,18 +954,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1239964390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1849668339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1849668337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 596f99738aa1452383e3e5922d23b41d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1872868356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,10 +1162,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1950705524}
-  - component: {fileID: 1950705525}
   m_Layer: 10
   m_Name: Spawn Point C
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1211,18 +1184,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1239964390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1950705525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1950705523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 596f99738aa1452383e3e5922d23b41d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2006164111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1316,10 +1277,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2067527559}
-  - component: {fileID: 2067527560}
   m_Layer: 8
   m_Name: Spawn Point A
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1339,18 +1299,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1239964390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2067527560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2067527558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 596f99738aa1452383e3e5922d23b41d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

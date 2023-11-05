@@ -32,7 +32,7 @@ namespace TankGame.Core.AI
         {
             var targetDirection = _tankVision.GetBestTargetDirection();
             return targetDirection.HasValue
-                   && Vector2.Distance(transform.right, targetDirection.Value.normalized) < 0.02f;
+                   && Vector2.Distance(_transform.right, targetDirection.Value.normalized) < 0.02f;
         }
 
         /// <summary>

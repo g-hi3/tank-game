@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace TankGame.Core.Bullet
 {
+    /// <summary>
+    /// This component moves in a straight line, reflects from walls and can hit game objects with a
+    /// <see cref="IBulletTarget"/> component.
+    /// </summary>
     [RequireComponent(typeof(Transform))]
     public class Bullet : MonoBehaviour, IDetonationTarget, IBulletTarget
     {
@@ -14,13 +18,19 @@ namespace TankGame.Core.Bullet
         private Vector2 _velocity;
         private bool _paused;
 
+        /// <summary>
+        /// Destroys this game object when hit by an explosion.
+        /// </summary>
         public void OnDetonationHit() => Destroy(gameObject);
 
+        /// <summary>
+        /// Destroys this game object when hit by another bullet.
+        /// </summary>
         public void OnBulletHit() => Destroy(gameObject);
 
         private void Hit(IBulletTarget bulletTarget)
         {
-            bulletTarget.OnBulletHit();
+            bulletTarget?.OnBulletHit();
             Destroy(gameObject);
         }
 
@@ -68,19 +78,36 @@ namespace TankGame.Core.Bullet
 
         private void OnCollisionEnter2D(Collision2D other)
         {
+            if (other == null || other.gameObject == null)
+                return;
             if (other.gameObject.TryGetComponent(out IBulletTarget bulletTarget))
                 Hit(bulletTarget);
-            else
+            else if (other.contacts is { Length: >0 })
                 ReflectFrom(other.contacts[0]);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.TryGetComponent(out IBulletTarget bulletTarget))
+            if (other && other.gameObject.TryGetComponent(out IBulletTarget bulletTarget))
                 Hit(bulletTarget);
         }
 
-        public static Bullet FromBlueprint(BulletBlueprint blueprint, Vector2 bulletRotation, GameObject gameObject)
+        /// <summary>
+        /// Creates a new instance using a blueprint.
+        /// </summary>
+        /// <remarks>
+        /// The magnitude of <paramref name="bulletRotation"/> has no effect on the speed of the bullet. Additionally,
+        /// this method won't create a new component, if the given <paramref name="gameObject"/> already
+        /// has one.
+        /// </remarks>
+        /// <param name="blueprint">blueprint containing data for this bullet</param>
+        /// <param name="bulletRotation">rotation of this bullet; a 2D direction</param>
+        /// <param name="gameObject">the game object this component should be attached to</param>
+        /// <returns>the created component</returns>
+        public static Bullet FromBlueprint(
+            [NotNull] BulletBlueprint blueprint,
+            Vector2 bulletRotation,
+            [NotNull] GameObject gameObject)
         {
             var bullet = GetOrAddBullet(gameObject);
             bullet._remainingRicochetCount = blueprint.RicochetCount;
@@ -88,11 +115,12 @@ namespace TankGame.Core.Bullet
             return bullet;
         }
 
-        private static Bullet GetOrAddBullet(GameObject gameObject)
+        [NotNull]
+        private static Bullet GetOrAddBullet([NotNull] GameObject gameObject)
         {
             return gameObject.TryGetComponent<Bullet>(out var component)
-                ? component
-                : gameObject.AddComponent<Bullet>();
+                ? component!
+                : gameObject.AddComponent<Bullet>()!;
         }
     }
 }

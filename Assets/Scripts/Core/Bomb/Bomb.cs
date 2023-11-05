@@ -5,26 +5,35 @@ using UnityEngine;
 
 namespace TankGame.Core.Bomb
 {
+    /// <summary>
+    /// Represents a bomb that can be placed by a tank.
+    /// </summary>
     [RequireComponent(typeof(Transform))]
     [RequireComponent(typeof(Animator))]
     public class Bomb : MonoBehaviour, IDetonationTarget, IBulletTarget
     {
         private static readonly int TriggerNameExplosionTrigger = Animator.StringToHash("Explosion Trigger");
         [SerializeField] private float lifetimeSeconds;
-        [SerializeField] private Vector2 _explosionScale;
+        [SerializeField] private Vector2 explosionScale;
         [NotNull] private Transform _transform = default!;
         [NotNull] private Animator _animator = default!;
         private float _remainingLifetimeSeconds;
         private bool _explosionActive;
         private bool _paused;
 
+        /// <summary>
+        /// Detonates this bomb.
+        /// </summary>
         public void OnDetonationHit() => Detonate();
 
+        /// <summary>
+        /// Detonates this bomb.
+        /// </summary>
         public void OnBulletHit() => Detonate();
 
         private void Detonate()
         {
-            _transform.localScale = _explosionScale;
+            _transform.localScale = explosionScale;
             _animator.SetTrigger(TriggerNameExplosionTrigger);
             _explosionActive = true;
         }
@@ -81,7 +90,7 @@ namespace TankGame.Core.Bomb
         public static Bomb FromBlueprint(BombBlueprint blueprint, GameObject bombObject)
         {
             var bomb = GetOrAddBomb(bombObject);
-            bomb._explosionScale = blueprint.ExplosionScale;
+            bomb.explosionScale = blueprint.ExplosionScale;
             return bomb;
         }
 

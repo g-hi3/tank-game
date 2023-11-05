@@ -10,26 +10,99 @@ using UnityEngine.SceneManagement;
 
 namespace TankGame.Core
 {
+    /// <summary>
+    /// This component controls the game flow.
+    /// </summary>
+    /// <remarks>
+    /// There should only ever be one instance of this component per scene.
+    /// </remarks>
     public class GameManager : MonoBehaviour
     {
         private string _currentLevelSceneName;
 
+        /// <summary>
+        /// The main instance of this component.
+        /// </summary>
         public static GameManager Instance { get; private set; }
 
+        /// <summary>
+        /// Contains settings about the game, such as lives per attempt.
+        /// </summary>
         [field: SerializeField] public GameSettings Settings { get; private set; }
+
+        /// <summary>
+        /// Represents the remaining lives the player has.
+        /// </summary>
         [field: SerializeField] public uint RemainingLives { get; private set; }
+
+        /// <summary>
+        /// Contains all enemy tanks in the scene.
+        /// </summary>
         [field: SerializeField] public Tank[] RemainingEnemyTanks { get; private set; }
+
+        /// <summary>
+        /// This event is fired whenever a player tank was eliminated.
+        /// </summary>
         [field: SerializeField] public UnityEvent<PlayerTankEliminatedEventArgs> PlayerTankEliminated { get; private set; }
+
+        /// <summary>
+        /// This event is fired whenever all enemy tanks have been eliminated.
+        /// </summary>
         [field: SerializeField] public UnityEvent AllEnemyTanksEliminated { get; private set; }
+
+        /// <summary>
+        /// This event is fired when the game was paused.
+        /// </summary>
         [field: SerializeField] public UnityEvent GamePaused { get; private set; }
+
+        /// <summary>
+        /// This event is fired when the was resumed.
+        /// </summary>
         [field: SerializeField] public UnityEvent GameResumed { get; private set; }
+
+        /// <summary>
+        /// This event is fired when the game is over.
+        /// </summary>
+        /// <remarks>
+        /// A "game over" is either when the player has no more lives and is eliminated, or when the player wins the
+        /// final level.
+        /// </remarks>
         [field: SerializeField] public UnityEvent GameOver { get; private set; }
+
+        /// <summary>
+        /// This event is fired when a level is loaded.
+        /// </summary>
+        /// <remarks>
+        /// A level may be loaded when it's started the first time, but also when all player tanks are eliminated.
+        /// </remarks>
         [field: SerializeField] public UnityEvent<LevelLoadedEventArgs> LevelLoaded { get; private set; }
+
+        /// <summary>
+        /// Contains the name of all scenes that represent playable levels.
+        /// </summary>
+        /// <remarks>
+        /// This property only contains level scenes, not menu scenes.
+        /// </remarks>
         [field: SerializeField] public string[] LevelSceneNames { get; private set; }
+
+        /// <summary>
+        /// Represents the game's pause state.
+        /// </summary>
         [field: SerializeField] public bool Paused { get; private set; }
+
+        /// <summary>
+        /// Contains the level timer that tracks the progress of an attempt.
+        /// </summary>
         [field: SerializeField] public LevelTimer LevelTimer { get; private set; }
+
+        /// <summary>
+        /// Determines whether tanks are eliminated when they're hit by a bullet or explosion.
+        /// </summary>
         public bool GameRulesActive { get; private set; }
 
+        /// <summary>
+        /// Sets the game's pause state to paused.
+        /// </summary>
         public void PauseGame()
         {
             Paused = true;
@@ -37,6 +110,9 @@ namespace TankGame.Core
             GamePaused?.Invoke();
         }
 
+        /// <summary>
+        /// Sets the game's pause state to resumed.
+        /// </summary>
         public void ResumeGame()
         {
             Paused = false;
@@ -89,6 +165,9 @@ namespace TankGame.Core
             }
         }
 
+        /// <summary>
+        /// Unloads the current scene and loads the main menu scene.
+        /// </summary>
         public static void GoToMainMenu()
         {
             SceneManager.LoadScene("Main Menu");
@@ -125,9 +204,9 @@ namespace TankGame.Core
                     levelTimer.GetSteps(),
                     (level, time) => new LevelTime(level, time));
             var saveData = GameSaveData.Load();
-            var attempts = saveData.Attempts.ToList();
+            var attempts = saveData.attempts.ToList();
             attempts.Add(new Attempt(steps));
-            saveData.Attempts = attempts.ToArray();
+            saveData.attempts = attempts.ToArray();
             GameSaveData.Save(saveData);
         }
 
@@ -139,13 +218,23 @@ namespace TankGame.Core
             LoadLevel(LevelSceneNames[0]);
         }
 
+        /// <summary>
+        /// This method is called by a <see cref="PlayerInputManager"/> component, when a player was spawned.
+        /// </summary>
+        /// <param name="playerObject">the created game object for the new player</param>
         public void OnPlayerSpawned(GameObject playerObject)
         {
+            if (playerObject == null)
+                return;
+
             var tank = playerObject.GetComponent<Tank>();
+            if (tank == null || tank.Eliminated == null)
+                return;
+
             tank.Eliminated.AddListener(OnTankEliminated);
 
             var levelTimer = LevelTimer;
-            if (levelTimer.Paused)
+            if (levelTimer && levelTimer.Paused)
                 levelTimer.Resume();
         }
 
@@ -187,24 +276,34 @@ namespace TankGame.Core
         private void FindEnemyTanks()
         {
             foreach (var tank in RemainingEnemyTanks)
-                tank?.Eliminated.RemoveListener(OnTankEliminated);
+                if (tank && tank.Eliminated != null)
+                    tank.Eliminated.RemoveListener(OnTankEliminated);
 
-            RemainingEnemyTanks = FindObjectsOfType<Tank>()
-                .Where(tank => !tank.CompareTag("Player"))
+            RemainingEnemyTanks = FindObjectsOfType<Tank>()!
+                .Where(tank => tank && !tank.CompareTag("Player"))
                 .ToArray();
 
             foreach (var tank in RemainingEnemyTanks)
-                tank.Eliminated.AddListener(OnTankEliminated);
+                if (tank && tank.Eliminated != null)
+                    tank.Eliminated.AddListener(OnTankEliminated);
         }
 
         private static void MovePlayersToSpawn()
         {
             var spawnArea = FindObjectOfType<SpawnArea>();
+            if (spawnArea == null)
+                return;
+
             spawnArea.ResetSpawns();
             var playerTanks = FindObjectsOfType<PlayerInput>();
+            if (playerTanks == null)
+                return;
 
             foreach (var playerTank in playerTanks)
             {
+                if (playerTank == null)
+                    continue;
+
                 var playerObject = playerTank.gameObject;
                 var playerTransform = playerTank.transform;
 

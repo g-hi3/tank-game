@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 namespace TankGame.Core
 {
+    /// <summary>
+    /// This component delegates the input from the player to their tank.
+    /// </summary>
     [RequireComponent(typeof(PlayerInput))]
     [RequireComponent(typeof(TankController))]
     public class PlayerTankInput : MonoBehaviour
@@ -15,9 +18,12 @@ namespace TankGame.Core
         private const string ActionNameShoot = "Shoot";
         private const string ActionNameBomb = "Bomb";
         private const string ActionNameTogglePause = "Toggle Pause";
-        private PlayerInput _playerInput = default!;
+        [NotNull] private PlayerInput _playerInput = default!;
         private bool _paused;
 
+        /// <summary>
+        /// Represents the player's tank.
+        /// </summary>
         [NotNull]
         [field: SerializeField]
         public TankController Tank { get; private set; } = default!;

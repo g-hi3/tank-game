@@ -2,6 +2,9 @@
 
 namespace TankGame.Core
 {
+    /// <summary>
+    /// This component sends an "OnPause" or "OnResume" signal when the game's pause state changes.
+    /// </summary>
     public class Pausable : MonoBehaviour
     {
         private void SendPause() => SendMessage("OnPause", SendMessageOptions.DontRequireReceiver);

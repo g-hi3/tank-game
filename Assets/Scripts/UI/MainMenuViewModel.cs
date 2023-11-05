@@ -6,16 +6,32 @@ using UnityEngine.UIElements;
 
 namespace TankGame.UI
 {
+    /// <summary>
+    /// Handles the UI of the main menu.
+    /// </summary>
     [RequireComponent(typeof(UIDocument))]
     public class MainMenuViewModel : MonoBehaviour
     {
         private VisualElement _creditsContainer;
 
+        /// <summary>
+        /// This component controls the UI.
+        /// </summary>
         [NotNull]
         [field: SerializeField]
         public UIDocument DocumentRoot { get; private set; } = default!;
 
+        /// <summary>
+        /// Represents the name of the scene that starts the game.
+        /// </summary>
+        /// <remarks>
+        /// This is not the name of level 1. Instead, it's the common scene that loads levels individually.
+        /// </remarks>
         [field: SerializeField] public string GameStartSceneName { get; private set; }
+
+        /// <summary>
+        /// Represents the name of the scene that shows the best times.
+        /// </summary>
         [field: SerializeField] public string BestTimesSceneName { get; private set; }
 
         private void OnStartGameButtonClicked()
@@ -52,7 +68,10 @@ namespace TankGame.UI
         private void Start()
         {
             _creditsContainer = DocumentRoot.rootVisualElement.Q<VisualElement>("CreditsContainer");
-            _creditsContainer.style.display = DisplayStyle.None;
+
+            if (_creditsContainer is { style: not null })
+                _creditsContainer.style.display = DisplayStyle.None;
+
             var startGameButton = DocumentRoot.rootVisualElement.Q<Button>("StartGameButton")!;
             startGameButton.clicked += OnStartGameButtonClicked;
 

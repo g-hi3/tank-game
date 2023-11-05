@@ -2,6 +2,9 @@
 
 namespace TankGame.Core
 {
+    /// <summary>
+    /// This component de-spawns its game object when a level is loaded.
+    /// </summary>
     public class DespawnOnLevelLoad : MonoBehaviour
     {
         private void Start() => GameManager.Instance.LevelLoaded.AddListener(OnLevelLoaded);

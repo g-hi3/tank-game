@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace TankGame.Core.AI
 {
+    /// <summary>
+    /// Calculates directions around an enemy tank using ray casts.
+    /// </summary>
     [RequireComponent(typeof(Transform))]
     public class TankVision : MonoBehaviour
     {
@@ -21,8 +24,18 @@ namespace TankGame.Core.AI
         [NotNull] private readonly RaycastHit2D[] _collisionHits = new RaycastHit2D[5];
         [NotNull] private readonly RaycastHit2D[] _reflectionHits = new RaycastHit2D[5];
 
+        /// <summary>
+        /// Determines if this component detects a target.
+        /// </summary>
         public bool IsTargetVisible => _casts.Any(c => c.IsTargetHit);
 
+        /// <summary>
+        /// Returns the direction of the shortest path to a target.
+        /// </summary>
+        /// <remarks>
+        /// The path to a target includes reflected surfaces.
+        /// </remarks>
+        /// <returns> the direction of the target (including reflections) </returns>
         public Vector3? GetBestTargetDirection()
         {
             return _casts.FirstOrDefault(c => c.IsTargetHit)?.CastDirections[0];
