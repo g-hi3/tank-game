@@ -67,6 +67,9 @@ namespace TankGame.Core.AI
 
         private void OnDrawGizmos()
         {
+            if (_transform == null)
+                return;
+
             var transformPosition = _transform.position;
             Gizmos.color = Color.cyan;
             Gizmos.DrawRay(transformPosition, _targetDirection);
